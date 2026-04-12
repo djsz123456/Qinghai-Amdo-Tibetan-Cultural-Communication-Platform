@@ -1,695 +1,445 @@
 <!DOCTYPE html>
 <html lang="zh-CN">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>多民族语言翻译工具</title>
-    <style>
-        /* 全局样式重置（完全保留原风格） */
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans Tibetan", "Noto Sans Mongolian", "Noto Sans Uyghur", sans-serif;
-        }
-
-        body {
-            background-color: #f9f9f9;
-            color: #333;
-            overflow: hidden;
-        }
-
-        /* 整体容器 */
-        .app-container {
-            display: flex;
-            height: 100vh;
-            width: 100vw;
-        }
-
-        /* 侧边栏（新增翻译相关入口） */
-        .sidebar {
-            width: 200px;
-            background-color: #ffffff;
-            border-right: 1px solid #e5e7eb;
-            display: flex;
-            flex-direction: column;
-            padding: 16px 0;
-        }
-
-        .user-info {
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            padding: 0 16px 16px;
-            border-bottom: 1px solid #f3f4f6;
-            margin-bottom: 16px;
-        }
-
-        .avatar {
-            width: 32px;
-            height: 32px;
-            border-radius: 50%;
-            background-color: #e5e7eb;
-            overflow: hidden;
-        }
-
-        .avatar img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-        }
-
-        .username {
-            font-size: 16px;
-            font-weight: 500;
-            color: #1f2937;
-        }
-
-        .nav-menu {
-            display: flex;
-            flex-direction: column;
-            gap: 4px;
-            padding: 0 8px;
-        }
-
-        .nav-item {
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            padding: 8px 12px;
-            border-radius: 6px;
-            cursor: pointer;
-            font-size: 15px;
-            color: #4b5563;
-            transition: background-color 0.2s;
-        }
-
-        .nav-item:hover {
-            background-color: #f3f4f6;
-        }
-
-        .nav-item .icon {
-            width: 20px;
-            height: 20px;
-            opacity: 0.8;
-        }
-
-        .nav-item .arrow {
-            margin-left: auto;
-            font-size: 12px;
-            opacity: 0.6;
-        }
-
-        /* 新增：翻译功能专属导航 */
-        .translate-nav-title {
-            font-size: 13px;
-            color: #9ca3af;
-            padding: 16px 16px 8px;
-            margin-top: 8px;
-        }
-
-        .history-title {
-            font-size: 13px;
-            color: #9ca3af;
-            padding: 16px 16px 8px;
-        }
-
-        .history-list {
-            display: flex;
-            flex-direction: column;
-            gap: 4px;
-            padding: 0 8px;
-            overflow-y: auto;
-            flex: 1;
-        }
-
-        .history-item {
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            padding: 8px 12px;
-            border-radius: 6px;
-            cursor: pointer;
-            font-size: 14px;
-            color: #4b5563;
-            transition: background-color 0.2s;
-        }
-
-        .history-item:hover {
-            background-color: #f3f4f6;
-        }
-
-        .history-item .icon {
-            width: 18px;
-            height: 18px;
-            opacity: 0.7;
-        }
-
-        .bottom-user {
-            padding: 12px 16px;
-            border-top: 1px solid #f3f4f6;
-            margin-top: auto;
-            font-size: 14px;
-            color: #6b7280;
-        }
-
-        /* 主内容区（核心改造：翻译工具首页） */
-        .main-content {
-            flex: 1;
-            display: flex;
-            flex-direction: column;
-            background-color: #f9f9f9;
-        }
-
-        .top-bar {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            padding: 16px 24px;
-            border-bottom: 1px solid #f3f4f6;
-        }
-
-        .top-left {
-            display: flex;
-            gap: 16px;
-        }
-
-        .top-icon {
-            width: 20px;
-            height: 20px;
-            cursor: pointer;
-            opacity: 0.7;
-            transition: opacity 0.2s;
-        }
-
-        .top-icon:hover {
-            opacity: 1;
-        }
-
-        .top-center {
-            text-align: center;
-        }
-
-        .top-title {
-            font-size: 16px;
-            font-weight: 500;
-            color: #1f2937;
-        }
-
-        .top-subtitle {
-            font-size: 12px;
-            color: #9ca3af;
-            margin-top: 2px;
-        }
-
-        .top-right {
-            display: flex;
-            gap: 16px;
-        }
-
-        .call-icon {
-            width: 20px;
-            height: 20px;
-            cursor: pointer;
-            opacity: 0.7;
-            transition: opacity 0.2s;
-        }
-
-        .call-icon:hover {
-            opacity: 1;
-        }
-
-        /* 聊天内容区：改造为翻译工具首页 */
-        .chat-area {
-            flex: 1;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            padding: 24px;
-            overflow-y: auto;
-            gap: 32px;
-        }
-
-        .welcome-title {
-            font-size: 28px;
-            font-weight: 600;
-            color: #1f2937;
-            margin-bottom: 8px;
-        }
-
-        .welcome-subtitle {
-            font-size: 15px;
-            color: #6b7280;
-            margin-bottom: 24px;
-        }
-
-        /* 快捷提问：保留原结构，替换为翻译相关场景 */
-        .quick-questions {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 12px;
-            max-width: 900px;
-            width: 100%;
-            margin-bottom: 32px;
-        }
-
-        .quick-btn {
-            padding: 10px 16px;
-            background-color: #f3f4f6;
-            border: none;
-            border-radius: 12px;
-            font-size: 15px;
-            color: #374151;
-            cursor: pointer;
-            transition: all 0.2s;
-            text-align: center;
-            line-height: 1.4;
-        }
-
-        .quick-btn:hover {
-            background-color: #e5e7eb;
-            transform: translateY(-2px);
-        }
-
-        /* 新增：文化小贴士模块 */
-        .culture-tip {
-            max-width: 900px;
-            width: 100%;
-            background-color: #ffffff;
-            border-radius: 16px;
-            padding: 20px;
-            box-shadow: 0 2px 12px rgba(0,0,0,0.05);
-            display: flex;
-            gap: 16px;
-            align-items: flex-start;
-        }
-
-        .culture-tip .tip-icon {
-            width: 48px;
-            height: 48px;
-            border-radius: 12px;
-            background-color: #f3f4f6;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 24px;
-            flex-shrink: 0;
-        }
-
-        .culture-tip .tip-content {
-            flex: 1;
-        }
-
-        .culture-tip .tip-title {
-            font-size: 16px;
-            font-weight: 600;
-            color: #1f2937;
-            margin-bottom: 8px;
-        }
-
-        .culture-tip .tip-text {
-            font-size: 14px;
-            color: #6b7280;
-            line-height: 1.6;
-            margin-bottom: 8px;
-        }
-
-        .culture-tip .tip-tag {
-            display: inline-block;
-            padding: 2px 8px;
-            background-color: #f3f4f6;
-            border-radius: 12px;
-            font-size: 12px;
-            color: #4b5563;
-            margin-right: 8px;
-        }
-
-        /* 右下角悬浮头像（保留） */
-        .float-avatar {
-            position: fixed;
-            right: 24px;
-            bottom: 100px;
-            width: 40px;
-            height: 40px;
-            border-radius: 50%;
-            background-color: #ffffff;
-            border: 1px solid #e5e7eb;
-            overflow: hidden;
-            cursor: pointer;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
-        }
-
-        .float-avatar img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-        }
-
-        /* 底部输入栏：核心改造为翻译输入区 */
-        .input-area {
-            padding: 16px 24px;
-            background-color: #f9f9f9;
-            border-top: 1px solid #f3f4f6;
-        }
-
-        .input-container {
-            max-width: 800px;
-            margin: 0 auto;
-            background-color: #ffffff;
-            border-radius: 20px;
-            padding: 12px 16px;
-            box-shadow: 0 2px 12px rgba(0,0,0,0.05);
-            display: flex;
-            flex-direction: column;
-        }
-
-        /* 新增：语言选择栏 */
-        .lang-selector {
-            display: flex;
-            gap: 12px;
-            align-items: center;
-            margin-bottom: 8px;
-            padding-bottom: 8px;
-            border-bottom: 1px solid #f3f4f6;
-        }
-
-        .lang-select {
-            padding: 4px 8px;
-            border: 1px solid #e5e7eb;
-            border-radius: 8px;
-            font-size: 14px;
-            color: #374151;
-            background-color: #f9f9f9;
-            cursor: pointer;
-        }
-
-        .lang-arrow {
-            font-size: 16px;
-            color: #9ca3af;
-        }
-
-        .input-box {
-            width: 100%;
-            border: none;
-            outline: none;
-            font-size: 15px;
-            color: #374151;
-            resize: none;
-            min-height: 48px;
-            max-height: 200px;
-            line-height: 1.5;
-        }
-
-        .input-box::placeholder {
-            color: #9ca3af;
-        }
-
-        .input-tools {
-            display: flex;
-            align-items: center;
-            gap: 16px;
-            margin-top: 8px;
-            padding-top: 8px;
-            border-top: 1px solid #f3f4f6;
-        }
-
-        .tool-btn {
-            display: flex;
-            align-items: center;
-            gap: 4px;
-            background: none;
-            border: none;
-            cursor: pointer;
-            font-size: 14px;
-            color: #6b7280;
-            transition: color 0.2s;
-        }
-
-        .tool-btn:hover {
-            color: #1f2937;
-        }
-
-        .tool-btn .icon {
-            width: 18px;
-            height: 18px;
-            opacity: 0.8;
-        }
-
-        .beta-tag {
-            font-size: 10px;
-            color: #9ca3af;
-            background-color: #f3f4f6;
-            padding: 1px 4px;
-            border-radius: 4px;
-        }
-
-        .mic-btn {
-            margin-left: auto;
-            width: 32px;
-            height: 32px;
-            border-radius: 50%;
-            background-color: #f3f4f6;
-            border: none;
-            cursor: pointer;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            transition: background-color 0.2s;
-        }
-
-        .mic-btn:hover {
-            background-color: #e5e7eb;
-        }
-
-        .mic-btn .icon {
-            width: 18px;
-            height: 18px;
-            opacity: 0.8;
-        }
-
-        /* 适配民族语言书写格式 */
-        .tibetan-text {
-            direction: ltr;
-            font-family: "Noto Sans Tibetan", sans-serif;
-        }
-
-        .mongolian-text {
-            writing-mode: vertical-lr;
-            text-orientation: mixed;
-            font-family: "Noto Sans Mongolian", sans-serif;
-        }
-
-        .uyghur-text {
-            direction: rtl;
-            font-family: "Noto Sans Uyghur", sans-serif;
-        }
-
-        /* 响应式适配 */
-        @media (max-width: 768px) {
-            .sidebar {
-                width: 0;
-                overflow: hidden;
-            }
-
-            .quick-questions {
-                grid-template-columns: 1fr;
-            }
-
-            .welcome-title {
-                font-size: 22px;
-            }
-
-            .culture-tip {
-                flex-direction: column;
-            }
-        }
-    </style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>雪域安多·藏韵传承 - 安多藏族文化传播平台</title>
+  <script src="https://unpkg.com/vue@3/dist/vue.global.prod.js"></script>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/font-awesome@4.7.0/css/font-awesome.min.css">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: "Microsoft YaHei", sans-serif;
+    }
+    body {
+      background-color: #f7f7f7;
+      color: #333;
+    }
+    /* 顶部导航（仿 zufe.edu.cn 官网风格） */
+    .top-bar {
+      width: 100%;
+      height: 40px;
+      background: #f2f2f2;
+      border-bottom: 1px solid #ddd;
+      line-height: 40px;
+      padding: 0 20px;
+      font-size: 13px;
+      color: #666;
+    }
+    .header {
+      width: 100%;
+      background: #9B2B25;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+      position: sticky;
+      top: 0;
+      z-index: 999;
+    }
+    .header-wrap {
+      max-width: 1200px;
+      margin: 0 auto;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      height: 80px;
+      padding: 0 20px;
+    }
+    .logo {
+      font-size: 24px;
+      font-weight: bold;
+      color: #fff;
+    }
+    .nav a {
+      color: #fff;
+      text-decoration: none;
+      margin-left: 28px;
+      font-size: 16px;
+    }
+    .nav a:hover {
+      color: #FFD700;
+    }
+    /* 轮播 */
+    .banner {
+      width: 100%;
+      height: 400px;
+      position: relative;
+      overflow: hidden;
+    }
+    .banner-slides {
+      width: 100%;
+      height: 100%;
+      position: relative;
+    }
+    .banner-slide {
+      width: 100%;
+      height: 100%;
+      position: absolute;
+      top: 0;
+      left: 0;
+      opacity: 0;
+      transition: opacity 1s ease;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: white;
+      text-align: center;
+      text-shadow: 0 2px 5px rgba(0,0,0,0.5);
+    }
+    .banner-slide.active {
+      opacity: 1;
+    }
+    .banner-slide img {
+      width: 100%;
+      height: 100%;
+      position: absolute;
+      top: 0;
+      left: 0;
+      object-fit: cover;
+      z-index: -1;
+    }
+    .banner h1 {
+      font-size: 42px;
+      margin-bottom: 10px;
+    }
+    .banner p {
+      font-size: 18px;
+    }
+    .banner-indicators {
+      position: absolute;
+      bottom: 20px;
+      left: 50%;
+      transform: translateX(-50%);
+      display: flex;
+      gap: 10px;
+    }
+    .banner-indicator {
+      width: 12px;
+      height: 12px;
+      border-radius: 50%;
+      background: rgba(255,255,255,0.5);
+      cursor: pointer;
+      transition: background 0.3s ease;
+    }
+    .banner-indicator.active {
+      background: white;
+    }
+    /* 主体容器 */
+    .container {
+      max-width: 1200px;
+      margin: 30px auto;
+      padding: 0 20px;
+    }
+    .title {
+      font-size: 26px;
+      color: #9B2B25;
+      text-align: center;
+      margin-bottom: 30px;
+      position: relative;
+    }
+    .title::after {
+      content: '';
+      width: 70px;
+      height: 3px;
+      background: #D4AF37;
+      display: block;
+      margin: 8px auto 0;
+    }
+    /* 卡片 */
+    .card-box {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 20px;
+      margin-bottom: 50px;
+    }
+    .card {
+      background: white;
+      border-radius: 6px;
+      overflow: hidden;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.06);
+    }
+    .card img {
+      width: 100%;
+      height: 160px;
+      object-fit: cover;
+    }
+    .card-body {
+      padding: 15px;
+    }
+    .card-title {
+      font-size: 17px;
+      color: #9B2B25;
+      margin-bottom: 6px;
+    }
+    .card-desc {
+      font-size: 13px;
+      color: #666;
+      line-height: 1.5;
+    }
+    /* 工具区 */
+    .tool-wrap {
+      background: white;
+      padding: 30px;
+      border-radius: 8px;
+      margin-bottom: 40px;
+    }
+    .tool-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 25px;
+    }
+    .tool-item {
+      border: 1px solid #eee;
+      padding: 20px;
+      border-radius: 6px;
+    }
+    .tool-h4 {
+      font-size: 18px;
+      color: #9B2B25;
+      margin-bottom: 15px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    /* 木鱼 */
+    .muyu-btn {
+      width: 100px;
+      height: 100px;
+      border-radius: 50%;
+      background: #9B2B25;
+      color: white;
+      font-size: 16px;
+      border: none;
+      cursor: pointer;
+      transition: 0.2s;
+    }
+    .muyu-btn:active {
+      transform: scale(0.94);
+    }
+    /* 笔记 */
+    .note-area {
+      width: 100%;
+      height: 120px;
+      padding: 10px;
+      border: 1px solid #ddd;
+      border-radius: 4px;
+      resize: none;
+    }
+    /* 短语 */
+    .phrase-list {
+      list-style: none;
+      font-size: 14px;
+      line-height: 1.8;
+    }
+    /* 底部 */
+    .footer {
+      background: #9B2B25;
+      color: white;
+      text-align: center;
+      padding: 30px 20px;
+      margin-top: 20px;
+    }
+    .footer p {
+      font-size: 14px;
+      opacity: 0.9;
+      margin-top: 5px;
+    }
+  </style>
 </head>
 <body>
-    <div class="app-container">
-        <!-- 侧边栏（新增翻译历史/收藏入口） -->
-        <aside class="sidebar">
-            <div class="user-info">
-                <div class="avatar">
-                    <img src="https://picsum.photos/id/64/32/32" alt="用户头像">
-                </div>
-                <span class="username">admin</span>
-            </div>
-            <!-- 新增：翻译功能导航 -->
-            <div class="translate-nav-title">翻译工具</div>
-            <div class="nav-menu">
-                <div class="nav-item">
-                    <span class="icon">📜</span>
-                    <span>翻译历史</span>
-                </div>
-                <div class="nav-item">
-                    <span class="icon">⭐</span>
-                    <span>我的收藏</span>
-                </div>
-            </div>
 
-            <div class="history-title">历史对话</div>
-            <div class="history-list">
-                <div class="history-item">
-                    <span class="icon">💬</span>
-                    <span>藏汉互译-政务文件翻译</span>
-                </div>
-                <div class="history-item">
-                    <span class="icon">💬</span>
-                    <span>蒙汉互译-文化短句</span>
-                </div>
-                <div class="history-item">
-                    <span class="icon">💬</span>
-                    <span>维汉互译-日常聊天</span>
-                </div>
-            </div>
+<div id="app">
+  <!-- 顶部信息栏 -->
+  <div class="top-bar">
+    雪域安多·藏韵传承 | 本地人讲述·真实民俗·安多藏族文化传播平台
+  </div>
 
-            <div class="bottom-user">
-                <span>与世无争</span>
-            </div>
-        </aside>
-
-        <!-- 主内容区（改造为翻译工具首页） -->
-        <main class="main-content">
-            <div class="top-bar">
-                <div class="top-left">
-                    <span class="top-icon">🗔</span>
-                    <span class="top-icon">🖊</span>
-                </div>
-                <div class="top-center">
-                    <div class="top-title">多民族语言翻译</div>
-                    <div class="top-subtitle">支持藏、蒙、维与汉语双向互译</div>
-                </div>
-            </div>
-
-            <div class="chat-area">
-                <div>
-                    <h1 class="welcome-title">有什么我能帮你的吗?</h1>
-                    <p class="welcome-subtitle">支持藏、蒙、维三大民族语言与汉语双向翻译，附文化小贴士</p>
-                </div>
-
-                <!-- 快捷提问：替换为翻译相关场景 -->
-                <div class="quick-questions">
-                    <button class="quick-btn">藏语 ↔ 汉语 双向翻译</button>
-                    <button class="quick-btn">蒙语 ↔ 汉语 双向翻译</button>
-                    <button class="quick-btn">维语 ↔ 汉语 双向翻译</button>
-                    <button class="quick-btn">政务文件专业翻译</button>
-                    <button class="quick-btn">民族文化短句翻译</button>
-                    <button class="quick-btn">文档快速批量翻译</button>
-                    <button class="quick-btn">查看我的翻译收藏</button>
-                    <button class="quick-btn">历史翻译记录回溯</button>
-                    <button class="quick-btn">民族语言文化科普</button>
-                </div>
-
-                <!-- 新增：文化小贴士模块 -->
-                <div class="culture-tip">
-                    <div class="tip-icon">🏔️</div>
-                    <div class="tip-content">
-                        <div class="tip-title">今日文化小贴士 · 藏语</div>
-                        <div class="tip-text">
-                            藏语「扎西德勒」（བཀྲ་ཤིས་བདེ་ལེགས་）是藏族最常用的祝福语，字面意思是「吉祥如意」，常用于见面问候、节日祝福、送礼等场景，是藏文化中最具代表性的表达之一。
-                        </div>
-                        <div>
-                            <span class="tip-tag">#藏语</span>
-                            <span class="tip-tag">#日常用语</span>
-                            <span class="tip-tag">#文化科普</span>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <!-- 右下角悬浮头像 -->
-            <div class="float-avatar">
-                <img src="https://picsum.photos/id/64/40/40" alt="豆包头像">
-            </div>
-
-            <!-- 底部输入栏：改造为翻译输入区 -->
-            <div class="input-area">
-                <div class="input-container">
-                    <!-- 新增：语言选择栏 -->
-                    <div class="lang-selector">
-                        <select class="lang-select" id="source-lang">
-                            <option value="zh">汉语</option>
-                            <option value="bo">藏语</option>
-                            <option value="mn">蒙语</option>
-                            <option value="ug">维语</option>
-                        </select>
-                        <span class="lang-arrow">→</span>
-                        <select class="lang-select" id="target-lang">
-                            <option value="bo">藏语</option>
-                            <option value="zh">汉语</option>
-                            <option value="mn">蒙语</option>
-                            <option value="ug">维语</option>
-                        </select>
-                    </div>
-
-                    <input type="text" class="input-box" id="translate-input" placeholder="输入需要翻译的内容，支持藏、蒙、维、汉多语言">
-                    
-                    <div class="input-tools">
-                        <button class="tool-btn">
-                            <span class="icon">➕</span>
-                        </button>
-                        <button class="tool-btn">
-                            <span class="icon">⚡</span>
-                            <span>快速翻译</span>
-                        </button>
-                        <button class="tool-btn">
-                            <span class="icon">📝</span>
-                            <span>文档翻译</span>
-                        </button>
-                        <button class="tool-btn">
-                            <span class="icon">⭐</span>
-                            <span>收藏</span>
-                        </button>
-                        <button class="tool-btn">
-                            <span class="icon">📜</span>
-                            <span>历史</span>
-                        </button>
-                        <button class="tool-btn">
-                            <span class="icon">🎛</span>
-                            <span>更多</span>
-                        </button>
-                        <button class="mic-btn">
-                            <span class="icon">🎤</span>
-                        </button>
-                    </div>
-                </div>
-            </div>
-        </main>
+  <!-- 头部导航 -->
+  <header class="header">
+    <div class="header-wrap">
+      <div class="logo">གངས་ལྗོངས་ཨ་མདོ། བོད་ཀྱི་སྲོལ་རྒྱུན་རིག་གནས་རྒྱུན་འཛིན་བྱེད་པ།</div>
+      <div class="nav">
+        <a href="#home">首页</a>
+        <a href="#culture">安多民俗</a>
+        <a href="#tour">藏地旅游</a>
+        <a href="#tools">藏文工具</a>
+        <a href="#about">关于平台</a>
+      </div>
     </div>
+  </header>
 
-    <!-- 预留JS对接位（后续可接入真实API） -->
-    <script>
-        // 1. 语言选择器逻辑
-        const sourceLang = document.getElementById('source-lang');
-        const targetLang = document.getElementById('target-lang');
-        const translateInput = document.getElementById('translate-input');
+  <!-- 轮播 -->
+  <section class="banner" id="home">
+    <div class="banner-slides">
+      <div v-for="(slide, index) in bannerSlides" :key="index" class="banner-slide" :class="{ active: currentSlide === index }">
+        <img :src="slide.img">
+        <div>
+          <h1>青海安多藏族文化传播平台</h1>
+          <p>旅游景点 + 民俗文化深度融合 · 本地人讲述 · 拒绝编造</p>
+        </div>
+      </div>
+    </div>
+    <div class="banner-indicators">
+      <div v-for="(slide, index) in bannerSlides" :key="index" class="banner-indicator" :class="{ active: currentSlide === index }" @click="currentSlide = index"></div>
+    </div>
+  </section>
 
-        // 自动切换目标语言（避免源语言和目标语言相同）
-        sourceLang.addEventListener('change', () => {
-            if (sourceLang.value === targetLang.value) {
-                targetLang.value = sourceLang.value === 'zh' ? 'bo' : 'zh';
-            }
-        });
+  <div class="container">
+    <!-- 安多民俗 -->
+    <section id="culture">
+      <h2 class="title">安多藏族民俗文化（རིག་གནས།）</h2>
+      <div class="card-box">
+        <div class="card" v-for="(item,i) in folkList" :key="i">
+          <img :src="item.img">
+          <div class="card-body">
+            <div class="card-title">{{ item.title }}</div>
+            <div class="card-desc">{{ item.desc }}</div>
+          </div>
+        </div>
+      </div>
+    </section>
 
-        // 2. 预留翻译API对接位
-        // async function translateText(text, fromLang, toLang) {
-        //     // 对接民族语言翻译API + 大模型增强
-        //     const response = await fetch('/api/translate', {
-        //         method: 'POST',
-        //         body: JSON.stringify({ text, fromLang, toLang })
-        //     });
-        //     return await response.json();
-        // }
+    <!-- 藏地旅游 -->
+    <section id="tour">
+      <h2 class="title">藏地旅游 + 民俗（དམངས་སྲོལ།）</h2>
+      <div class="card-box">
+        <div class="card" v-for="(item,i) in tourList" :key="i">
+          <img :src="item.img">
+          <div class="card-body">
+            <div class="card-title">{{ item.title }}</div>
+            <div class="card-desc">{{ item.desc }}</div>
+          </div>
+        </div>
+      </div>
+    </section>
 
-        // 3. 预留历史/收藏同步逻辑
-        // function saveTranslateHistory(record) {
-        //     // 本地存储 + 云端同步
-        //     const history = JSON.parse(localStorage.getItem('translateHistory') || '[]');
-        //     history.unshift(record);
-        //     localStorage.setItem('translateHistory', JSON.stringify(history));
-        // }
-    </script>
+    <!-- 藏文工具 -->
+    <section class="tool-wrap" id="tools">
+      <h2 class="title">藏文实用工具（ལག་ཆ།）</h2>
+      <div class="tool-grid">
+        <!-- 藏历 -->
+        <div class="tool-item">
+          <h4 class="tool-h4"><i class="fa fa-calendar"></i> 藏文日历 བོད་ཡིག་ལོ་ཐོ།</h4>
+          <p>{{ today }}</p>
+          <p style="margin-top:6px;font-size:13px">适配安多藏区历法 · 藏历节日标注</p>
+        </div>
+
+        <!-- 木鱼 -->
+        <div class="tool-item">
+          <h4 class="tool-h4"><i class="fa fa-music"></i> 藏族木鱼 བོད་རིགས་ཀྱི་ཤིང་གི་ཉ་གང་།</h4>
+          <button class="muyu-btn" @click="muyuTap">敲击木鱼</button>
+          <p style="margin-top:10px">敲击次数：{{ muyuCount }}</p>
+        </div>
+
+        <!-- 藏文笔记 -->
+        <div class="tool-item">
+          <h4 class="tool-h4"><i class="fa fa-pencil"></i> 藏文笔记 བོད་ཡིག་གི་ཟིན་བྲིས།</h4>
+          <textarea class="note-area" v-model="note" placeholder="可输入藏文、汉文记录笔记"></textarea>
+        </div>
+
+        <!-- 藏语短语 -->
+        <div class="tool-item">
+          <h4 class="tool-h4"><i class="fa fa-comment"></i> 安多藏语常用短语 ཨ་མདོའི་བོད་སྐད་ཀྱི་རྒྱུན་བཀོལ་ཚིག་ཐུང་།</h4>
+          <ul class="phrase-list">
+            <li>བཀྲ་ཤིས་བདེ་ལེགས། — 吉祥如意</li>
+            <li>ཁྱོད་བདེ་མོ། — 你好</li>
+            <li>བཀའ་དྲིན་ཆེ། — 谢谢</li>
+            <li>དུས་བདེ། — 平安</li>
+            <li>བདེ་མོ་བྱོས། — 再见</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+  </div>
+
+  <!-- 底部 -->
+  <footer class="footer">
+    <p>计算机设计大赛 — གངས་ལྗོངས་ཨ་མདོའི་བོད་རིགས་རིག་གནས་བརྒྱུད་སྤེལ་དྲ་ཚིགས།</p>
+    <p>内容来源：青海安多本地人讲述、当地导游提供 · 真实民俗 · 拒绝编造</p>
+  </footer>
+</div>
+
+<script>
+const { createApp } = Vue
+createApp({
+  data() {
+    return {
+      today: '',
+      muyuCount: 0,
+      note: '',
+      currentSlide: 0,
+      bannerSlides: [
+        { img: 'image/mm1.jpg' },
+        { img: 'image/mm2.jpg' },
+        { img: 'image/mm3.jpg' },
+        { img: 'image/mm4.jpg' },
+        { img: 'image/mm5.jpg' }
+      ],
+      folkList: [
+        {
+          title: '藏族情歌《拉伊》 བོད་རིགས་ཀྱི་མཛའ་གཞས།',
+          desc: '形式：山间对唱；习俗：青年恋爱交流；内涵：源于草原生活情感表达，非遗文化。',
+          img: 'image/mn1.jpg'
+        },
+        {
+          title: '安多藏戏 ཨ་མདོའི་ལྷ་མོ།',
+          desc: '形式：舞台表演；习俗：节日展演；内涵：宗教故事与生活文化传承。',
+          img: 'image/mn2.jpg'
+        },
+        {
+          title: '雪顿节 ཞོ་སྟོན།',
+          desc: '形式：晒佛、藏戏、酸奶宴；习俗：祈福欢聚；内涵：佛教与农耕文明结合。',
+          img: 'image/mn3.jpg'
+        },
+        {
+          title: '转湖习俗 མཚོ་སྐོར་གཏོང་བའི་གོམས་སྲོལ།',
+          desc: '形式：环湖行走；习俗：祈福平安；内涵：敬畏自然、信仰传承。',
+          img: 'image/mn4.jpg'
+        }
+      ],
+      tourList: [
+        {
+          title: '塔尔寺 སྐུ་འབུམ་དགོན།',
+          desc: '青海·西宁｜藏传佛教圣地 + 酥油花、堆绣非遗民俗。',
+          img: 'image/nn1.jpg'
+        },
+        {
+          title: '青海湖 མཚོ་སྔོན་པོ།',
+          desc: '青海·海南州｜圣湖转湖、祭湖仪式、安多牧民文化。',
+          img: 'image/nn2.jpg'
+        },
+        {
+          title: '布达拉宫 ཕོ་བྲང་པོ་ཏ་ལ།',
+          desc: '西藏·拉萨｜历史建筑 + 藏传佛教核心文化。',
+          img: 'image/nn3.jpg'
+        },
+        {
+          title: '同仁古城 ཐུན་རིན་གནའ་མཁར།',
+          desc: '青海·黄南｜热贡唐卡、安多手工艺传承地。',
+          img: 'image/nn4.jpg'
+        }
+      ]
+    }
+  },
+  mounted() {
+    const d = new Date()
+    this.today = d.toLocaleDateString('zh-CN', {
+      year: 'numeric', month: 'long', day: 'numeric', weekday: 'long'
+    })
+    // 自动轮播
+    this.startAutoSlide()
+  },
+  methods: {
+    muyuTap() {
+      this.muyuCount++
+    },
+    startAutoSlide() {
+      setInterval(() => {
+        this.currentSlide = (this.currentSlide + 1) % this.bannerSlides.length
+      }, 3000)
+    }
+  }
+}).mount('#app')
+</script>
 </body>
 </html>
