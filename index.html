@@ -17,7 +17,7 @@
       background-color: #f7f7f7;
       color: #333;
     }
-    /* 顶部导航（仿 zufe.edu.cn 官网风格） */
+    /* 顶部导航 */
     .top-bar {
       width: 100%;
       height: 40px;
@@ -133,8 +133,7 @@
     }
     /* 左侧垂直导航菜单 */
     .left-nav {
-      width: 25%;
-      background-color: #f8e8e8;
+      width: auto;
       margin-right: 30px;
     }
     .left-nav ul {
@@ -150,6 +149,7 @@
       display: flex;
       align-items: center;
       justify-content: center;
+      background-color: #f8e8e8;
     }
     .left-nav li {
       position: relative;
@@ -159,7 +159,7 @@
       flex-direction: column;
       justify-content: center;
       align-items: center;
-      width: 100%;
+      width: 200px;
       height: 100%;
       color: #333333;
       text-decoration: none;
@@ -198,7 +198,7 @@
     }
     .title::after {
       content: '';
-      width: 70px;
+      width: 120px;
       height: 3px;
       background: #D4AF37;
       display: block;
@@ -216,6 +216,9 @@
       border-radius: 6px;
       overflow: hidden;
       box-shadow: 0 2px 6px rgba(0,0,0,0.06);
+      display: flex;
+      flex-direction: column;
+      height: 100%;
     }
     .card img {
       width: 100%;
@@ -224,53 +227,43 @@
     }
     .card-body {
       padding: 15px;
+      flex: 1;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
     }
     .card-title {
       font-size: 17px;
       color: #9B2B25;
       margin-bottom: 6px;
+      font-family: "Microsoft YaHei", sans-serif;
+    }
+    .card-title a {
+      color: #9B2B25;
+      text-decoration: none;
+    }
+    .card-title a:hover {
+      color: #D4AF37;
+      text-decoration: underline;
     }
     .card-desc {
       font-size: 13px;
       color: #666;
       line-height: 1.5;
     }
-    /* 工具区 */
-    .tool-wrap {
-      background: white;
-      padding: 30px;
-      border-radius: 8px;
-      margin-bottom: 40px;
-    }
-    .tool-grid {
-      display: grid;
-      grid-template-columns: repeat(2, 1fr);
-      gap: 25px;
-    }
-    .tool-item {
-      border: 1px solid #eee;
-      padding: 20px;
-      border-radius: 6px;
-    }
-    .tool-h4 {
-      font-size: 18px;
-      color: #9B2B25;
-      margin-bottom: 15px;
-      display: flex;
-      align-items: center;
-      gap: 8px;
-    }
     /* 木鱼 */
     .muyu-btn {
-      width: 100px;
-      height: 100px;
+      width: 80px;
+      height: 80px;
       border-radius: 50%;
       background: #9B2B25;
       color: white;
-      font-size: 16px;
+      font-size: 14px;
       border: none;
       cursor: pointer;
       transition: 0.2s;
+      margin: 10px 0;
     }
     .muyu-btn:active {
       transform: scale(0.94);
@@ -278,17 +271,19 @@
     /* 笔记 */
     .note-area {
       width: 100%;
-      height: 120px;
+      height: 100px;
       padding: 10px;
       border: 1px solid #ddd;
       border-radius: 4px;
       resize: none;
+      font-size: 13px;
     }
     /* 短语 */
     .phrase-list {
       list-style: none;
-      font-size: 14px;
-      line-height: 1.8;
+      font-size: 13px;
+      line-height: 1.6;
+      margin-top: 8px;
     }
     /* 底部 */
     .footer {
@@ -360,10 +355,6 @@
         <li><a href="#tour">黄南<span>རྨ་ལྷོ།</span></a></li>
         <li><a href="#tour">玉树<span>ཡུལ་ཤུལ།</span></a></li>
         <li><a href="#tour">贵德<span>ཁྲི་ཀ།</span></a></li>
-        <li><a href="#tools">藏文34个字符<span>བོད་ཡིག་ཡིག་འབྲུ་སུམ་ཅུ་སོ་བཞི།</span></a></li>
-        <li><a href="#tools">藏文笔记<span>བོད་ཡིག་ཟིན་བྲིས།</span></a></li>
-        <li><a href="#tools">藏文常用短语<span>བོད་ཡིག་གི་རྒྱུན་བཀོལ་ཚིག་ཐུང་།</span></a></li>
-        <li><a href="http://222.19.82.141:5002/index-Final.html">藏汉翻译<span>བོད་རྒྱ་ཡིག་སྒྱུར།</span></a></li>
       </ul>
     </nav>
 
@@ -397,39 +388,71 @@
     </section>
 
     <!-- 藏文工具 -->
-    <section class="tool-wrap" id="tools">
+    <section id="tools">
       <h2 class="title">藏文实用工具（ལག་ཆ།）</h2>
-      <div class="tool-grid">
-        <!-- 藏历 -->
-        <div class="tool-item">
-          <h4 class="tool-h4"><i class="fa fa-calendar"></i> 藏文日历 བོད་ཡིག་ལོ་ཐོ།</h4>
-          <p>{{ today }}</p>
-          <p style="margin-top:6px;font-size:13px">适配安多藏区历法 · 藏历节日标注</p>
+      <div class="card-box">
+        <!-- 第1行：藏文日历 -->
+        <div class="card">
+          <img src="image/tool1.jpg">
+          <div class="card-body">
+            <div class="card-title"><i class="fa fa-calendar"></i> 藏文日历 བོད་ཡིག་ལོ་ཐོ།</div>
+          </div>
         </div>
 
-        <!-- 木鱼 -->
-        <div class="tool-item">
-          <h4 class="tool-h4"><i class="fa fa-music"></i> 藏族木鱼 བོད་རིགས་ཀྱི་ཤིང་གི་ཉ་གང་།</h4>
-          <button class="muyu-btn" @click="muyuTap">敲击木鱼</button>
-          <p style="margin-top:10px">敲击次数：{{ muyuCount }}</p>
+        <!-- 第1行：藏族木鱼 -->
+        <div class="card">
+          <img src="image/tool2.jpg">
+          <div class="card-body">
+            <div class="card-title"><i class="fa fa-music"></i> 藏族木鱼 བོད་རིགས་ཀྱི་ཤིང་གི་ཉ་གང་།</div>
+          </div>
         </div>
 
-        <!-- 藏文笔记 -->
-        <div class="tool-item">
-          <h4 class="tool-h4"><i class="fa fa-pencil"></i> 藏文笔记 བོད་ཡིག་གི་ཟིན་བྲིས།</h4>
-          <textarea class="note-area" v-model="note" placeholder="可输入藏文、汉文记录笔记"></textarea>
+        <!-- 第1行：藏文笔记 -->
+        <div class="card">
+          <img src="image/tool3.jpg">
+          <div class="card-body">
+            <div class="card-title"><i class="fa fa-pencil"></i> 藏文笔记 བོད་ཡིག་གི་ཟིན་བྲིས།</div>
+          </div>
         </div>
 
-        <!-- 藏语短语 -->
-        <div class="tool-item">
-          <h4 class="tool-h4"><i class="fa fa-comment"></i> 安多藏语常用短语 ཨ་མདོའི་བོད་སྐད་ཀྱི་རྒྱུན་བཀོལ་ཚིག་ཐུང་།</h4>
-          <ul class="phrase-list">
-            <li>བཀྲ་ཤིས་བདེ་ལེགས། — 吉祥如意</li>
-            <li>ཁྱོད་བདེ་མོ། — 你好</li>
-            <li>བཀའ་དྲིན་ཆེ། — 谢谢</li>
-            <li>དུས་བདེ། — 平安</li>
-            <li>བདེ་མོ་བྱོས། — 再见</li>
-          </ul>
+        <!-- 第1行：安多藏语常用短语 -->
+        <div class="card">
+          <img src="image/tool4.jpg">
+          <div class="card-body">
+            <div class="card-title"><i class="fa fa-comment"></i> 安多藏语常用短语 ཨ་མདོའི་བདོ་སྐད་ཀྱི་རྒྱུན་བཀོལ་ཚིག་ཐུང་།</div>
+          </div>
+        </div>
+
+        <!-- 第2行：藏文34个字符 -->
+        <div class="card">
+          <img src="image/tool5.jpg">
+          <div class="card-body">
+            <div class="card-title"><i class="fa fa-font"></i> 藏文34个字符 བོད་ཡིག་ཡིག་འབྲུ་སུམ་ཅུ་སོ་བཞི།</div>
+          </div>
+        </div>
+
+        <!-- 第2行：藏文翻译 -->
+        <div class="card">
+          <img src="image/tool6.jpg">
+          <div class="card-body">
+            <div class="card-title"><i class="fa fa-language"></i> <a href="http://222.19.82.141:5002/index-Final.html">藏文翻译 བོད་རྒྱ་རིག་སྒྱུར།</a></div>
+          </div>
+        </div>
+
+        <!-- 第2行：藏族传统乐器 / 音乐 -->
+        <div class="card">
+          <img src="image/tool7.jpg">
+          <div class="card-body">
+            <div class="card-title"><i class="fa fa-music"></i> 藏族传统乐器 / 音乐 བོད་ཀྱི་སྲོལ་རྒྱུན་རོལ་ཆས།རོལ་དབྱངས།</div>
+          </div>
+        </div>
+
+        <!-- 第2行：藏文经典 -->
+        <div class="card">
+          <img src="image/tool8.jpg">
+          <div class="card-body">
+            <div class="card-title"><i class="fa fa-book"></i> 藏文经典 བོད་ཀྱི་གསུང་རབ།།</div>
+          </div>
         </div>
       </div>
     </section>
@@ -448,9 +471,6 @@ const { createApp } = Vue
 createApp({
   data() {
     return {
-      today: '',
-      muyuCount: 0,
-      note: '',
       currentSlide: 0,
       bannerSlides: [
         { img: 'image/mm1.jpg' },
@@ -506,17 +526,10 @@ createApp({
     }
   },
   mounted() {
-    const d = new Date()
-    this.today = d.toLocaleDateString('zh-CN', {
-      year: 'numeric', month: 'long', day: 'numeric', weekday: 'long'
-    })
     // 自动轮播
     this.startAutoSlide()
   },
   methods: {
-    muyuTap() {
-      this.muyuCount++
-    },
     startAutoSlide() {
       setInterval(() => {
         this.currentSlide = (this.currentSlide + 1) % this.bannerSlides.length
