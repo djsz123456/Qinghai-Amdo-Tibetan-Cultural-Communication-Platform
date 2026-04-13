@@ -2,7 +2,7 @@
 <html lang="zh-CN">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
   <title>雪域安多·藏韵传承 - 安多藏族文化传播平台</title>
   <script src="https://unpkg.com/vue@3/dist/vue.global.prod.js"></script>
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/font-awesome@4.7.0/css/font-awesome.min.css">
@@ -16,6 +16,7 @@
     body {
       background-color: #f7f7f7;
       color: #333;
+      line-height: 1.6;
     }
     /* 顶部导航 */
     .top-bar {
@@ -297,6 +298,71 @@
       font-size: 14px;
       opacity: 0.9;
       margin-top: 5px;
+      line-height: 1.6;
+    }
+    
+    /* 响应式设计 */
+    @media (max-width: 768px) {
+      .header-wrap {
+        flex-direction: column;
+        height: auto;
+        padding: 15px 20px;
+      }
+      .nav {
+        margin-top: 10px;
+      }
+      .nav a {
+        margin: 0 10px;
+        font-size: 14px;
+      }
+      .banner {
+        height: 250px;
+      }
+      .banner h1 {
+        font-size: 24px;
+      }
+      .banner p {
+        font-size: 14px;
+      }
+      .main-container {
+        flex-direction: column;
+      }
+      .left-nav {
+        width: 100%;
+        margin-right: 0;
+        margin-bottom: 20px;
+      }
+      .left-nav li {
+        height: 60px;
+      }
+      .left-nav li a {
+        width: 100%;
+        font-size: 20px;
+      }
+      .left-nav li a span {
+        font-size: 16px;
+      }
+      .card-box {
+        grid-template-columns: repeat(2, 1fr);
+      }
+    }
+    
+    @media (max-width: 480px) {
+      .card-box {
+        grid-template-columns: 1fr;
+      }
+      .banner {
+        height: 200px;
+      }
+      .banner h1 {
+        font-size: 20px;
+      }
+      .banner p {
+        font-size: 12px;
+      }
+      .title {
+        font-size: 20px;
+      }
     }
   </style>
 </head>
