@@ -3,466 +3,923 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <meta name="description" content="雪域安多·藏韵传承 - 安多藏族文化传播平台，展示青海安多地区旅游景点与民俗文化">
+  <meta name="keywords" content="安多藏族,青海旅游,藏族文化,塔尔寺,青海湖">
   <title>雪域安多·藏韵传承 - 安多藏族文化传播平台</title>
+  
+  <!-- Preload critical resources -->
+  <link rel="preconnect" href="https://unpkg.com">
+  <link rel="preconnect" href="https://cdn.jsdelivr.net">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  
   <script src="https://unpkg.com/vue@3/dist/vue.global.prod.js"></script>
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/font-awesome@4.7.0/css/font-awesome.min.css">
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@300;400;500;700&display=swap" rel="stylesheet">
+  
   <style>
+    :root {
+      --primary-red: #9B2B25;
+      --primary-gold: #D4AF37;
+      --secondary-orange: #E8A87C;
+      --bg-primary: #FAF9F7;
+      --bg-secondary: #FFFFFF;
+      --text-primary: #2C3E50;
+      --text-secondary: #5D6D7E;
+      --shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.08);
+      --shadow-md: 0 4px 16px rgba(0, 0, 0, 0.12);
+      --shadow-lg: 0 8px 32px rgba(0, 0, 0, 0.15);
+      --radius-md: 12px;
+      --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
     * {
       margin: 0;
       padding: 0;
       box-sizing: border-box;
       font-family: 'Noto Sans SC', "Microsoft YaHei", sans-serif;
     }
-    body {
-      background-color: #f7f7f7;
-      color: #333;
-      line-height: 1.6;
+    
+    html {
+      scroll-behavior: smooth;
     }
-    /* 顶部导航 */
+    
+    body {
+      background-color: var(--bg-primary);
+      color: var(--text-primary);
+      line-height: 1.6;
+      overflow-x: hidden;
+    }
+
+    /* Skip to content for accessibility */
+    .skip-link {
+      position: absolute;
+      top: -40px;
+      left: 0;
+      background: var(--primary-red);
+      color: white;
+      padding: 8px 16px;
+      z-index: 10000;
+      transition: top 0.3s;
+      text-decoration: none;
+    }
+    
+    .skip-link:focus {
+      top: 0;
+    }
+
+    /* Enhanced Top Bar */
     .top-bar {
       width: 100%;
       height: 40px;
-      background: #f2f2f2;
-      border-bottom: 1px solid #ddd;
+      background: linear-gradient(90deg, #f8f8f8 0%, #f0f0f0 100%);
+      border-bottom: 1px solid #e0e0e0;
       line-height: 40px;
-      padding: 0 20px;
+      padding: 0 30px;
       font-size: 13px;
       color: #666;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
     }
+    
+    .top-bar-text {
+      font-weight: 500;
+    }
+    
+    .top-bar-links a {
+      color: #666;
+      text-decoration: none;
+      margin-left: 20px;
+      transition: var(--transition);
+    }
+    
+    .top-bar-links a:hover {
+      color: var(--primary-red);
+    }
+
+    /* Modern Header */
     .header {
       width: 100%;
-      background: #9B2B25;
-      box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+      background: linear-gradient(135deg, var(--primary-red) 0%, #B83C2E 100%);
+      box-shadow: var(--shadow-md);
       position: sticky;
       top: 0;
       z-index: 999;
+      backdrop-filter: blur(10px);
     }
+    
     .header-wrap {
-      max-width: 1200px;
+      max-width: 1400px;
       margin: 0 auto;
       display: flex;
       align-items: center;
       justify-content: space-between;
       height: 80px;
-      padding: 0 20px;
+      padding: 0 30px;
     }
+    
     .logo {
-      font-size: 24px;
+      font-size: 26px;
       font-weight: bold;
       color: #fff;
+      text-shadow: 2px 2px 4px rgba(0,0,0,0.2);
+      letter-spacing: 1px;
     }
+    
+    .nav {
+      display: flex;
+      gap: 8px;
+    }
+    
     .nav a {
       color: #fff;
       text-decoration: none;
-      margin-left: 28px;
-      font-size: 16px;
+      padding: 10px 18px;
+      font-size: 15px;
+      font-weight: 500;
+      border-radius: 8px;
+      transition: var(--transition);
+      position: relative;
     }
+    
+    .nav a::after {
+      content: '';
+      position: absolute;
+      bottom: 5px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 0;
+      height: 2px;
+      background: var(--primary-gold);
+      transition: var(--transition);
+    }
+    
     .nav a:hover {
-      color: #FFD700;
+      background: rgba(255, 255, 255, 0.15);
+      color: var(--primary-gold);
     }
-    /* 轮播 */
-    .banner {
+    
+    .nav a:hover::after {
+      width: 60%;
+    }
+
+    /* Hero Section with Video Background Alternative */
+    .hero {
       width: 100%;
-      height: 400px;
+      height: 600px;
       position: relative;
       overflow: hidden;
+      display: flex;
+      align-items: center;
+      justify-content: center;
     }
-    .banner-slides {
+    
+    .hero-slides {
       width: 100%;
       height: 100%;
       position: relative;
     }
-    .banner-slide {
+    
+    .hero-slide {
       width: 100%;
       height: 100%;
       position: absolute;
       top: 0;
       left: 0;
       opacity: 0;
-      transition: opacity 1s ease;
+      transition: opacity 1.2s ease-in-out;
       display: flex;
       align-items: center;
       justify-content: center;
       color: white;
       text-align: center;
-      text-shadow: 0 2px 5px rgba(0,0,0,0.5);
     }
-    .banner-slide.active {
+    
+    .hero-slide.active {
       opacity: 1;
     }
-    .banner-slide img {
+    
+    .hero-slide::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: linear-gradient(135deg, rgba(155, 43, 37, 0.7) 0%, rgba(0, 0, 0, 0.5) 100%);
+      z-index: 1;
+    }
+    
+    .hero-slide img {
       width: 100%;
       height: 100%;
       position: absolute;
       top: 0;
       left: 0;
       object-fit: cover;
-      z-index: -1;
+      z-index: 0;
     }
-    .banner h1 {
-      font-size: 42px;
-      margin-bottom: 10px;
+    
+    .hero-content {
+      position: relative;
+      z-index: 2;
+      max-width: 900px;
+      padding: 0 30px;
+      animation: fadeInUp 1s ease;
     }
-    .banner p {
-      font-size: 18px;
+    
+    @keyframes fadeInUp {
+      from {
+        opacity: 0;
+        transform: translateY(30px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
     }
-    .banner-indicators {
+    
+    .hero h1 {
+      font-size: 52px;
+      margin-bottom: 20px;
+      font-weight: 700;
+      text-shadow: 3px 3px 6px rgba(0,0,0,0.5);
+      line-height: 1.2;
+    }
+    
+    .hero p {
+      font-size: 22px;
+      margin-bottom: 30px;
+      text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+      font-weight: 300;
+    }
+    
+    .hero-stats {
+      display: flex;
+      justify-content: center;
+      gap: 50px;
+      margin-top: 40px;
+    }
+    
+    .stat-item {
+      text-align: center;
+    }
+    
+    .stat-number {
+      font-size: 36px;
+      font-weight: 700;
+      color: var(--primary-gold);
+      display: block;
+    }
+    
+    .stat-label {
+      font-size: 14px;
+      opacity: 0.9;
+      margin-top: 5px;
+    }
+    
+    .hero-indicators {
       position: absolute;
-      bottom: 20px;
+      bottom: 40px;
       left: 50%;
       transform: translateX(-50%);
       display: flex;
-      gap: 10px;
+      gap: 12px;
+      z-index: 3;
     }
-    .banner-indicator {
-      width: 12px;
-      height: 12px;
-      border-radius: 50%;
-      background: rgba(255,255,255,0.5);
-      cursor: pointer;
-      transition: background 0.3s ease;
-    }
-    .banner-indicator.active {
-      background: white;
-    }
-    /* 主体容器 */
-    .main-container {
-      max-width: 1200px;
-      margin: 30px auto;
-      padding: 0 20px;
-    }
-    /* 横向导航栏 */
-    @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@400;500;700&display=swap');
     
+    .hero-indicator {
+      width: 14px;
+      height: 14px;
+      border-radius: 50%;
+      background: rgba(255,255,255,0.4);
+      cursor: pointer;
+      transition: var(--transition);
+      border: 2px solid transparent;
+    }
+    
+    .hero-indicator:hover {
+      background: rgba(255,255,255,0.7);
+      transform: scale(1.2);
+    }
+    
+    .hero-indicator.active {
+      background: white;
+      border-color: var(--primary-gold);
+      transform: scale(1.3);
+    }
+
+    /* Main Container */
+    .main-container {
+      max-width: 1400px;
+      margin: 0 auto;
+      padding: 60px 30px;
+    }
+
+    /* Horizontal Navigation - Improved */
     .horizontal-nav {
       width: 100%;
-      background-color: #9B2B25;
-      margin: 20px 0;
+      background: linear-gradient(135deg, var(--primary-red) 0%, #B83C2E 100%);
+      margin: 40px 0;
       overflow-x: auto;
-      white-space: nowrap;
-      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
-      border-radius: 8px;
+      box-shadow: var(--shadow-lg);
+      border-radius: var(--radius-md);
+      scrollbar-width: thin;
+      scrollbar-color: var(--primary-gold) var(--primary-red);
     }
+    
+    .horizontal-nav::-webkit-scrollbar {
+      height: 6px;
+    }
+    
+    .horizontal-nav::-webkit-scrollbar-track {
+      background: var(--primary-red);
+    }
+    
+    .horizontal-nav::-webkit-scrollbar-thumb {
+      background: var(--primary-gold);
+      border-radius: 3px;
+    }
+    
     .nav-container {
-      max-width: 1200px;
+      max-width: 1400px;
       margin: 0 auto;
-      padding: 15px 20px;
+      padding: 0;
     }
+    
     .horizontal-nav ul {
       list-style: none;
       padding: 0;
       margin: 0;
       display: flex;
-      justify-content: space-between;
-      align-items: center;
-      height: 60px;
+      min-width: max-content;
     }
+    
     .horizontal-nav li {
-      flex: 1;
-      text-align: center;
-      transition: all 0.3s ease;
+      transition: var(--transition);
       position: relative;
     }
+    
     .horizontal-nav li:not(:last-child)::after {
       content: '';
       position: absolute;
       right: 0;
-      top: 20%;
-      height: 60%;
+      top: 25%;
+      height: 50%;
       width: 1px;
-      background-color: rgba(255,255,255,0.3);
+      background-color: rgba(255,255,255,0.2);
     }
+    
     .horizontal-nav li a {
       display: flex;
       flex-direction: column;
       justify-content: center;
       align-items: center;
-      width: 100%;
-      height: 100%;
+      padding: 20px 28px;
       color: white;
       text-decoration: none;
-      font-size: 14px;
-      font-family: 'Noto Sans SC', "Microsoft YaHei", sans-serif;
+      font-size: 15px;
       font-weight: 500;
-      transition: all 0.3s ease;
+      transition: var(--transition);
+      white-space: nowrap;
     }
+    
     .horizontal-nav li a span {
       display: block;
       font-size: 12px;
-      opacity: 0.8;
-      margin-top: 4px;
+      opacity: 0.85;
+      margin-top: 6px;
       font-weight: 400;
+      font-family: 'Noto Sans Tibetan', sans-serif;
     }
+    
     .horizontal-nav li:hover {
-      background-color: #f0e68c;
+      background-color: rgba(212, 175, 55, 0.2);
       transform: translateY(-2px);
     }
+    
     .horizontal-nav li:hover a {
-      color: #9B2B25;
+      color: var(--primary-gold);
     }
+    
     .horizontal-nav li.active {
-      background-color: #8a2320;
-      position: relative;
+      background-color: rgba(138, 37, 32, 0.8);
     }
+    
     .horizontal-nav li.active::after {
       content: '';
       position: absolute;
       bottom: 0;
       left: 20%;
       width: 60%;
-      height: 2px;
-      background-color: #D4AF37;
+      height: 3px;
+      background-color: var(--primary-gold);
     }
-    .horizontal-nav li.active a {
-      color: white;
+
+    /* Section Titles */
+    .section-title {
+      font-size: 36px;
+      color: var(--primary-red);
+      text-align: center;
+      margin-bottom: 50px;
+      position: relative;
+      font-weight: 700;
+      letter-spacing: 2px;
     }
     
-    /* 响应式设计 */
-    @media (max-width: 768px) {
-      .horizontal-nav {
-        margin: 10px 0;
-      }
-      .horizontal-nav ul {
-        height: 80px;
-      }
-      .horizontal-nav li a {
-        font-size: 12px;
-      }
-      .horizontal-nav li a span {
-        font-size: 10px;
-      }
-    }
-    /* 右侧内容区 */
-    .container {
-      flex: 1;
-    }
-    .title {
-      font-size: 26px;
-      color: #9B2B25;
-      text-align: center;
-      margin-bottom: 30px;
-      position: relative;
-      font-family: 'Noto Sans SC', "Microsoft YaHei", sans-serif;
-      font-weight: 700;
-    }
-    .title::after {
+    .section-title::after {
       content: '';
-      width: 120px;
-      height: 3px;
-      background: #9B2B25;
+      width: 100px;
+      height: 4px;
+      background: linear-gradient(90deg, var(--primary-red), var(--primary-gold));
       display: block;
-      margin: 8px auto 0;
+      margin: 15px auto 0;
+      border-radius: 2px;
     }
-    /* 卡片 */
-    .card-box {
+
+    /* Modern Card Grid */
+    .card-grid {
       display: grid;
-      grid-template-columns: repeat(4, 1fr);
-      gap: 20px;
-      margin-bottom: 50px;
+      grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+      gap: 30px;
+      margin-bottom: 60px;
     }
+    
     .card {
       background: white;
-      border-radius: 12px;
+      border-radius: var(--radius-md);
       overflow: hidden;
-      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+      box-shadow: var(--shadow-sm);
       display: flex;
       flex-direction: column;
       height: 100%;
-      transition: transform 0.3s ease, box-shadow 0.3s ease;
+      transition: var(--transition);
+      border: 1px solid rgba(0,0,0,0.05);
+      cursor: pointer;
     }
+    
     .card:hover {
-      transform: translateY(-4px);
-      box-shadow: 0 8px 20px rgba(0,0,0,0.15);
+      transform: translateY(-10px);
+      box-shadow: var(--shadow-lg);
     }
+    
+    .card-image-wrapper {
+      position: relative;
+      overflow: hidden;
+      height: 220px;
+    }
+    
     .card img {
       width: 100%;
-      height: 160px;
+      height: 100%;
       object-fit: cover;
+      transition: transform 0.5s ease;
     }
-    .card-body {
+    
+    .card:hover img {
+      transform: scale(1.1);
+    }
+    
+    .card-overlay {
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: linear-gradient(to bottom, transparent 0%, rgba(0,0,0,0.6) 100%);
+      opacity: 0;
+      transition: var(--transition);
+      display: flex;
+      align-items: flex-end;
       padding: 20px;
+    }
+    
+    .card:hover .card-overlay {
+      opacity: 1;
+    }
+    
+    .card-badge {
+      position: absolute;
+      top: 15px;
+      right: 15px;
+      background: var(--primary-gold);
+      color: white;
+      padding: 6px 12px;
+      border-radius: 20px;
+      font-size: 12px;
+      font-weight: 600;
+      box-shadow: var(--shadow-sm);
+    }
+    
+    .card-body {
+      padding: 25px;
       flex: 1;
       display: flex;
       flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      text-align: center;
-    }
-    .card-title {
-      font-size: 17px;
-      color: #9B2B25;
-      margin-bottom: 10px;
-      font-family: 'Noto Sans SC', "Microsoft YaHei", sans-serif;
-      font-weight: 500;
-    }
-    .card-title a {
-      color: #9B2B25;
-      text-decoration: none;
-      transition: color 0.3s ease;
-    }
-    .card-title a:hover {
-      color: #D4AF37;
-      text-decoration: none;
-    }
-    .card-desc {
-      font-size: 13px;
-      color: #666;
-      line-height: 1.5;
-      font-family: 'Noto Sans SC', "Microsoft YaHei", sans-serif;
-    }
-    /* 木鱼 */
-    .muyu-btn {
-      width: 80px;
-      height: 80px;
-      border-radius: 50%;
-      background: #9B2B25;
-      color: white;
-      font-size: 14px;
-      border: none;
-      cursor: pointer;
-      transition: 0.2s;
-      margin: 10px 0;
-    }
-    .muyu-btn:active {
-      transform: scale(0.94);
-    }
-    /* 笔记 */
-    .note-area {
-      width: 100%;
-      height: 100px;
-      padding: 10px;
-      border: 1px solid #ddd;
-      border-radius: 4px;
-      resize: none;
-      font-size: 13px;
-    }
-    /* 短语 */
-    .phrase-list {
-      list-style: none;
-      font-size: 13px;
-      line-height: 1.6;
-      margin-top: 8px;
-    }
-    /* 底部 */
-    .footer {
-      background: #9B2B25;
-      color: white;
-      text-align: center;
-      padding: 30px 20px;
-      margin-top: 20px;
-    }
-    .footer p {
-      font-size: 14px;
-      opacity: 0.9;
-      margin-top: 5px;
-      line-height: 1.6;
     }
     
-    /* 响应式设计 */
+    .card-title {
+      font-size: 19px;
+      color: var(--primary-red);
+      margin-bottom: 12px;
+      font-weight: 600;
+      line-height: 1.4;
+    }
+    
+    .card-title a {
+      color: inherit;
+      text-decoration: none;
+      transition: var(--transition);
+    }
+    
+    .card-title a:hover {
+      color: var(--primary-gold);
+    }
+    
+    .card-desc {
+      font-size: 14px;
+      color: var(--text-secondary);
+      line-height: 1.7;
+      flex: 1;
+    }
+    
+    .card-footer {
+      margin-top: 15px;
+      padding-top: 15px;
+      border-top: 1px solid #f0f0f0;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 13px;
+      color: #999;
+    }
+
+    /* Tools Section - Special Cards */
+    .tools-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+      gap: 25px;
+      margin-bottom: 60px;
+    }
+    
+    .tool-card {
+      background: white;
+      border-radius: var(--radius-md);
+      padding: 30px;
+      box-shadow: var(--shadow-sm);
+      transition: var(--transition);
+      border: 2px solid transparent;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+    }
+    
+    .tool-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 4px;
+      background: linear-gradient(90deg, var(--primary-red), var(--primary-gold));
+      transform: scaleX(0);
+      transition: var(--transition);
+    }
+    
+    .tool-card:hover {
+      transform: translateY(-8px);
+      box-shadow: var(--shadow-lg);
+      border-color: var(--primary-gold);
+    }
+    
+    .tool-card:hover::before {
+      transform: scaleX(1);
+    }
+    
+    .tool-icon {
+      width: 70px;
+      height: 70px;
+      margin: 0 auto 20px;
+      background: linear-gradient(135deg, var(--primary-red), #B83C2E);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: white;
+      font-size: 32px;
+      box-shadow: var(--shadow-md);
+      transition: var(--transition);
+    }
+    
+    .tool-card:hover .tool-icon {
+      transform: rotate(360deg) scale(1.1);
+      background: linear-gradient(135deg, var(--primary-gold), #E8C84A);
+    }
+    
+    .tool-title {
+      font-size: 18px;
+      color: var(--text-primary);
+      margin-bottom: 10px;
+      font-weight: 600;
+    }
+    
+    .tool-title a {
+      color: inherit;
+      text-decoration: none;
+      transition: var(--transition);
+    }
+    
+    .tool-title a:hover {
+      color: var(--primary-red);
+    }
+    
+    .tool-tibetan {
+      font-size: 14px;
+      color: var(--text-secondary);
+      font-family: 'Noto Sans Tibetan', sans-serif;
+    }
+
+    /* Footer */
+    .footer {
+      background: linear-gradient(135deg, var(--primary-red) 0%, #7A221E 100%);
+      color: white;
+      padding: 50px 30px 30px;
+      margin-top: 80px;
+    }
+    
+    .footer-content {
+      max-width: 1400px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 40px;
+      margin-bottom: 30px;
+    }
+    
+    .footer-section h3 {
+      font-size: 18px;
+      margin-bottom: 20px;
+      color: var(--primary-gold);
+      font-weight: 600;
+    }
+    
+    .footer-section p,
+    .footer-section a {
+      font-size: 14px;
+      opacity: 0.9;
+      line-height: 1.8;
+      color: white;
+      text-decoration: none;
+      display: block;
+      margin-bottom: 8px;
+      transition: var(--transition);
+    }
+    
+    .footer-section a:hover {
+      color: var(--primary-gold);
+      padding-left: 5px;
+    }
+    
+    .footer-bottom {
+      max-width: 1400px;
+      margin: 0 auto;
+      padding-top: 30px;
+      border-top: 1px solid rgba(255,255,255,0.2);
+      text-align: center;
+    }
+    
+    .footer-bottom p {
+      font-size: 14px;
+      opacity: 0.85;
+      margin: 8px 0;
+    }
+
+    /* Back to Top Button */
+    .back-to-top {
+      position: fixed;
+      bottom: 30px;
+      right: 30px;
+      width: 50px;
+      height: 50px;
+      background: var(--primary-red);
+      color: white;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 20px;
+      cursor: pointer;
+      box-shadow: var(--shadow-lg);
+      transition: var(--transition);
+      opacity: 0;
+      visibility: hidden;
+      z-index: 998;
+    }
+    
+    .back-to-top.visible {
+      opacity: 1;
+      visibility: visible;
+    }
+    
+    .back-to-top:hover {
+      background: var(--primary-gold);
+      transform: translateY(-5px);
+    }
+
+    /* Loading Animation */
+    .loading-skeleton {
+      background: linear-gradient(90deg, #f0f0f0 25%, #e0e0e0 50%, #f0f0f0 75%);
+      background-size: 200% 100%;
+      animation: shimmer 1.5s infinite;
+      border-radius: var(--radius-md);
+    }
+    
+    @keyframes shimmer {
+      0% { background-position: 200% 0; }
+      100% { background-position: -200% 0; }
+    }
+
+    /* Responsive Design */
+    @media (max-width: 1024px) {
+      .hero h1 {
+        font-size: 40px;
+      }
+      
+      .hero-stats {
+        gap: 30px;
+      }
+      
+      .card-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+    }
+    
     @media (max-width: 768px) {
+      .top-bar {
+        display: none;
+      }
+      
       .header-wrap {
         flex-direction: column;
         height: auto;
         padding: 15px 20px;
       }
-      .nav {
-        margin-top: 10px;
-      }
-      .nav a {
-        margin: 0 10px;
-        font-size: 14px;
-      }
-      .banner {
-        height: 250px;
-      }
-      .banner h1 {
-        font-size: 24px;
-      }
-      .banner p {
-        font-size: 14px;
-      }
-      .main-container {
-        flex-direction: column;
-      }
-      .left-nav {
-        width: 100%;
-        margin-right: 0;
-        margin-bottom: 20px;
-      }
-      .left-nav li {
-        height: 60px;
-      }
-      .left-nav li a {
-        width: 100%;
+      
+      .logo {
         font-size: 20px;
+        margin-bottom: 10px;
       }
-      .left-nav li a span {
+      
+      .nav {
+        flex-wrap: wrap;
+        justify-content: center;
+      }
+      
+      .nav a {
+        padding: 8px 12px;
+        font-size: 14px;
+      }
+      
+      .hero {
+        height: 450px;
+      }
+      
+      .hero h1 {
+        font-size: 28px;
+      }
+      
+      .hero p {
         font-size: 16px;
       }
-      .card-box {
-        grid-template-columns: repeat(2, 1fr);
+      
+      .hero-stats {
+        flex-direction: column;
+        gap: 15px;
+      }
+      
+      .stat-number {
+        font-size: 28px;
+      }
+      
+      .section-title {
+        font-size: 26px;
+      }
+      
+      .card-grid,
+      .tools-grid {
+        grid-template-columns: 1fr;
+      }
+      
+      .main-container {
+        padding: 40px 20px;
       }
     }
     
     @media (max-width: 480px) {
-      .card-box {
-        grid-template-columns: 1fr;
+      .hero {
+        height: 350px;
       }
-      .banner {
-        height: 200px;
+      
+      .hero h1 {
+        font-size: 24px;
       }
-      .banner h1 {
-        font-size: 20px;
+      
+      .hero p {
+        font-size: 14px;
       }
-      .banner p {
-        font-size: 12px;
+    }
+
+    /* Print Styles */
+    @media print {
+      .header,
+      .top-bar,
+      .horizontal-nav,
+      .back-to-top {
+        display: none !important;
       }
-      .title {
-        font-size: 20px;
+      
+      body {
+        background: white;
+        color: black;
       }
     }
   </style>
 </head>
 <body>
+  <a href="#main-content" class="skip-link">跳到主要内容</a>
 
 <div id="app">
-  <!-- 顶部信息栏 -->
+  <!-- Top Info Bar -->
   <div class="top-bar">
-    雪域安多·藏韵传承 | 本地人讲述·真实民俗·安多藏族文化传播平台
+    <div class="top-bar-text">
+      🏔️ 雪域安多·藏韵传承 | 本地人讲述·真实民俗·安多藏族文化传播平台
+    </div>
+    <div class="top-bar-links">
+      <a href="#" @click.prevent><i class="fa fa-heart"></i> 收藏</a>
+      <a href="#" @click.prevent><i class="fa fa-share-alt"></i> 分享</a>
+    </div>
   </div>
 
-  <!-- 头部导航 -->
+  <!-- Header Navigation -->
   <header class="header">
     <div class="header-wrap">
       <div class="logo">གངས་ལྗོངས་ཨ་མདོ། བོད་ཀྱི་སྲོལ་རྒྱུན་རིག་གནས་རྒྱུན་འཛིན་བྱེད་པ།</div>
-      <div class="nav">
-        <a href="#home">首页</a>
-        <a href="#culture">安多民俗</a>
-        <a href="#tour">藏地旅游</a>
-        <a href="#tools">藏文工具</a>
-        <a href="#about">关于平台</a>
-      </div>
+      <nav class="nav" role="navigation" aria-label="主导航">
+        <a href="#home" @click.prevent="scrollToSection('home')">首页</a>
+        <a href="#culture" @click.prevent="scrollToSection('culture')">安多民俗</a>
+        <a href="#tour" @click.prevent="scrollToSection('tour')">藏地旅游</a>
+        <a href="#tools" @click.prevent="scrollToSection('tools')">藏文工具</a>
+        <a href="guanyupingtai/guanyupingtai.html">关于平台</a>
+      </nav>
     </div>
   </header>
 
-  <!-- 轮播 -->
-  <section class="banner" id="home">
-    <div class="banner-slides">
-      <div v-for="(slide, index) in bannerSlides" :key="index" class="banner-slide" :class="{ active: currentSlide === index }">
-        <img :src="slide.img">
-        <div>
-          <h1>青海安多藏族文化传播平台</h1>
-          <p>旅游景点 + 民俗文化深度融合 · 本地人讲述 · 拒绝编造</p>
+  <!-- Hero Section -->
+  <section class="hero" id="home" aria-label="轮播图">
+    <div class="hero-slides">
+      <div v-for="(slide, index) in bannerSlides" 
+           :key="index" 
+           class="hero-slide" 
+           :class="{ active: currentSlide === index }"
+           :aria-hidden="currentSlide !== index">
+        <img :src="slide.img" :alt="slide.alt" loading="lazy">
+        <div class="hero-content">
+          <h1>{{ slide.title }}</h1>
+          <p>{{ slide.subtitle }}</p>
+          <div class="hero-stats">
+            <div class="stat-item">
+              <span class="stat-number">12+</span>
+              <div class="stat-label"> sacred sites</div>
+            </div>
+            <div class="stat-item">
+              <span class="stat-number">1000+</span>
+              <div class="stat-label">Years of Culture</div>
+            </div>
+            <div class="stat-item">
+              <span class="stat-number">50+</span>
+              <div class="stat-label">Traditional Festivals</div>
+            </div>
+          </div>
         </div>
       </div>
     </div>
-    <div class="banner-indicators">
-      <div v-for="(slide, index) in bannerSlides" :key="index" class="banner-indicator" :class="{ active: currentSlide === index }" @click="currentSlide = index"></div>
+    <div class="hero-indicators" role="tablist">
+      <div v-for="(slide, index) in bannerSlides" 
+           :key="index" 
+           class="hero-indicator" 
+           :class="{ active: currentSlide === index }" 
+           @click="goToSlide(index)"
+           role="tab"
+           :aria-selected="currentSlide === index"
+           :aria-label="`Slide ${index + 1}`"
+           tabindex="0"
+           @keyup.enter="goToSlide(index)">
+      </div>
     </div>
   </section>
 
-  <!-- 横向导航栏 -->
-  <nav class="horizontal-nav">
+  <!-- Horizontal Navigation -->
+  <nav class="horizontal-nav" aria-label="景点导航">
     <div class="nav-container">
       <ul>
         <li><a href="riyueshan/riyueshan.html">日月山<span>ཉི་ཟླ་རི་བོ།</span></a></li>
@@ -481,127 +938,181 @@
     </div>
   </nav>
 
-  <div class="main-container">
-    <div class="container">
-    <!-- 安多民俗 -->
-    <section id="culture">
-      <h2 class="title">安多藏族民俗文化（རིག་གནས།）</h2>
-      <div class="card-box">
-        <div class="card" v-for="(item,i) in folkList" :key="i">
-          <img :src="item.img">
-          <div class="card-body">
-            <div class="card-title">{{ item.title }}</div>
-            <div class="card-desc">{{ item.desc }}</div>
+  <main class="main-container" id="main-content">
+    <!-- Amdo Folk Culture Section -->
+    <section id="culture" aria-labelledby="culture-title">
+      <h2 class="section-title" id="culture-title">安多藏族民俗文化（རིག་གནས།）</h2>
+      <div class="card-grid">
+        <article class="card" v-for="(item,i) in folkList" :key="i">
+          <div class="card-image-wrapper">
+            <img :src="item.img" :alt="item.title" loading="lazy">
+            <div class="card-overlay"></div>
+            <span class="card-badge">民俗</span>
           </div>
-        </div>
+          <div class="card-body">
+            <h3 class="card-title">{{ item.title }}</h3>
+            <p class="card-desc">{{ item.desc }}</p>
+            <div class="card-footer">
+              <span><i class="fa fa-map-marker"></i> 安多地区</span>
+              <span><i class="fa fa-eye"></i> 了解更多</span>
+            </div>
+          </div>
+        </article>
       </div>
     </section>
 
-    <!-- 藏地旅游 -->
-    <section id="tour">
-      <h2 class="title">藏地旅游 + 民俗（དམངས་སྲོལ།）</h2>
-      <div class="card-box">
-        <div class="card" v-for="(item,i) in tourList" :key="i">
-          <img :src="item.img">
-          <div class="card-body">
-            <div class="card-title">{{ item.title }}</div>
-            <div class="card-desc">{{ item.desc }}</div>
+    <!-- Tourism Section -->
+    <section id="tour" aria-labelledby="tour-title">
+      <h2 class="section-title" id="tour-title">藏地旅游 + 民俗（དམངས་སྲོལ།）</h2>
+      <div class="card-grid">
+        <article class="card" v-for="(item,i) in tourList" :key="i">
+          <div class="card-image-wrapper">
+            <img :src="item.img" :alt="item.title" loading="lazy">
+            <div class="card-overlay"></div>
+            <span class="card-badge">旅游</span>
           </div>
-        </div>
+          <div class="card-body">
+            <h3 class="card-title">{{ item.title }}</h3>
+            <p class="card-desc">{{ item.desc }}</p>
+            <div class="card-footer">
+              <span><i class="fa fa-star"></i> 热门景点</span>
+              <span><i class="fa fa-arrow-right"></i> 查看详情</span>
+            </div>
+          </div>
+        </article>
       </div>
     </section>
 
-    <!-- 藏文工具 -->
-    <section id="tools">
-      <h2 class="title">藏文实用工具（ལག་ཆ།）</h2>
-      <div class="card-box">
-        <!-- 第1行：藏文日历 -->
-        <div class="card">
-          <img src="image/tool1.jpg">
-          <div class="card-body">
-            <div class="card-title"><i class="fa fa-calendar"></i><a href="zangli-master/calendar.html"> 藏文日历 བོད་ཡིག་ལོ་ཐོ།</a></div>
-          </div>
+    <!-- Tools Section -->
+    <section id="tools" aria-labelledby="tools-title">
+      <h2 class="section-title" id="tools-title">藏文实用工具（ལག་ཆ།）</h2>
+      <div class="tools-grid">
+        <div class="tool-card">
+          <div class="tool-icon"><i class="fa fa-calendar"></i></div>
+          <h3 class="tool-title"><a href="zangli-master/calendar.html">藏文日历</a></h3>
+          <p class="tool-tibetan">བོད་ཡིག་ལོ་ཐོ།</p>
         </div>
 
-        <!-- 第1行：藏族木鱼 -->
-        <div class="card">
-          <img src="image/tool2.jpg">
-          <div class="card-body">
-            <div class="card-title"><i class="fa fa-music"></i><a href="jianpan/jianpan.html"> 藏族输入法（键盘） བོད་ཡིག་གཏགས་ཐབས།(མཐེབ་གཞོང)</a></div>
-          </div>
+        <div class="tool-card">
+          <div class="tool-icon"><i class="fa fa-keyboard-o"></i></div>
+          <h3 class="tool-title"><a href="jianpan/jianpan.html">藏族输入法</a></h3>
+          <p class="tool-tibetan">བོད་ཡིག་གཏགས་ཐབས།</p>
         </div>
 
-        <!-- 第1行：藏文笔记 -->
-        <div class="card">
-          <img src="image/tool3.jpg">
-          <div class="card-body">
-            <div class="card-title"><i class="fa fa-pencil"></i><a href="biji/biji.html"> 藏文笔记 བོད་ཡིག་གི་ཟིན་བྲིས།</a></div>
-          </div>
+        <div class="tool-card">
+          <div class="tool-icon"><i class="fa fa-pencil"></i></div>
+          <h3 class="tool-title"><a href="biji/biji.html">藏文笔记</a></h3>
+          <p class="tool-tibetan">བོད་ཡིག་གི་ཟིན་བྲིས།</p>
         </div>
 
-        <!-- 第1行：安多藏语常用短语 -->
-        <div class="card">
-          <img src="image/tool4.jpg">
-          <div class="card-body">
-            <div class="card-title"><i class="fa fa-comment"></i><a href="duanyu/duanyu.html"> 安多藏语常用短语 ཨ་མདོའི་བདོ་སྐད་ཀྱི་རྒྱུན་བཀོལ་ཚིག་ཐུང་།</a></div>
-          </div>
+        <div class="tool-card">
+          <div class="tool-icon"><i class="fa fa-comment"></i></div>
+          <h3 class="tool-title"><a href="duanyu/duanyu.html">常用短语</a></h3>
+          <p class="tool-tibetan">རྒྱུན་བཀོལ་ཚིག་ཐུང་།</p>
         </div>
 
-        <!-- 第2行：藏文34个字符 -->
-        <div class="card">
-          <img src="image/tool5.jpg">
-          <div class="card-body">
-            <div class="card-title"><i class="fa fa-font"></i><a href="zifu/zifu.html"> 藏文30个字符 བོད་ཡིག་ཡིག་འབྲུ་སུམ་ཅུ་སོ་བཞི།</a></div>
-          </div>
+        <div class="tool-card">
+          <div class="tool-icon"><i class="fa fa-font"></i></div>
+          <h3 class="tool-title"><a href="zifu/zifu.html">藏文字符</a></h3>
+          <p class="tool-tibetan">བོད་ཡིག་ཡིག་འབྲུ།</p>
         </div>
 
-        <!-- 第2行：藏文翻译 -->
-        <div class="card">
-          <img src="image/tool6.jpg">
-          <div class="card-body">
-            <div class="card-title"><i class="fa fa-language"></i> <a href="fanyi/fanyi.html">藏文翻译 བོད་རྒྱ་རིག་སྒྱུར།</a></div>
-          </div>
+        <div class="tool-card">
+          <div class="tool-icon"><i class="fa fa-language"></i></div>
+          <h3 class="tool-title"><a href="fanyi/fanyi.html">藏文翻译</a></h3>
+          <p class="tool-tibetan">བོད་རྒྱ་རིག་སྒྱུར།</p>
         </div>
 
-        <!-- 第2行：藏族传统乐器 / 音乐 -->
-        <div class="card">
-          <img src="image/tool7.jpg">
-          <div class="card-body">
-            <div class="card-title"><i class="fa fa-music"></i><a href="music/music.html"> 藏族传统乐器 / 音乐 བོད་ཀྱི་སྲོལ་རྒྱུན་རོལ་ཆས།རོལ་དབྱངས།</a></div>
-          </div>
+        <div class="tool-card">
+          <div class="tool-icon"><i class="fa fa-music"></i></div>
+          <h3 class="tool-title"><a href="music/music.html">传统音乐</a></h3>
+          <p class="tool-tibetan">སྲོལ་རྒྱུན་རོལ་དབྱངས།</p>
         </div>
 
-        <!-- 第2行：藏文经典 -->
-        <div class="card">
-          <img src="image/tool8.jpg">
-          <div class="card-body">
-            <div class="card-title"><i class="fa fa-book"></i><a href="jingdian/jingdian.html"> 藏文经典 བོད་ཀྱི་གསུང་རབ།།</a></div>
-          </div>
+        <div class="tool-card">
+          <div class="tool-icon"><i class="fa fa-book"></i></div>
+          <h3 class="tool-title"><a href="jingdian/jingdian.html">藏文经典</a></h3>
+          <p class="tool-tibetan">བོད་ཀྱི་གསུང་རབ།</p>
         </div>
       </div>
     </section>
+  </main>
+
+  <!-- Footer -->
+  <footer class="footer" id="about">
+    <div class="footer-content">
+      <div class="footer-section">
+        <h3>关于我们</h3>
+        <p>雪域安多·藏韵传承是一个致力于传播安多藏族文化的平台，通过现代化的技术手段，让更多人了解和认识藏族传统文化。</p>
+      </div>
+      <div class="footer-section">
+        <h3>快速链接</h3>
+        <a href="#home">首页</a>
+        <a href="#culture">民俗文化</a>
+        <a href="#tour">旅游景点</a>
+        <a href="#tools">藏文工具</a>
+      </div>
+      </div>
+      <div class="footer-section">
+        <h3>关注我们</h3>
+        <p>微信公众号：雪域安多</p>
+      </div>
     </div>
-  </div>
-
-  <!-- 底部 -->
-  <footer class="footer">
-    <p>计算机设计大赛 — གངས་ལྗོངས་ཨ་མདོའི་བོད་རིགས་རིག་གནས་བརྒྱུད་སྤེལ་དྲ་ཚིགས།</p>
-    <p>内容来源：青海安多本地人讲述、当地导游提供 · 真实民俗 · 拒绝编造</p>
+    <div class="footer-bottom">
+      <p>计算机设计大赛 — གངས་ལྗོངས་ཨ་མདོའི་བོད་རིགས་རིག་གནས་བརྒྱུད་སྤེལ་དྲ་ཚིགས།</p>
+      <p>内容来源：青海安多本地人讲述、当地导游提供 · 真实民俗 · 拒绝编造</p>
+      <p>&copy; 2026 雪域安多·藏韵传承. All Rights Reserved.</p>
+    </div>
   </footer>
+
+  <!-- Back to Top Button -->
+  <div class="back-to-top" 
+       :class="{ visible: showBackToTop }" 
+       @click="scrollToTop"
+       aria-label="返回顶部">
+    <i class="fa fa-arrow-up"></i>
+  </div>
 </div>
 
 <script>
 const { createApp } = Vue
+
 createApp({
   data() {
     return {
       currentSlide: 0,
+      showBackToTop: false,
       bannerSlides: [
-        { img: 'image/mm1.jpg' },
-        { img: 'image/mm2.jpg' },
-        { img: 'image/mm3.jpg' },
-        { img: 'image/mm4.jpg' },
-        { img: 'image/mm5.jpg' }
+        { 
+          img: 'image/mm1.jpg', 
+          alt: '青海安多风景',
+          title: '青海安多藏族文化传播平台',
+          subtitle: '旅游景点 + 民俗文化深度融合 · 本地人讲述 · 拒绝编造'
+        },
+        { 
+          img: 'image/mm2.jpg', 
+          alt: '藏族寺庙',
+          title: '探索千年藏族文化',
+          subtitle: '走进安多藏区，感受信仰的力量'
+        },
+        { 
+          img: 'image/qhh1.jpg', 
+          alt: '青海湖',
+          title: '圣湖青海湖',
+          subtitle: '转湖祈福，体验藏族传统习俗'
+        },
+        { 
+          img: 'image/mm4.jpg', 
+          alt: '塔尔寺',
+          title: '塔尔寺艺术三绝',
+          subtitle: '酥油花、壁画、堆绣的非遗传承'
+        },
+        { 
+          img: 'image/mq1.jpg', 
+          alt: '雪山草原',
+          title: '阿尼玛沁雪山',
+          subtitle: '神山圣水，安多藏族的spiritual家园'
+        }
       ],
       folkList: [
         {
@@ -650,14 +1161,32 @@ createApp({
     }
   },
   mounted() {
-    // 自动轮播
     this.startAutoSlide()
+    window.addEventListener('scroll', this.handleScroll)
+  },
+  beforeUnmount() {
+    window.removeEventListener('scroll', this.handleScroll)
   },
   methods: {
     startAutoSlide() {
       setInterval(() => {
         this.currentSlide = (this.currentSlide + 1) % this.bannerSlides.length
-      }, 3000)
+      }, 5000)
+    },
+    goToSlide(index) {
+      this.currentSlide = index
+    },
+    scrollToSection(sectionId) {
+      const element = document.getElementById(sectionId)
+      if (element) {
+        element.scrollIntoView({ behavior: 'smooth', block: 'start' })
+      }
+    },
+    scrollToTop() {
+      window.scrollTo({ top: 0, behavior: 'smooth' })
+    },
+    handleScroll() {
+      this.showBackToTop = window.pageYOffset > 300
     }
   }
 }).mount('#app')
