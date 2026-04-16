@@ -1,0 +1,553 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>藏族文化专题 - 夏河旅游指南</title>
+  <script src="https://cdn.jsdelivr.net/npm/vue@3/dist/vue.global.prod.js"></script>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: "Source Han Sans CN", "Microsoft YaHei", "PingFang SC", sans-serif;
+      background: linear-gradient(135deg, #8B0000 0%, #A52A2A 100%);
+      color: #333;
+      line-height: 1.7;
+      overflow-x: hidden;
+    }
+
+    .app-container {
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      background: linear-gradient(135deg, #8B0000 0%, #A52A2A 100%);
+      position: relative;
+    }
+
+    .app-container::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background-image: 
+        radial-gradient(circle at 20% 50%, rgba(139, 69, 19, 0.1) 0%, transparent 50%),
+        radial-gradient(circle at 80% 80%, rgba(139, 69, 19, 0.08) 0%, transparent 50%);
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    .header-section {
+      padding: 40px 20px 30px;
+      text-align: center;
+      position: relative;
+      z-index: 1;
+    }
+
+    .main-title {
+      font-size: 36px;
+      color: #FFD700;
+      font-weight: bold;
+      margin-bottom: 10px;
+      text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+      letter-spacing: 3px;
+    }
+
+    .subtitle {
+      font-size: 18px;
+      color: #F5F5DC;
+      font-weight: 500;
+      margin-bottom: 20px;
+      opacity: 0.9;
+    }
+
+    .decorative-line {
+      width: 80%;
+      height: 2px;
+      background: linear-gradient(90deg, transparent, #FFD700, transparent);
+      margin: 0 auto;
+      position: relative;
+    }
+
+    .decorative-line::before,
+    .decorative-line::after {
+      content: '❀';
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      color: #FFD700;
+      font-size: 14px;
+    }
+
+    .decorative-line::before {
+      left: -20px;
+    }
+
+    .decorative-line::after {
+      right: -20px;
+    }
+
+    .content-section {
+      flex: 1;
+      padding: 30px 20px;
+      max-width: 1200px;
+      margin: 0 auto;
+      width: 100%;
+      position: relative;
+      z-index: 1;
+    }
+
+    .card-container {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 25px;
+      margin-top: 20px;
+    }
+
+    .culture-card {
+      background: linear-gradient(135deg, rgba(139, 0, 0, 0.9) 0%, rgba(165, 42, 42, 0.8) 100%);
+      border: 1px solid #FFD700;
+      border-radius: 12px;
+      padding: 30px 25px;
+      transition: all 0.3s ease;
+      backdrop-filter: blur(10px);
+      position: relative;
+      overflow: hidden;
+      cursor: pointer;
+    }
+
+    .culture-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background-image: 
+        radial-gradient(circle at 20% 20%, rgba(255, 215, 0, 0.1) 0%, transparent 50%),
+        radial-gradient(circle at 80% 80%, rgba(255, 215, 0, 0.05) 0%, transparent 50%);
+      opacity: 0.3;
+      pointer-events: none;
+    }
+
+    .culture-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 8px 25px rgba(255, 215, 0, 0.3);
+      border-color: #FFE4B5;
+    }
+
+    .culture-card.expanded {
+      border-color: #FFE4B5;
+      box-shadow: 0 12px 35px rgba(255, 215, 0, 0.4);
+    }
+
+    .card-icon {
+      text-align: center;
+      margin-bottom: 20px;
+      position: relative;
+      z-index: 1;
+    }
+
+    .icon-circle {
+      width: 60px;
+      height: 60px;
+      background: rgba(139, 0, 0, 0.5);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 0 auto 15px;
+      border: 1px solid rgba(255, 215, 0, 0.3);
+    }
+
+    .icon-svg {
+      width: 30px;
+      height: 30px;
+      fill: #8B7355;
+      stroke: #8B7355;
+      stroke-width: 1.5;
+    }
+
+    .card-title {
+      font-size: 22px;
+      color: #FFD700;
+      text-align: center;
+      margin-bottom: 10px;
+      font-weight: bold;
+      position: relative;
+      z-index: 1;
+      letter-spacing: 1px;
+    }
+
+    .card-tag {
+      font-size: 15px;
+      color: #F5F5DC;
+      text-align: center;
+      margin-bottom: 20px;
+      opacity: 0.8;
+      position: relative;
+      z-index: 1;
+    }
+
+    .card-summary {
+      font-size: 15px;
+      color: #F5F5DC;
+      line-height: 1.6;
+      text-align: justify;
+      position: relative;
+      z-index: 1;
+      margin-bottom: 20px;
+    }
+
+    .expand-btn {
+      display: inline-block;
+      background: linear-gradient(135deg, #FFD700, #FFA500);
+      color: #8B0000;
+      border: none;
+      padding: 10px 25px;
+      border-radius: 25px;
+      font-size: 14px;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      font-weight: bold;
+      text-align: center;
+      position: relative;
+      z-index: 1;
+      text-decoration: none;
+    }
+
+    .expand-btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 4px 15px rgba(255, 215, 0, 0.4);
+      background: linear-gradient(135deg, #FFA500, #FFD700);
+    }
+
+    .expand-content {
+      max-height: 0;
+      overflow: hidden;
+      transition: max-height 0.5s ease, padding 0.5s ease;
+      position: relative;
+      z-index: 1;
+    }
+
+    .expand-content.show {
+      max-height: 500px;
+      padding-top: 20px;
+    }
+
+    .expand-content-inner {
+      font-size: 14px;
+      color: #F5F5DC;
+      line-height: 1.7;
+      text-align: justify;
+      border-top: 1px solid rgba(255, 215, 0, 0.3);
+      padding-top: 15px;
+    }
+
+    .expand-content-inner p {
+      margin-bottom: 10px;
+    }
+
+    .expand-content-inner strong {
+      color: #FFD700;
+    }
+
+    .close-btn {
+      display: inline-block;
+      background: rgba(255, 215, 0, 0.2);
+      color: #FFD700;
+      border: 1px solid #FFD700;
+      padding: 8px 20px;
+      border-radius: 20px;
+      font-size: 13px;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      margin-top: 15px;
+      position: relative;
+      z-index: 1;
+    }
+
+    .close-btn:hover {
+      background: rgba(255, 215, 0, 0.3);
+      box-shadow: 0 2px 10px rgba(255, 215, 0, 0.3);
+    }
+
+    .footer-section {
+      background: linear-gradient(135deg, #8B0000 0%, #654321 100%);
+      padding: 30px 20px;
+      text-align: center;
+      position: relative;
+      z-index: 1;
+    }
+
+    .footer-section::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background-image: 
+        radial-gradient(circle at 30% 30%, rgba(255, 215, 0, 0.05) 0%, transparent 50%),
+        radial-gradient(circle at 70% 70%, rgba(255, 215, 0, 0.03) 0%, transparent 50%);
+      pointer-events: none;
+    }
+
+    .nav-text {
+      font-size: 14px;
+      color: #F5F5DC;
+      margin-bottom: 15px;
+      opacity: 0.9;
+    }
+
+    .nav-buttons {
+      display: flex;
+      justify-content: center;
+      gap: 10px;
+      flex-wrap: wrap;
+      margin-bottom: 20px;
+    }
+
+    .nav-button {
+      background: linear-gradient(135deg, #FFD700, #FFA500);
+      color: #8B0000;
+      border: none;
+      padding: 10px 20px;
+      border-radius: 25px;
+      font-size: 14px;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      font-weight: bold;
+      text-decoration: none;
+      display: inline-block;
+    }
+
+    .nav-button:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 4px 15px rgba(255, 215, 0, 0.4);
+      background: linear-gradient(135deg, #FFA500, #FFD700);
+    }
+
+    .copyright {
+      font-size: 12px;
+      color: #F5F5DC;
+      opacity: 0.7;
+      margin-top: 20px;
+    }
+
+    @media (max-width: 768px) {
+      .main-title {
+        font-size: 28px;
+      }
+
+      .subtitle {
+        font-size: 16px;
+      }
+
+      .card-container {
+        grid-template-columns: 1fr;
+        gap: 20px;
+      }
+
+      .content-section {
+        padding: 20px 15px;
+      }
+
+      .culture-card {
+        padding: 25px 20px;
+      }
+
+      .card-title {
+        font-size: 20px;
+      }
+
+      .nav-buttons {
+        flex-direction: column;
+        align-items: center;
+      }
+
+      .nav-button {
+        width: 200px;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .main-title {
+        font-size: 24px;
+      }
+
+      .card-title {
+        font-size: 18px;
+      }
+
+      .card-summary {
+        font-size: 14px;
+      }
+    }
+
+    @keyframes fadeInUp {
+      from {
+        opacity: 0;
+        transform: translateY(30px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    .culture-card {
+      animation: fadeInUp 0.6s ease forwards;
+    }
+
+    .culture-card:nth-child(1) { animation-delay: 0.1s; }
+    .culture-card:nth-child(2) { animation-delay: 0.2s; }
+    .culture-card:nth-child(3) { animation-delay: 0.3s; }
+    .culture-card:nth-child(4) { animation-delay: 0.4s; }
+
+    ::-webkit-scrollbar {
+      width: 8px;
+    }
+
+    ::-webkit-scrollbar-track {
+      background: #8B0000;
+    }
+
+    ::-webkit-scrollbar-thumb {
+      background: #FFD700;
+      border-radius: 4px;
+    }
+
+    ::-webkit-scrollbar-thumb:hover {
+      background: #FFA500;
+    }
+  </style>
+</head>
+
+<body>
+  <div id="app" class="app-container">
+    <div class="header-section">
+      <h1 class="main-title">夏河旅游指南</h1>
+      <p class="subtitle">甘南秘境·藏族文化精华</p>
+      <div class="decorative-line"></div>
+    </div>
+
+    <div class="content-section">
+      <div class="card-container">
+        <div class="culture-card" 
+             v-for="(item, index) in attractions" 
+             :key="index"
+             :class="{ 'expanded': item.isExpanded }"
+             @click="toggleExpand(index)">
+          <div class="card-icon">
+            <div class="icon-circle">
+              <svg class="icon-svg" :viewBox="item.iconViewBox">
+                <path v-html="item.iconPath"></path>
+              </svg>
+            </div>
+          </div>
+          <h3 class="card-title">{{ item.title }}</h3>
+          <p class="card-tag">{{ item.tag }}</p>
+          <p class="card-summary">{{ item.summary }}</p>
+          
+          <div class="expand-content" :class="{ 'show': item.isExpanded }">
+            <div class="expand-content-inner">
+              <p v-for="(detail, i) in item.details" :key="i" v-html="detail"></p>
+            </div>
+            <button class="close-btn" @click.stop="toggleExpand(index)">收起详情</button>
+          </div>
+
+          <button v-if="!item.isExpanded" class="expand-btn" @click.stop="toggleExpand(index)">
+            查看详情
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <div class="footer-section">
+      <p class="nav-text">探索更多甘南安多文化区</p>
+      <div class="nav-buttons">
+        <a href="../labulengsi/labulengsi.html" class="nav-button">拉卜楞寺</a>
+        <a href="../sangkecaoyuan/sangkecaoyuan.html" class="nav-button">桑科草原</a>
+        <a href="../guoluo/guoluo.html" class="nav-button">甘加草原</a>
+      </div>
+      <p class="copyright">©2026 甘南安多文化区 | 夏河旅游指南</p>
+    </div>
+  </div>
+
+  <script>
+    const { createApp } = Vue;
+
+    createApp({
+      data() {
+        return {
+          attractions: [
+            {
+              title: '地质奇观·扎尕那石城',
+              tag: '天然岩壁迷宫',
+              summary: '扎尕那是藏语"石匣子"的意思，四周被巨大的天然石山环绕，形成一座天然石头城，被誉为"亚当和夏娃的诞生地"。',
+              iconViewBox: '0 0 24 24',
+              iconPath: 'M12 2L2 12h3v8h6v-6h2v6h6v-8h3L12 2zm0 2.8L18 10H6l6-5.2z',
+              isExpanded: false,
+              details: [
+                '<strong>地理特征：</strong>扎尕那景区海拔约3000-4000米，由四个藏寨和周边石林组成，山峰高耸入云，峡谷深邃，草甸广袤，是典型的高山峡谷地貌。',
+                '<strong>自然景观：</strong>这里有壮观的石林、清澈的溪流、高山草甸和原始森林，四季景色各异，春季山花烂漫，夏季绿意盎然，秋季层林尽染，冬季白雪皑皑。',
+                '<strong>文化价值：</strong>扎尕那不仅自然风光绝美，还保留了完整的藏族传统文化，四个藏寨世代居住于此，民俗风情浓郁，是藏族文化与自然完美融合的典范。'
+              ]
+            },
+            {
+              title: '藏寨民俗·仙女滩与藏村',
+              tag: '东哇村·仙女滩',
+              summary: '仙女滩是扎尕那景区内的高山草甸，夏季绿草如茵、野花遍地，四周石山环绕，宛如仙境。东哇村是典型的藏族村落。',
+              iconViewBox: '0 0 24 24',
+              iconPath: 'M3 21h18v-2H3v2zm0-4h18v-2H3v2zm0-4h18v-2H3v2zm0-4h18V7H3v2zm0-4h18V3H3v2z',
+              isExpanded: false,
+              details: [
+                '<strong>仙女滩：</strong>仙女滩海拔约3200米，是一片平坦开阔的高山草甸，夏季时绿草如茵，野花盛开，是观赏扎尕那石山全景的最佳地点之一。',
+                '<strong>东哇村：</strong>东哇村是扎尕那四个藏寨之一，村落依山而建，藏式民居错落有致，保留了传统的藏族建筑风格和生活方式。',
+                '<strong>民俗体验：</strong>游客可以体验藏族传统生活，品尝酥油茶、糌粑等藏族美食，参与藏族节庆活动，感受浓郁的藏族民俗风情。'
+              ]
+            },
+            {
+              title: '红色记忆与人文历史',
+              tag: '洛克之路·红色秘境',
+              summary: '1925年，美籍探险家约瑟夫·洛克首次来到扎尕那，将其称为"亚当和夏娃的诞生地"，并向世界介绍了这片神奇的土地。',
+              iconViewBox: '0 0 24 24',
+              iconPath: 'M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z',
+              isExpanded: false,
+              details: [
+                '<strong>洛克探险：</strong>1925年，美籍奥地利探险家约瑟夫·洛克在《国家地理》杂志上发表了关于扎尕那的文章，称其为"亚当和夏娃的诞生地"，使扎尕那闻名世界。',
+                '<strong>洛克之路：</strong>从卓尼县扎古录乡到扎尕那的徒步路线被称为"洛克之路"，沿途风景绝美，是户外爱好者的经典徒步路线。',
+                '<strong>历史意义：</strong>扎尕那不仅是自然奇观，也是藏区历史文化的重要载体，见证了汉藏文化的交流与融合，具有重要的历史文化价值。'
+              ]
+            },
+            {
+              title: '生态与宗教（全景视角）',
+              tag: '神山圣境',
+              summary: '扎尕那在藏传佛教中被视为神山，四周的石山被认为是护法神的居所，藏族村民世代在此朝拜，形成了独特的宗教文化景观。',
+              iconViewBox: '0 0 24 24',
+              iconPath: 'M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8zm0-14c-3.31 0-6 2.69-6 6s2.69 6 6 6 6-2.69 6-6-2.69-6-6-6zm0 10c-2.21 0-4-1.79-4-4s1.79-4 4-4 4 1.79 4 4-1.79 4-4 4z',
+              isExpanded: false,
+              details: [
+                '<strong>宗教地位：</strong>在藏传佛教中，扎尕那被视为神山，四周的石山被认为是护法神的居所，藏族村民世代在此朝拜，形成了独特的宗教文化景观。',
+                '<strong>生态保护：</strong>扎尕那生态系统完整，拥有丰富的动植物资源，是青藏高原东部重要的生态屏障，也是生物多样性保护的热点地区。',
+                '<strong>全景视角：</strong>从扎尕那的高处俯瞰，可以欣赏到壮观的全景：四周石山环绕，中间草甸平坦，藏寨点缀其间，构成一幅完美的自然人文画卷。'
+              ]
+            }
+          ]
+        };
+      },
+      methods: {
+        toggleExpand(index) {
+          this.attractions[index].isExpanded = !this.attractions[index].isExpanded;
+        }
+      }
+    }).mount("#app");
+  </script>
+</body>
+</html>

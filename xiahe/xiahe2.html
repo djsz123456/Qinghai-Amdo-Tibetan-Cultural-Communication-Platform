@@ -1,0 +1,567 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>藏族文化专题 - 夏河甘加草原</title>
+  <script src="https://cdn.jsdelivr.net/npm/vue@3/dist/vue.global.prod.js"></script>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: "Source Han Sans CN", "Microsoft YaHei", "PingFang SC", sans-serif;
+      background: linear-gradient(135deg, #8B0000 0%, #A52A2A 100%);
+      color: #333;
+      line-height: 1.7;
+      overflow-x: hidden;
+    }
+
+    .app-container {
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      background: linear-gradient(135deg, #8B0000 0%, #A52A2A 100%);
+      position: relative;
+    }
+
+    .app-container::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background-image: 
+        radial-gradient(circle at 20% 50%, rgba(85, 107, 47, 0.1) 0%, transparent 50%),
+        radial-gradient(circle at 80% 80%, rgba(85, 107, 47, 0.08) 0%, transparent 50%);
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    .header-section {
+      padding: 40px 20px 30px;
+      text-align: center;
+      position: relative;
+      z-index: 1;
+    }
+
+    .main-title {
+      font-size: 36px;
+      color: #FFD700;
+      font-weight: bold;
+      margin-bottom: 10px;
+      text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+      letter-spacing: 3px;
+    }
+
+    .subtitle {
+      font-size: 18px;
+      color: #F5F5DC;
+      font-weight: 500;
+      margin-bottom: 20px;
+      opacity: 0.9;
+    }
+
+    .decorative-line {
+      width: 80%;
+      height: 2px;
+      background: linear-gradient(90deg, transparent, #FFD700, transparent);
+      margin: 0 auto;
+      position: relative;
+    }
+
+    .decorative-line::before,
+    .decorative-line::after {
+      content: '❀';
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      color: #FFD700;
+      font-size: 14px;
+    }
+
+    .decorative-line::before {
+      left: -20px;
+    }
+
+    .decorative-line::after {
+      right: -20px;
+    }
+
+    .content-section {
+      flex: 1;
+      padding: 30px 20px;
+      max-width: 1200px;
+      margin: 0 auto;
+      width: 100%;
+      position: relative;
+      z-index: 1;
+    }
+
+    .card-container {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 25px;
+      margin-top: 20px;
+    }
+
+    .culture-card {
+      background: linear-gradient(135deg, rgba(139, 0, 0, 0.9) 0%, rgba(165, 42, 42, 0.8) 100%);
+      border: 1px solid #FFD700;
+      border-radius: 12px;
+      padding: 30px 25px;
+      transition: all 0.3s ease;
+      backdrop-filter: blur(10px);
+      position: relative;
+      overflow: hidden;
+      cursor: pointer;
+    }
+
+    .culture-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background-image: 
+        radial-gradient(circle at 20% 20%, rgba(255, 215, 0, 0.1) 0%, transparent 50%),
+        radial-gradient(circle at 80% 80%, rgba(255, 215, 0, 0.05) 0%, transparent 50%);
+      opacity: 0.3;
+      pointer-events: none;
+    }
+
+    .culture-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 8px 25px rgba(255, 215, 0, 0.3);
+      border-color: #FFE4B5;
+    }
+
+    .culture-card.expanded {
+      border-color: #FFE4B5;
+      box-shadow: 0 12px 35px rgba(255, 215, 0, 0.4);
+    }
+
+    .card-icon {
+      text-align: center;
+      margin-bottom: 20px;
+      position: relative;
+      z-index: 1;
+    }
+
+    .icon-circle {
+      width: 60px;
+      height: 60px;
+      background: rgba(139, 0, 0, 0.5);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 0 auto 15px;
+      border: 1px solid rgba(255, 215, 0, 0.3);
+    }
+
+    .icon-svg {
+      width: 30px;
+      height: 30px;
+      fill: #8B7355;
+      stroke: #8B7355;
+      stroke-width: 1.5;
+    }
+
+    .card-title {
+      font-size: 22px;
+      color: #FFD700;
+      text-align: center;
+      margin-bottom: 10px;
+      font-weight: bold;
+      position: relative;
+      z-index: 1;
+      letter-spacing: 1px;
+    }
+
+    .card-tag {
+      font-size: 15px;
+      color: #F5F5DC;
+      text-align: center;
+      margin-bottom: 20px;
+      opacity: 0.8;
+      position: relative;
+      z-index: 1;
+    }
+
+    .card-summary {
+      font-size: 15px;
+      color: #F5F5DC;
+      line-height: 1.6;
+      text-align: justify;
+      position: relative;
+      z-index: 1;
+      margin-bottom: 20px;
+    }
+
+    .expand-btn {
+      display: inline-block;
+      background: linear-gradient(135deg, #FFD700, #FFA500);
+      color: #8B0000;
+      border: none;
+      padding: 10px 25px;
+      border-radius: 25px;
+      font-size: 14px;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      font-weight: bold;
+      text-align: center;
+      position: relative;
+      z-index: 1;
+      text-decoration: none;
+    }
+
+    .expand-btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 4px 15px rgba(255, 215, 0, 0.4);
+      background: linear-gradient(135deg, #FFA500, #FFD700);
+    }
+
+    .expand-content {
+      max-height: 0;
+      overflow: hidden;
+      transition: max-height 0.5s ease, padding 0.5s ease;
+      position: relative;
+      z-index: 1;
+    }
+
+    .expand-content.show {
+      max-height: 600px;
+      padding-top: 20px;
+    }
+
+    .expand-content-inner {
+      font-size: 14px;
+      color: #F5F5DC;
+      line-height: 1.7;
+      text-align: justify;
+      border-top: 1px solid rgba(255, 215, 0, 0.3);
+      padding-top: 15px;
+    }
+
+    .expand-content-inner p {
+      margin-bottom: 10px;
+    }
+
+    .expand-content-inner strong {
+      color: #FFD700;
+    }
+
+    .close-btn {
+      display: inline-block;
+      background: rgba(255, 215, 0, 0.2);
+      color: #FFD700;
+      border: 1px solid #FFD700;
+      padding: 8px 20px;
+      border-radius: 20px;
+      font-size: 13px;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      margin-top: 15px;
+      position: relative;
+      z-index: 1;
+    }
+
+    .close-btn:hover {
+      background: rgba(255, 215, 0, 0.3);
+      box-shadow: 0 2px 10px rgba(255, 215, 0, 0.3);
+    }
+
+    .footer-section {
+      background: linear-gradient(135deg, #8B0000 0%, #654321 100%);
+      padding: 30px 20px;
+      text-align: center;
+      position: relative;
+      z-index: 1;
+    }
+
+    .footer-section::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background-image: 
+        radial-gradient(circle at 30% 30%, rgba(255, 215, 0, 0.05) 0%, transparent 50%),
+        radial-gradient(circle at 70% 70%, rgba(255, 215, 0, 0.03) 0%, transparent 50%);
+      pointer-events: none;
+    }
+
+    .nav-text {
+      font-size: 14px;
+      color: #F5F5DC;
+      margin-bottom: 15px;
+      opacity: 0.9;
+    }
+
+    .nav-buttons {
+      display: flex;
+      justify-content: center;
+      gap: 10px;
+      flex-wrap: wrap;
+      margin-bottom: 20px;
+    }
+
+    .nav-button {
+      background: linear-gradient(135deg, #FFD700, #FFA500);
+      color: #8B0000;
+      border: none;
+      padding: 10px 20px;
+      border-radius: 25px;
+      font-size: 14px;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      font-weight: bold;
+      text-decoration: none;
+      display: inline-block;
+    }
+
+    .nav-button:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 4px 15px rgba(255, 215, 0, 0.4);
+      background: linear-gradient(135deg, #FFA500, #FFD700);
+    }
+
+    .copyright {
+      font-size: 12px;
+      color: #F5F5DC;
+      opacity: 0.7;
+      margin-top: 20px;
+    }
+
+    @media (max-width: 768px) {
+      .main-title {
+        font-size: 28px;
+      }
+
+      .subtitle {
+        font-size: 16px;
+      }
+
+      .card-container {
+        grid-template-columns: 1fr;
+        gap: 20px;
+      }
+
+      .content-section {
+        padding: 20px 15px;
+      }
+
+      .culture-card {
+        padding: 25px 20px;
+      }
+
+      .card-title {
+        font-size: 20px;
+      }
+
+      .nav-buttons {
+        flex-direction: column;
+        align-items: center;
+      }
+
+      .nav-button {
+        width: 200px;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .main-title {
+        font-size: 24px;
+      }
+
+      .card-title {
+        font-size: 18px;
+      }
+
+      .card-summary {
+        font-size: 14px;
+      }
+    }
+
+    @keyframes fadeInUp {
+      from {
+        opacity: 0;
+        transform: translateY(30px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    .culture-card {
+      animation: fadeInUp 0.6s ease forwards;
+    }
+
+    .culture-card:nth-child(1) { animation-delay: 0.1s; }
+    .culture-card:nth-child(2) { animation-delay: 0.2s; }
+    .culture-card:nth-child(3) { animation-delay: 0.3s; }
+    .culture-card:nth-child(4) { animation-delay: 0.4s; }
+    .culture-card:nth-child(5) { animation-delay: 0.5s; }
+
+    ::-webkit-scrollbar {
+      width: 8px;
+    }
+
+    ::-webkit-scrollbar-track {
+      background: #8B0000;
+    }
+
+    ::-webkit-scrollbar-thumb {
+      background: #FFD700;
+      border-radius: 4px;
+    }
+
+    ::-webkit-scrollbar-thumb:hover {
+      background: #FFA500;
+    }
+  </style>
+</head>
+
+<body>
+  <div id="app" class="app-container">
+    <div class="header-section">
+      <h1 class="main-title">夏河 甘加草原</h1>
+      <p class="subtitle">安多秘境草原・千年古地</p>
+      <div class="decorative-line"></div>
+    </div>
+
+    <div class="content-section">
+      <div class="card-container">
+        <div class="culture-card" 
+             v-for="(item, index) in attractions" 
+             :key="index"
+             :class="{ 'expanded': item.isExpanded }"
+             @click="toggleExpand(index)">
+          <div class="card-icon">
+            <div class="icon-circle">
+              <svg class="icon-svg" :viewBox="item.iconViewBox">
+                <path v-html="item.iconPath"></path>
+              </svg>
+            </div>
+          </div>
+          <h3 class="card-title">{{ item.title }}</h3>
+          <p class="card-tag">{{ item.tag }}</p>
+          <p class="card-summary">{{ item.summary }}</p>
+          
+          <div class="expand-content" :class="{ 'show': item.isExpanded }">
+            <div class="expand-content-inner">
+              <p v-for="(detail, i) in item.details" :key="i" v-html="detail"></p>
+            </div>
+            <button class="close-btn" @click.stop="toggleExpand(index)">收起详情</button>
+          </div>
+
+          <button v-if="!item.isExpanded" class="expand-btn" @click.stop="toggleExpand(index)">
+            查看详情
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <div class="footer-section">
+      <p class="nav-text">探索更多甘南安多文化区</p>
+      <div class="nav-buttons">
+        <a href="../labulengsi/labulengsi.html" class="nav-button">拉卜楞寺</a>
+        <a href="../sangkecaoyuan/sangkecaoyuan.html" class="nav-button">桑科草原</a>
+        <a href="../guoluo/guoluo.html" class="nav-button">夏河八角城</a>
+      </div>
+      <p class="copyright">©2026 甘南安多文化区 | 夏河甘加草原专题</p>
+    </div>
+  </div>
+
+  <script>
+    const { createApp } = Vue;
+
+    createApp({
+      data() {
+        return {
+          attractions: [
+            {
+              title: '自然风貌',
+              tag: '安多藏区原生态高山草甸',
+              summary: '甘加草原位于夏河县甘加乡，是安多藏区保存最完整的原生态高山草甸草原之一。草原地势开阔，群山环绕，白石崖、八角城等自然与人文景观镶嵌其间。',
+              iconViewBox: '0 0 24 24',
+              iconPath: 'M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5',
+              isExpanded: false,
+              details: [
+                '<strong>地理特征：</strong>甘加草原地势开阔平坦，海拔约3000-3500米，四周群山环绕，形成天然的高山草甸地貌。草原面积广阔，是安多藏区重要的天然牧场。',
+                '<strong>自然景观：</strong>春夏时节绿草如茵、牛羊成群，野花点缀其间；秋冬银装素裹，尽显高原草原的雄浑与壮美。白石崖峭壁险峻，八角城遗址古朴沧桑。',
+                '<strong>生态环境：</strong>甘加草原生态系统完整，是众多高原野生动植物的栖息地。草原上可见牦牛、藏羊等牲畜悠然自得，构成一幅和谐的生态画卷。'
+              ]
+            },
+            {
+              title: '历史人文',
+              tag: '千年古地・安多文化活化石',
+              summary: '甘加草原是安多藏区千年历史的承载地，境内有八角城、白石崖寺、甘加秘境等众多历史遗迹，自古就是安多藏族游牧、聚居的核心区域。',
+              iconViewBox: '0 0 24 24',
+              iconPath: 'M3 3h18v18H3V3zm2 2v14h14V5H5zm2 2h10v2H7V7zm0 4h10v2H7v-2zm0 4h7v2H7v-2z',
+              isExpanded: false,
+              details: [
+                '<strong>八角城遗址：</strong>八角城是甘加草原上最重要的历史遗迹之一，距今已有千年历史。城池呈八角形，城墙保存相对完整，见证了古代安多藏区的历史变迁。',
+                '<strong>白石崖寺：</strong>白石崖寺位于甘加草原边缘的白石崖下，是一座历史悠久的藏传佛教寺院。寺院依山而建，与周围的自然景观融为一体。',
+                '<strong>唐蕃古道：</strong>甘加草原是唐蕃古道的重要节点，见证了汉藏文化的深度交融。历史上，这里是商贸往来、文化交流的重要通道。'
+              ]
+            },
+            {
+              title: '文化意义',
+              tag: '安多游牧文化的核心传承地',
+              summary: '甘加草原完整保留了安多藏族传统游牧生活、民俗节庆与宗教文化，是安多游牧文化的活态博物馆。',
+              iconViewBox: '0 0 24 24',
+              iconPath: 'M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z',
+              isExpanded: false,
+              details: [
+                '<strong>游牧生活：</strong>甘加草原上的藏族村落世代传承着传统的游牧生活方式。牧民们依季节迁徙，放牧牦牛、藏羊，保持着与自然和谐共处的生活节奏。',
+                '<strong>民俗节庆：</strong>草原上的藏族民众保留着丰富的民俗活动，如藏戏表演、赛马会、香浪节等。这些节庆活动不仅是娱乐方式，更是文化传承的重要载体。',
+                '<strong>宗教文化：</strong>甘加草原与白石崖寺等寺院共生，形成了「草原、寺院、藏乡」三位一体的文化格局。宗教文化深深融入当地人的日常生活。'
+              ]
+            },
+            {
+              title: '文化地位',
+              tag: '甘南安多文化区核心自然人文地标',
+              summary: '甘加草原是甘南安多文化区的核心自然文化符号，与桑科草原、拉卜楞寺共同构成了夏河「宗教 + 草原 + 历史」的完整文化生态。',
+              iconViewBox: '0 0 24 24',
+              iconPath: 'M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z',
+              isExpanded: false,
+              details: [
+                '<strong>区域地位：</strong>甘加草原与桑科草原、拉卜楞寺共同构成了夏河完整的文化生态系统，是甘南安多文化区不可或缺的重要组成部分。',
+                '<strong>文化价值：</strong>作为安多藏区原生态草原的代表，甘加草原是展示安多藏区自然风貌、游牧文化、历史底蕴的核心窗口。',
+                '<strong>传播意义：</strong>甘加草原是藏族文化数字化传播中「自然人文类」IP 的重要代表，对于推广藏族文化、促进文旅融合具有重要意义。'
+              ]
+            },
+            {
+              title: '旅游服务',
+              tag: '沉浸式安多草原文化体验',
+              summary: '甘加草原为游客提供丰富的旅游服务，包含草原观光、游牧生活体验、历史遗迹探访等项目。',
+              iconViewBox: '0 0 24 24',
+              iconPath: 'M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z',
+              isExpanded: false,
+              details: [
+                '<strong>观光项目：</strong>游客可在草原上骑马漫游、露营观星，欣赏藏族民俗表演，探访八角城、白石崖等历史遗迹，感受安多草原的独特魅力。',
+                '<strong>文化体验：</strong>游客可深入藏族村落，体验酥油茶制作、糌粑品尝等传统生活方式，参与藏式服饰穿戴、藏文书法等文化活动。',
+                '<strong>配套服务：</strong>景区配套有完善的餐饮、住宿、交通服务，提供从经济型到舒适型的多种选择。专业的文化讲解服务帮助游客深入了解安多文化。'
+              ]
+            }
+          ]
+        };
+      },
+      methods: {
+        toggleExpand(index) {
+          this.attractions[index].isExpanded = !this.attractions[index].isExpanded;
+        }
+      }
+    }).mount("#app");
+  </script>
+</body>
+</html>
