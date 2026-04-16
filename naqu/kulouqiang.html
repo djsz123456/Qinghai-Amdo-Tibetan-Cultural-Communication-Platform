@@ -1,0 +1,974 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <meta name="description" content="达姆寺骷髅墙 - 藏北生死奇观・生命静观圣地，展示那曲比如县达姆寺天葬台的独特丧葬文化">
+  <meta name="keywords" content="骷髅墙,达姆寺,天葬台,比如县,藏北,生死文化,头骨墙,佛教文化">
+  <title>骷髅墙 - 达姆寺天葬台・藏北生死奇观</title>
+  
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@300;400;500;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/font-awesome@4.7.0/css/font-awesome.min.css">
+  
+  <style>
+    :root {
+      --primary-red: #8B0000;
+      --primary-gold: #D4AF37;
+      --light-gold: #F4E4BC;
+      --text-white: #F5F5F5;
+      --dark-red: #6B0000;
+      --bone-gray: #C0C0C0;
+      --earth-yellow: #D2B48C;
+      --sky-blue: #87CEEB;
+      --shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.15);
+      --shadow-md: 0 4px 16px rgba(0, 0, 0, 0.2);
+      --shadow-lg: 0 8px 32px rgba(0, 0, 0, 0.25);
+      --radius-md: 12px;
+      --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Noto Sans SC', "Microsoft YaHei", sans-serif;
+    }
+    
+    html {
+      scroll-behavior: smooth;
+    }
+    
+    body {
+      background-color: var(--primary-red);
+      color: var(--text-white);
+      line-height: 1.6;
+      overflow-x: hidden;
+    }
+
+    /* Banner Section */
+    .banner {
+      width: 100%;
+      height: 100vh;
+      position: relative;
+      overflow: hidden;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    
+    .banner-bg {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: url('images/kulouqiang-banner.jpg') center/cover no-repeat;
+      z-index: 0;
+    }
+    
+    .banner-overlay {
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: linear-gradient(135deg, rgba(139, 0, 0, 0.4) 0%, rgba(0, 0, 0, 0.6) 100%);
+      z-index: 1;
+    }
+    
+    .banner-content {
+      position: relative;
+      z-index: 2;
+      text-align: center;
+      max-width: 900px;
+      padding: 0 30px;
+      animation: fadeInUp 1s ease;
+    }
+    
+    @keyframes fadeInUp {
+      from {
+        opacity: 0;
+        transform: translateY(30px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+    
+    .banner-title {
+      font-size: 72px;
+      font-weight: 700;
+      color: var(--primary-gold);
+      text-shadow: 3px 3px 6px rgba(0,0,0,0.5);
+      margin-bottom: 20px;
+      letter-spacing: 8px;
+      font-family: 'STKaiti', 'KaiTi', serif;
+    }
+    
+    .banner-subtitle {
+      font-size: 24px;
+      color: var(--text-white);
+      text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+      font-weight: 300;
+      margin-bottom: 30px;
+    }
+    
+    .lang-switch {
+      position: absolute;
+      top: 30px;
+      right: 30px;
+      background: rgba(212, 175, 55, 0.9);
+      color: var(--primary-red);
+      border: none;
+      padding: 10px 20px;
+      border-radius: 25px;
+      cursor: pointer;
+      font-weight: 600;
+      transition: var(--transition);
+      z-index: 10;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    
+    .lang-switch:hover {
+      background: var(--light-gold);
+      transform: scale(1.05);
+    }
+
+    /* Navigation */
+    .nav-bar {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      background: rgba(139, 0, 0, 0.95);
+      backdrop-filter: blur(10px);
+      z-index: 1000;
+      padding: 15px 30px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      box-shadow: var(--shadow-md);
+    }
+    
+    .nav-logo {
+      font-size: 20px;
+      font-weight: 700;
+      color: var(--primary-gold);
+    }
+    
+    .nav-links {
+      display: flex;
+      gap: 25px;
+    }
+    
+    .nav-links a {
+      color: var(--text-white);
+      text-decoration: none;
+      font-size: 16px;
+      transition: var(--transition);
+      padding: 8px 12px;
+      border-radius: 6px;
+    }
+    
+    .nav-links a:hover {
+      color: var(--primary-gold);
+      background: rgba(212, 175, 55, 0.2);
+    }
+
+    /* Core Navigation Cards */
+    .core-nav {
+      max-width: 1400px;
+      margin: 80px auto 60px;
+      padding: 0 30px;
+    }
+    
+    .nav-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 20px;
+    }
+    
+    .nav-card {
+      background: var(--primary-red);
+      border: 1px solid var(--primary-gold);
+      border-radius: var(--radius-md);
+      padding: 25px;
+      text-align: center;
+      transition: var(--transition);
+      cursor: pointer;
+      position: relative;
+      overflow: hidden;
+    }
+    
+    .nav-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: linear-gradient(135deg, transparent 0%, rgba(212, 175, 55, 0.1) 100%);
+      opacity: 0;
+      transition: var(--transition);
+    }
+    
+    .nav-card:hover {
+      background: var(--light-gold);
+      color: var(--primary-red);
+      transform: translateY(-5px);
+      box-shadow: var(--shadow-lg);
+    }
+    
+    .nav-card:hover::before {
+      opacity: 1;
+    }
+    
+    .nav-card h3 {
+      font-size: 20px;
+      margin-bottom: 10px;
+      position: relative;
+      z-index: 1;
+    }
+    
+    .nav-card p {
+      font-size: 14px;
+      opacity: 0.9;
+      position: relative;
+      z-index: 1;
+    }
+
+    /* Cultural Introduction Section */
+    .culture-section {
+      max-width: 1400px;
+      margin: 80px auto;
+      padding: 0 30px;
+    }
+    
+    .section-title {
+      font-size: 36px;
+      color: var(--primary-gold);
+      text-align: center;
+      margin-bottom: 50px;
+      position: relative;
+      font-weight: 700;
+      letter-spacing: 2px;
+    }
+    
+    .section-title::after {
+      content: '';
+      width: 100px;
+      height: 4px;
+      background: linear-gradient(90deg, var(--primary-gold), var(--light-gold));
+      display: block;
+      margin: 15px auto 0;
+      border-radius: 2px;
+    }
+    
+    .culture-content {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 40px;
+      align-items: center;
+    }
+    
+    .culture-image {
+      border-radius: var(--radius-md);
+      overflow: hidden;
+      border: 2px solid var(--primary-gold);
+      box-shadow: var(--shadow-md);
+    }
+    
+    .culture-image img {
+      width: 100%;
+      height: auto;
+      display: block;
+      transition: var(--transition);
+    }
+    
+    .culture-image:hover img {
+      transform: scale(1.05);
+    }
+    
+    .culture-text {
+      padding: 20px;
+    }
+    
+    .culture-text p {
+      margin-bottom: 20px;
+      font-size: 16px;
+      line-height: 1.8;
+      text-indent: 2em;
+      position: relative;
+    }
+    
+    .culture-text p:not(:last-child)::after {
+      content: '•';
+      display: block;
+      text-align: center;
+      color: var(--primary-gold);
+      font-size: 20px;
+      margin-top: 15px;
+    }
+
+    /* Special Features Section */
+    .features-section {
+      max-width: 1400px;
+      margin: 80px auto;
+      padding: 0 30px;
+    }
+    
+    .feature-module {
+      margin-bottom: 60px;
+      background: rgba(139, 0, 0, 0.3);
+      border-radius: var(--radius-md);
+      padding: 40px;
+      border: 1px solid var(--primary-gold);
+    }
+    
+    .feature-title {
+      font-size: 28px;
+      color: var(--primary-gold);
+      margin-bottom: 30px;
+      text-align: center;
+      position: relative;
+    }
+    
+    .feature-title::after {
+      content: '';
+      width: 80px;
+      height: 3px;
+      background: var(--primary-gold);
+      display: block;
+      margin: 10px auto 0;
+      border-radius: 2px;
+    }
+    
+    .architecture-content {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 40px;
+      align-items: center;
+    }
+    
+    .architecture-image {
+      border-radius: var(--radius-md);
+      overflow: hidden;
+      border: 2px solid var(--primary-gold);
+    }
+    
+    .architecture-image img {
+      width: 100%;
+      height: auto;
+      display: block;
+    }
+    
+    .architecture-text {
+      padding: 20px;
+    }
+    
+    .architecture-text p {
+      margin-bottom: 15px;
+      font-size: 16px;
+      line-height: 1.8;
+    }
+    
+    .golden-line {
+      width: 100%;
+      height: 2px;
+      background: linear-gradient(90deg, transparent, var(--primary-gold), transparent);
+      margin: 20px 0;
+    }
+
+    /* Card Grid for Treasures & History */
+    .card-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 25px;
+    }
+    
+    .info-card {
+      background: var(--dark-red);
+      border: 2px solid var(--primary-gold);
+      border-radius: var(--radius-md);
+      overflow: hidden;
+      transition: var(--transition);
+    }
+    
+    .info-card:hover {
+      transform: translateY(-5px);
+      box-shadow: var(--shadow-lg);
+    }
+    
+    .info-card img {
+      width: 100%;
+      height: 200px;
+      object-fit: cover;
+    }
+    
+    .info-card-content {
+      padding: 20px;
+    }
+    
+    .info-card h4 {
+      font-size: 20px;
+      color: var(--primary-gold);
+      margin-bottom: 10px;
+    }
+    
+    .info-card p {
+      font-size: 14px;
+      line-height: 1.6;
+    }
+
+    /* Philosophy Section */
+    .philosophy-content {
+      text-align: center;
+      max-width: 800px;
+      margin: 0 auto;
+    }
+    
+    .philosophy-text {
+      font-size: 18px;
+      line-height: 2;
+      margin-bottom: 30px;
+    }
+    
+    .philosophy-quote {
+      font-style: italic;
+      font-size: 20px;
+      color: var(--light-gold);
+      border-left: 4px solid var(--primary-gold);
+      padding-left: 20px;
+      margin: 30px 0;
+      text-align: left;
+    }
+
+    /* Legend Section */
+    .legend-content {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 40px;
+      align-items: center;
+    }
+    
+    .legend-image {
+      border-radius: var(--radius-md);
+      overflow: hidden;
+      border: 2px solid var(--primary-gold);
+    }
+    
+    .legend-image img {
+      width: 100%;
+      height: auto;
+      display: block;
+    }
+    
+    .legend-text {
+      padding: 20px;
+    }
+    
+    .legend-text p {
+      margin-bottom: 15px;
+      font-size: 16px;
+      line-height: 1.8;
+    }
+
+    /* Travel Guide Section */
+    .travel-guide {
+      max-width: 1400px;
+      margin: 80px auto;
+      padding: 0 30px;
+    }
+    
+    .guide-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 25px;
+    }
+    
+    .guide-card {
+      background: rgba(139, 0, 0, 0.5);
+      border: 1px solid var(--primary-gold);
+      border-radius: var(--radius-md);
+      padding: 25px;
+      transition: var(--transition);
+    }
+    
+    .guide-card:hover {
+      background: rgba(212, 175, 55, 0.1);
+      transform: translateY(-3px);
+    }
+    
+    .guide-card h4 {
+      color: var(--primary-gold);
+      font-size: 20px;
+      margin-bottom: 15px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    
+    .guide-card ul {
+      list-style: none;
+      padding: 0;
+    }
+    
+    .guide-card li {
+      padding: 8px 0;
+      border-bottom: 1px solid rgba(212, 175, 55, 0.2);
+      font-size: 15px;
+    }
+    
+    .guide-card li:last-child {
+      border-bottom: none;
+    }
+    
+    .highlight {
+      color: var(--light-gold);
+      font-weight: 500;
+    }
+    
+    .warning-box {
+      background: rgba(212, 175, 55, 0.2);
+      border: 2px solid var(--primary-gold);
+      border-radius: var(--radius-md);
+      padding: 20px;
+      margin: 20px 0;
+    }
+    
+    .warning-box h5 {
+      color: var(--primary-gold);
+      margin-bottom: 10px;
+      font-size: 18px;
+    }
+
+    /* Footer */
+    .footer {
+      background: var(--dark-red);
+      padding: 60px 30px 30px;
+      margin-top: 80px;
+      position: relative;
+    }
+    
+    .footer::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 4px;
+      background: linear-gradient(90deg, var(--primary-gold), var(--light-gold), var(--primary-gold));
+    }
+    
+    .footer-content {
+      max-width: 1400px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 40px;
+      margin-bottom: 30px;
+    }
+    
+    .footer-section h3 {
+      font-size: 18px;
+      margin-bottom: 20px;
+      color: var(--primary-gold);
+      font-weight: 600;
+    }
+    
+    .footer-section p,
+    .footer-section a {
+      font-size: 14px;
+      opacity: 0.9;
+      line-height: 1.8;
+      color: var(--text-white);
+      text-decoration: none;
+      display: block;
+      margin-bottom: 8px;
+      transition: var(--transition);
+    }
+    
+    .footer-section a:hover {
+      color: var(--primary-gold);
+      padding-left: 5px;
+    }
+    
+    .footer-bottom {
+      max-width: 1400px;
+      margin: 0 auto;
+      padding-top: 30px;
+      border-top: 1px solid rgba(212, 175, 55, 0.3);
+      text-align: center;
+    }
+    
+    .footer-bottom p {
+      font-size: 14px;
+      opacity: 0.85;
+      margin: 8px 0;
+    }
+    
+    .footer-motto {
+      font-size: 24px;
+      color: var(--primary-gold);
+      text-align: center;
+      margin: 30px 0;
+      font-weight: 600;
+      letter-spacing: 2px;
+    }
+    
+    .tibetan-pattern {
+      width: 100%;
+      height: 30px;
+      background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 30"><path d="M0,15 Q25,0 50,15 T100,15" fill="none" stroke="%23D4AF37" stroke-width="2"/></svg>') repeat-x;
+      opacity: 0.5;
+      margin-top: 20px;
+    }
+
+    /* Responsive Design */
+    @media (max-width: 768px) {
+      .banner-title {
+        font-size: 48px;
+        letter-spacing: 6px;
+      }
+      
+      .banner-subtitle {
+        font-size: 18px;
+      }
+      
+      .nav-grid {
+        grid-template-columns: 1fr;
+      }
+      
+      .culture-content,
+      .architecture-content,
+      .legend-content {
+        grid-template-columns: 1fr;
+      }
+      
+      .nav-links {
+        display: none;
+      }
+      
+      .lang-switch {
+        top: 20px;
+        right: 20px;
+        padding: 8px 15px;
+        font-size: 14px;
+      }
+    }
+
+    /* Scroll animations */
+    .fade-in {
+      opacity: 0;
+      transform: translateY(30px);
+      transition: opacity 0.6s ease, transform 0.6s ease;
+    }
+    
+    .fade-in.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  </style>
+</head>
+<body>
+  <!-- Navigation Bar -->
+  <nav class="nav-bar">
+    <div class="nav-logo">骷髅墙 ཐོད་པའི་ལྡེབས།</div>
+    <div class="nav-links">
+      <a href="#home">首页</a>
+      <a href="#overview">概况</a>
+      <a href="#architecture">建筑</a>
+      <a href="#history">历史</a>
+      <a href="#philosophy">哲思</a>
+      <a href="#legend">传说</a>
+      <a href="#guide">指南</a>
+      <a href="../index.html">返回首页</a>
+    </div>
+  </nav>
+
+  <!-- Banner Section -->
+  <section class="banner" id="home">
+    <div class="banner-bg"></div>
+    <div class="banner-overlay"></div>
+    <button class="lang-switch">
+      <i class="fa fa-language"></i>
+      汉藏双语
+    </button>
+    <div class="banner-content">
+      <h1 class="banner-title">骷髅墙</h1>
+      <p class="banner-subtitle">达姆寺天葬台・藏北生死奇观・生命静观圣地</p>
+    </div>
+  </section>
+
+  <!-- Core Navigation Section -->
+  <section class="core-nav">
+    <div class="nav-grid">
+      <div class="nav-card fade-in">
+        <h3>天葬与骷髅墙概况</h3>
+        <p>西藏唯一完整保存头骨的天葬台</p>
+      </div>
+      <div class="nav-card fade-in">
+        <h3>达姆寺与多多卡天葬台</h3>
+        <p>那曲比如县茶曲乡</p>
+      </div>
+      <div class="nav-card fade-in">
+        <h3>头骨排列与建筑</h3>
+        <p>约300余颗头骨的规整木格墙</p>
+      </div>
+      <div class="nav-card fade-in">
+        <h3>历史与活佛创建</h3>
+        <p>达普八世白玛白扎活佛定下规制</p>
+      </div>
+      <div class="nav-card fade-in">
+        <h3>生死哲思与文化意义</h3>
+        <p>诸行无常・生命警示</p>
+      </div>
+      <div class="nav-card fade-in">
+        <h3>天葬文化与仪式</h3>
+        <p>肉身布施・灵魂解脱</p>
+      </div>
+      <div class="nav-card fade-in">
+        <h3>传说与警示意义</h3>
+        <p>恶人悔悟・劝善从德</p>
+      </div>
+      <div class="nav-card fade-in">
+        <h3>参观礼仪与指南</h3>
+        <p>敬畏参观・保持肃穆</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Cultural Introduction Section -->
+  <section class="culture-section" id="overview">
+    <h2 class="section-title">骷髅墙・直面生死的生命警钟</h2>
+    <div class="culture-content">
+      <div class="culture-image fade-in">
+        <img src="images/kulouqiang-overview.jpg" alt="骷髅墙全景">
+      </div>
+      <div class="culture-text fade-in">
+        <p>达姆寺骷髅墙位于西藏自治区那曲市比如县茶曲乡达姆寺内的多多卡天葬台，是西藏唯一完整保存头骨的天葬台，也是自治区级文物保护单位和世界罕见的丧葬文化奇观。</p>
+        <p>这里现存两面规整的木格骷髅墙，共存放约300余颗头骨，由达普八世白玛白扎活佛定下规制，留存头骨以警示世人、参悟生死、劝善从德。骷髅墙不仅是藏北地区独特的文化景观，更是佛教生死观的具象体现。</p>
+        <p>作为生命静观圣地，骷髅墙以其庄严肃穆的氛围，引导人们直面死亡、觉知生命短暂、珍惜当下，体现了"诸行无常"的佛教核心教义，是藏传佛教文化中极具震撼力的精神象征。</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Special Features Section -->
+  <section class="features-section">
+    <!-- Architecture Module -->
+    <div class="feature-module fade-in" id="architecture">
+      <h3 class="feature-title">千骨成墙・规整庄严</h3>
+      <div class="architecture-content">
+        <div class="architecture-image">
+          <img src="images/kulouqiang-architecture.jpg" alt="骷髅墙建筑">
+        </div>
+        <div class="architecture-text">
+          <p><strong>整体布局：</strong>两面木质格架骷髅墙，一人多高，整齐排列在达姆寺天葬台院落内，与藏式土墙、经幡、佛龛、诵经房共同构成庄严肃穆的宗教空间。</p>
+          <p><strong>头骨排列：</strong>约300余颗头骨有序嵌入木格之中，部分头骨绘有眉眼，呈现出灰白质感与沧桑庄严的视觉效果。头骨排列规整有序，体现了对逝者的尊重和对生死的敬畏。</p>
+          <p><strong>环境氛围：</strong>天葬台院落四周环绕着藏式土墙，经幡随风飘扬，佛龛中供奉着佛像，诵经房内时常传来僧人的诵经声，整个环境宁静肃穆，充满神圣感。</p>
+        </div>
+      </div>
+      <div class="golden-line"></div>
+    </div>
+
+    <!-- History Module -->
+    <div class="feature-module fade-in" id="history">
+      <h3 class="feature-title">活佛规制・劝善警世</h3>
+      <div class="card-grid">
+        <div class="info-card">
+          <img src="images/kulouqiang-history.jpg" alt="创建历史">
+          <div class="info-card-content">
+            <h4>创建历史</h4>
+            <p>19世纪初，达普八世白玛白扎活佛创建达姆寺天葬台，并定下保留头骨的寺规。这一规制在藏区独一无二，体现了活佛对生死教育的深刻思考。</p>
+          </div>
+        </div>
+        <div class="info-card">
+          <img src="images/kulouqiang-origin.jpg" alt="两大缘起">
+          <div class="info-card-content">
+            <h4>两大缘起</h4>
+            <p><strong>活佛旨意：</strong>留存头骨，警醒世人生命无常、劝人向善、敬畏生死<br><strong>民间传说：</strong>恶人临终悔悟，愿留头骨警示后人从善</p>
+          </div>
+        </div>
+        <div class="info-card">
+          <img src="images/kulouqiang-change.jpg" alt="历史变迁">
+          <div class="info-card-content">
+            <h4>历史变迁</h4>
+            <p>曾有三面骷髅墙，后因历史原因损毁，现存两面为近代修复。尽管历经沧桑，骷髅墙的文化价值和宗教意义依然完整保留。</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Philosophy Module -->
+    <div class="feature-module fade-in" id="philosophy">
+      <h3 class="feature-title">天葬奉献・生死轮回・诸行无常</h3>
+      <div class="philosophy-content">
+        <div class="philosophy-text">
+          <p>天葬是藏族传统丧葬方式，体现了"肉身布施"的佛教理念。通过将遗体奉献给秃鹫，实现灵魂的解脱和轮回转生，达到消业祈福的目的。</p>
+          <p>骷髅墙作为天葬文化的特殊载体，承载着深刻的生死哲思：</p>
+        </div>
+        <div class="philosophy-quote">
+          "生命警示：直面死亡、觉知生命短暂、珍惜当下"
+        </div>
+        <div class="philosophy-quote">
+          "诸行无常：佛教核心教义、万物皆变、放下执念"
+        </div>
+        <div class="philosophy-quote">
+          "慈悲向善：以生死为镜、劝人行善、净化心灵"
+        </div>
+        <div class="philosophy-text">
+          <p>在蓝天、经幡、远山、佛影的映衬下，骷髅墙营造出神圣、宁静、超脱的氛围，引导人们思考生命的真谛，领悟佛教的智慧。</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Legend Module -->
+    <div class="feature-module fade-in" id="legend">
+      <h3 class="feature-title">雪域传说・神秘天葬院</h3>
+      <div class="legend-content">
+        <div class="legend-image">
+          <img src="images/kulouqiang-legend.jpg" alt="传说与神秘文化">
+        </div>
+        <div class="legend-text">
+          <p><strong>生死之门：</strong>天葬台设有西门和南门，西门供活人进入，南门用于抬入尸体。经幡杆顶部的骷髅雕塑象征着生死界限，提醒人们敬畏生命。</p>
+          <p><strong>神奇葬师池：</strong>在极寒天气下，葬师池仍可自然解冻尸体，被视为神迹。这一现象增添了天葬台的神秘色彩，也体现了藏北高原的独特自然环境。</p>
+          <p><strong>头骨法器：</strong>部分头骨被用于制作嘎巴拉等宗教法器，这些法器在宗教仪式中具有神圣庄严的意义，是藏传佛教文化的重要组成部分。</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Travel Guide Section -->
+  <section class="travel-guide" id="guide">
+    <h2 class="section-title">敬畏参观・礼仪指南</h2>
+    <div class="guide-grid">
+      <div class="guide-card fade-in">
+        <h4><i class="fa fa-ban"></i> 绝对禁忌</h4>
+        <ul>
+          <li><span class="highlight">禁止喧哗</span>，保持安静肃穆</li>
+          <li><span class="highlight">禁止嬉笑</span>，尊重宗教场所</li>
+          <li><span class="highlight">禁止近距离拍照</span>，尤其不能对着头骨特写</li>
+          <li><span class="highlight">禁止触摸头骨</span>，尊重逝者</li>
+          <li><span class="highlight">尊重宗教仪式</span>，不干扰僧人活动</li>
+        </ul>
+      </div>
+      <div class="guide-card fade-in">
+        <h4><i class="fa fa-users"></i> 参观要求</h4>
+        <ul>
+          <li>保持<span class="highlight">肃穆庄重</span>的态度</li>
+          <li>按<span class="highlight">顺时针方向</span>绕行参观</li>
+          <li>心怀<span class="highlight">敬畏之心</span>，反思生命意义</li>
+          <li>不打扰僧人修行和宗教活动</li>
+          <li>穿着得体，避免过于鲜艳的服装</li>
+        </ul>
+      </div>
+      <div class="guide-card fade-in">
+        <h4><i class="fa fa-map-marker"></i> 开放与位置</h4>
+        <ul>
+          <li>位于<span class="highlight">那曲市比如县达姆寺</span></li>
+          <li>距比如县城约<span class="highlight">65公里</span></li>
+          <li>靠近<span class="highlight">317国道</span>，交通便利</li>
+          <li>建议包车或自驾前往</li>
+          <li>开放时间：全天（建议白天参观）</li>
+        </ul>
+      </div>
+      <div class="guide-card fade-in">
+        <h4><i class="fa fa-calendar"></i> 季节与提示</h4>
+        <ul>
+          <li>最佳季节：<span class="highlight">5-10月</span></li>
+          <li>注意<span class="highlight">高反预防</span>，海拔较高</li>
+          <li>做好<span class="highlight">保暖措施</span>，昼夜温差大</li>
+          <li>保护<span class="highlight">生态环境</span>，不乱扔垃圾</li>
+          <li>尊重当地<span class="highlight">民俗习惯</span></li>
+        </ul>
+      </div>
+    </div>
+    
+    <div class="warning-box fade-in">
+      <h5><i class="fa fa-exclamation-triangle"></i> 特别提醒</h5>
+      <p>骷髅墙是庄严肃穆的宗教场所，不是旅游景点。参观时请始终保持敬畏之心，尊重当地的宗教信仰和文化传统。任何不敬行为都是不可接受的，请自觉遵守参观礼仪，共同维护这一珍贵的文化遗产。</p>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="footer-content">
+      <div class="footer-section">
+        <h3>藏北安多延伸区</h3>
+        <a href="naqu.html">那曲</a>
+        <a href="tanggulashankou.html">唐古拉山口</a>
+        <a href="namucuo.html">纳木错</a>
+        <a href="kekexili.html">可可西里</a>
+        <a href="selincuo.html">色林错</a>
+        <a href="zandansi.html">赞丹寺</a>
+      </div>
+      <div class="footer-section">
+        <h3>关于骷髅墙</h3>
+        <p>达姆寺骷髅墙是西藏唯一完整保存头骨的天葬台，是藏北地区独特的文化景观和佛教生死观的具象体现。</p>
+      </div>
+    </div>
+    
+    <div class="footer-motto">生死静观・敬畏生命・达姆寺骷髅墙</div>
+    
+    <div class="footer-bottom">
+      <p>传承藏族文化 · 展现高原魅力</p>
+    </div>
+    
+    <div class="tibetan-pattern"></div>
+  </footer>
+
+  <script>
+    // Intersection Observer for fade-in animations
+    const observerOptions = {
+      threshold: 0.1,
+      rootMargin: '0px 0px -50px 0px'
+    };
+
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('visible');
+        }
+      });
+    }, observerOptions);
+
+    // Observe all fade-in elements
+    document.addEventListener('DOMContentLoaded', function() {
+      const fadeElements = document.querySelectorAll('.fade-in');
+      fadeElements.forEach(el => observer.observe(el));
+    });
+
+    // Smooth scrolling for navigation links
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+      anchor.addEventListener('click', function (e) {
+        e.preventDefault();
+        const target = document.querySelector(this.getAttribute('href'));
+        if (target) {
+          target.scrollIntoView({
+            behavior: 'smooth',
+            block: 'start'
+          });
+        }
+      });
+    });
+
+    // Parallax effect for banner
+    window.addEventListener('scroll', function() {
+      const scrolled = window.pageYOffset;
+      const bannerBg = document.querySelector('.banner-bg');
+      if (bannerBg) {
+        bannerBg.style.transform = `translateY(${scrolled * 0.5}px)`;
+      }
+    });
+
+    // Language switch functionality (placeholder)
+    document.querySelector('.lang-switch').addEventListener('click', function() {
+      alert('汉藏双语切换功能即将上线');
+    });
+  </script>
+</body>
+</html>

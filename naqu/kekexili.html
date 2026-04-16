@@ -1,0 +1,1103 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <meta name="description" content="可可西里 - 世界自然遗产・高原野生动物的天堂，展示中国最大无人区的自然景观与生态保护">
+  <meta name="keywords" content="可可西里,藏羚羊,世界自然遗产,无人区,羌塘保护区,高原生态">
+  <title>可可西里 - 世界自然遗产・高原野生动物的天堂</title>
+  
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@300;400;500;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/font-awesome@4.7.0/css/font-awesome.min.css">
+  
+  <style>
+    :root {
+      --primary-red: #8B0000;
+      --primary-gold: #D4AF37;
+      --light-gold: #F4E4BC;
+      --text-white: #F5F5F5;
+      --dark-red: #6B0000;
+      --earth-yellow: #C9A961;
+      --snow-white: #FAFAFA;
+      --shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.15);
+      --shadow-md: 0 4px 16px rgba(0, 0, 0, 0.2);
+      --shadow-lg: 0 8px 32px rgba(0, 0, 0, 0.25);
+      --radius-md: 12px;
+      --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Noto Sans SC', "Microsoft YaHei", sans-serif;
+    }
+    
+    html {
+      scroll-behavior: smooth;
+    }
+    
+    body {
+      background-color: var(--primary-red);
+      color: var(--text-white);
+      line-height: 1.6;
+      overflow-x: hidden;
+    }
+
+    /* Banner Section */
+    .banner {
+      width: 100%;
+      height: 100vh;
+      position: relative;
+      overflow: hidden;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    
+    .banner-bg {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: url('images/kekexili-banner.jpg') center/cover no-repeat;
+      z-index: 0;
+    }
+    
+    .banner-overlay {
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: linear-gradient(135deg, rgba(139, 0, 0, 0.6) 0%, rgba(0, 0, 0, 0.4) 100%);
+      z-index: 1;
+    }
+    
+    .banner-content {
+      position: relative;
+      z-index: 2;
+      text-align: center;
+      max-width: 900px;
+      padding: 0 30px;
+      animation: fadeInUp 1.2s ease;
+    }
+    
+    @keyframes fadeInUp {
+      from {
+        opacity: 0;
+        transform: translateY(30px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+    
+    .banner-title {
+      font-size: 80px;
+      font-weight: 700;
+      color: var(--primary-gold);
+      text-shadow: 4px 4px 8px rgba(0,0,0,0.6);
+      margin-bottom: 20px;
+      letter-spacing: 12px;
+      font-family: 'STKaiti', 'KaiTi', serif;
+    }
+    
+    .banner-subtitle {
+      font-size: 22px;
+      color: var(--text-white);
+      text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+      font-weight: 300;
+      margin-bottom: 30px;
+      letter-spacing: 2px;
+    }
+    
+    .lang-switch {
+      position: absolute;
+      top: 30px;
+      right: 30px;
+      background: rgba(212, 175, 55, 0.9);
+      color: var(--primary-red);
+      border: none;
+      padding: 10px 20px;
+      border-radius: 25px;
+      cursor: pointer;
+      font-weight: 600;
+      transition: var(--transition);
+      z-index: 10;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    
+    .lang-switch:hover {
+      background: var(--light-gold);
+      transform: scale(1.05);
+    }
+
+    /* Navigation */
+    .nav-bar {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      background: rgba(139, 0, 0, 0.95);
+      backdrop-filter: blur(10px);
+      z-index: 1000;
+      padding: 15px 30px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      box-shadow: var(--shadow-md);
+    }
+    
+    .nav-logo {
+      font-size: 20px;
+      font-weight: 700;
+      color: var(--primary-gold);
+    }
+    
+    .nav-links {
+      display: flex;
+      gap: 25px;
+    }
+    
+    .nav-links a {
+      color: var(--text-white);
+      text-decoration: none;
+      font-size: 16px;
+      transition: var(--transition);
+      padding: 8px 12px;
+      border-radius: 6px;
+    }
+    
+    .nav-links a:hover {
+      color: var(--primary-gold);
+      background: rgba(212, 175, 55, 0.2);
+    }
+
+    /* Core Navigation Cards */
+    .core-nav {
+      max-width: 1400px;
+      margin: 80px auto 60px;
+      padding: 0 30px;
+    }
+    
+    .nav-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 20px;
+    }
+    
+    .nav-card {
+      background: var(--primary-red);
+      border: 1px solid var(--primary-gold);
+      border-radius: var(--radius-md);
+      padding: 25px;
+      text-align: center;
+      transition: var(--transition);
+      cursor: pointer;
+      position: relative;
+      overflow: hidden;
+    }
+    
+    .nav-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: linear-gradient(135deg, transparent 0%, rgba(212, 175, 55, 0.1) 100%);
+      opacity: 0;
+      transition: var(--transition);
+    }
+    
+    .nav-card:hover {
+      background: var(--light-gold);
+      color: var(--primary-red);
+      transform: translateY(-5px);
+      box-shadow: var(--shadow-lg);
+    }
+    
+    .nav-card:hover::before {
+      opacity: 1;
+    }
+    
+    .nav-card h3 {
+      font-size: 20px;
+      margin-bottom: 10px;
+      position: relative;
+      z-index: 1;
+    }
+    
+    .nav-card p {
+      font-size: 14px;
+      opacity: 0.9;
+      position: relative;
+      z-index: 1;
+    }
+
+    /* Cultural Introduction Section */
+    .culture-section {
+      max-width: 1400px;
+      margin: 80px auto;
+      padding: 0 30px;
+    }
+    
+    .section-title {
+      font-size: 36px;
+      color: var(--primary-gold);
+      text-align: center;
+      margin-bottom: 50px;
+      position: relative;
+      font-weight: 700;
+      letter-spacing: 2px;
+    }
+    
+    .section-title::after {
+      content: '';
+      width: 100px;
+      height: 4px;
+      background: linear-gradient(90deg, var(--primary-gold), var(--light-gold));
+      display: block;
+      margin: 15px auto 0;
+      border-radius: 2px;
+    }
+    
+    .culture-content {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 40px;
+      align-items: center;
+    }
+    
+    .culture-image {
+      border-radius: var(--radius-md);
+      overflow: hidden;
+      border: 2px solid var(--primary-gold);
+      box-shadow: var(--shadow-md);
+    }
+    
+    .culture-image img {
+      width: 100%;
+      height: auto;
+      display: block;
+      transition: var(--transition);
+    }
+    
+    .culture-image:hover img {
+      transform: scale(1.05);
+    }
+    
+    .culture-text {
+      padding: 20px;
+    }
+    
+    .culture-text p {
+      margin-bottom: 20px;
+      font-size: 16px;
+      line-height: 1.8;
+      text-indent: 2em;
+      position: relative;
+    }
+    
+    .culture-text p:not(:last-child)::after {
+      content: '•';
+      display: block;
+      text-align: center;
+      color: var(--primary-gold);
+      font-size: 20px;
+      margin-top: 15px;
+    }
+
+    /* Special Features Section */
+    .features-section {
+      max-width: 1400px;
+      margin: 80px auto;
+      padding: 0 30px;
+    }
+    
+    .feature-module {
+      margin-bottom: 60px;
+      background: rgba(139, 0, 0, 0.3);
+      border-radius: var(--radius-md);
+      padding: 40px;
+      border: 1px solid var(--primary-gold);
+    }
+    
+    .feature-title {
+      font-size: 28px;
+      color: var(--primary-gold);
+      margin-bottom: 30px;
+      text-align: center;
+      position: relative;
+    }
+    
+    .feature-title::after {
+      content: '';
+      width: 80px;
+      height: 3px;
+      background: var(--primary-gold);
+      display: block;
+      margin: 10px auto 0;
+      border-radius: 2px;
+    }
+
+    /* Wildlife Cards */
+    .wildlife-cards {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 25px;
+    }
+    
+    .wildlife-card {
+      background: var(--dark-red);
+      border: 2px solid var(--primary-gold);
+      border-radius: var(--radius-md);
+      overflow: hidden;
+      transition: var(--transition);
+    }
+    
+    .wildlife-card:hover {
+      transform: translateY(-5px);
+      box-shadow: var(--shadow-lg);
+      background: var(--light-gold);
+      color: var(--primary-red);
+    }
+    
+    .wildlife-card img {
+      width: 100%;
+      height: 200px;
+      object-fit: cover;
+    }
+    
+    .wildlife-card-content {
+      padding: 20px;
+    }
+    
+    .wildlife-card h4 {
+      font-size: 20px;
+      color: var(--primary-gold);
+      margin-bottom: 10px;
+    }
+    
+    .wildlife-card:hover h4 {
+      color: var(--primary-red);
+    }
+    
+    .wildlife-card p {
+      font-size: 14px;
+      line-height: 1.6;
+    }
+
+    /* Timeline for Conservation */
+    .timeline {
+      position: relative;
+      max-width: 800px;
+      margin: 0 auto;
+    }
+    
+    .timeline::before {
+      content: '';
+      position: absolute;
+      left: 50%;
+      top: 0;
+      bottom: 0;
+      width: 2px;
+      background: var(--primary-gold);
+      transform: translateX(-50%);
+    }
+    
+    .timeline-item {
+      position: relative;
+      margin-bottom: 30px;
+      width: 50%;
+      padding: 0 40px;
+    }
+    
+    .timeline-item:nth-child(odd) {
+      left: 0;
+      text-align: right;
+    }
+    
+    .timeline-item:nth-child(even) {
+      left: 50%;
+    }
+    
+    .timeline-content {
+      background: var(--dark-red);
+      padding: 20px;
+      border-radius: var(--radius-md);
+      border: 1px solid var(--primary-gold);
+      position: relative;
+    }
+    
+    .timeline-content::before {
+      content: '';
+      position: absolute;
+      width: 20px;
+      height: 20px;
+      background: var(--primary-gold);
+      border-radius: 50%;
+      top: 20px;
+    }
+    
+    .timeline-item:nth-child(odd) .timeline-content::before {
+      right: -50px;
+    }
+    
+    .timeline-item:nth-child(even) .timeline-content::before {
+      left: -50px;
+    }
+
+    /* Landscape Gallery */
+    .landscape-gallery {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 20px;
+    }
+    
+    .landscape-item {
+      position: relative;
+      border-radius: var(--radius-md);
+      overflow: hidden;
+      border: 2px solid var(--primary-gold);
+      height: 250px;
+    }
+    
+    .landscape-item img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: var(--transition);
+    }
+    
+    .landscape-item:hover img {
+      transform: scale(1.1);
+    }
+    
+    .landscape-caption {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      background: rgba(0, 0, 0, 0.7);
+      padding: 15px;
+      color: var(--text-white);
+    }
+
+    /* Travel Guide Section */
+    .travel-guide {
+      max-width: 1400px;
+      margin: 80px auto;
+      padding: 0 30px;
+    }
+    
+    .guide-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 25px;
+    }
+    
+    .guide-card {
+      background: rgba(139, 0, 0, 0.5);
+      border: 1px solid var(--primary-gold);
+      border-radius: var(--radius-md);
+      padding: 25px;
+      transition: var(--transition);
+    }
+    
+    .guide-card:hover {
+      background: rgba(212, 175, 55, 0.1);
+      transform: translateY(-3px);
+    }
+    
+    .guide-card h4 {
+      color: var(--primary-gold);
+      font-size: 20px;
+      margin-bottom: 15px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    
+    .guide-card ul {
+      list-style: none;
+      padding: 0;
+    }
+    
+    .guide-card li {
+      padding: 8px 0;
+      border-bottom: 1px solid rgba(212, 175, 55, 0.2);
+      font-size: 15px;
+    }
+    
+    .guide-card li:last-child {
+      border-bottom: none;
+    }
+    
+    .highlight {
+      color: var(--light-gold);
+      font-weight: 500;
+    }
+
+    /* Footer */
+    .footer {
+      background: var(--dark-red);
+      padding: 60px 30px 30px;
+      margin-top: 80px;
+      position: relative;
+    }
+    
+    .footer::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 4px;
+      background: linear-gradient(90deg, var(--primary-gold), var(--light-gold), var(--primary-gold));
+    }
+    
+    .footer-content {
+      max-width: 1400px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 40px;
+      margin-bottom: 30px;
+    }
+    
+    .footer-section h3 {
+      font-size: 18px;
+      margin-bottom: 20px;
+      color: var(--primary-gold);
+      font-weight: 600;
+    }
+    
+    .footer-section p,
+    .footer-section a {
+      font-size: 14px;
+      opacity: 0.9;
+      line-height: 1.8;
+      color: var(--text-white);
+      text-decoration: none;
+      display: block;
+      margin-bottom: 8px;
+      transition: var(--transition);
+    }
+    
+    .footer-section a:hover {
+      color: var(--primary-gold);
+      padding-left: 5px;
+    }
+    
+    .footer-bottom {
+      max-width: 1400px;
+      margin: 0 auto;
+      padding-top: 30px;
+      border-top: 1px solid rgba(212, 175, 55, 0.3);
+      text-align: center;
+    }
+    
+    .footer-bottom p {
+      font-size: 14px;
+      opacity: 0.85;
+      margin: 8px 0;
+    }
+    
+    .footer-motto {
+      font-size: 24px;
+      color: var(--primary-gold);
+      text-align: center;
+      margin: 30px 0;
+      font-weight: 600;
+      letter-spacing: 2px;
+    }
+    
+    .tibetan-pattern {
+      width: 100%;
+      height: 30px;
+      background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 30"><path d="M0,15 Q25,0 50,15 T100,15" fill="none" stroke="%23D4AF37" stroke-width="2"/></svg>') repeat-x;
+      opacity: 0.5;
+      margin-top: 20px;
+    }
+
+    /* Responsive Design */
+    @media (max-width: 768px) {
+      .banner-title {
+        font-size: 48px;
+        letter-spacing: 6px;
+      }
+      
+      .banner-subtitle {
+        font-size: 18px;
+      }
+      
+      .nav-grid {
+        grid-template-columns: 1fr;
+      }
+      
+      .culture-content {
+        grid-template-columns: 1fr;
+      }
+      
+      .timeline::before {
+        left: 30px;
+      }
+      
+      .timeline-item {
+        width: 100%;
+        left: 0 !important;
+        padding-left: 80px;
+        padding-right: 20px;
+        text-align: left !important;
+      }
+      
+      .timeline-content::before {
+        left: -50px !important;
+        right: auto !important;
+      }
+      
+      .nav-links {
+        display: none;
+      }
+      
+      .lang-switch {
+        top: 20px;
+        right: 20px;
+        padding: 8px 15px;
+        font-size: 14px;
+      }
+    }
+
+    /* Scroll animations */
+    .fade-in {
+      opacity: 0;
+      transform: translateY(30px);
+      transition: opacity 0.6s ease, transform 0.6s ease;
+    }
+    
+    .fade-in.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  </style>
+</head>
+<body>
+  <!-- Navigation Bar -->
+  <nav class="nav-bar">
+    <div class="nav-logo">可可西里 ཁོ་ཁོ་ཤི་ལི།</div>
+    <div class="nav-links">
+      <a href="#home">首页</a>
+      <a href="#overview">概况</a>
+      <a href="#wildlife">野生动物</a>
+      <a href="#conservation">保护</a>
+      <a href="#guide">攻略</a>
+      <a href="../index.html">返回首页</a>
+    </div>
+  </nav>
+
+  <!-- Banner Section -->
+  <section class="banner" id="home">
+    <div class="banner-bg"></div>
+    <div class="banner-overlay"></div>
+    <button class="lang-switch">
+      <i class="fa fa-language"></i>
+      汉藏双语
+    </button>
+    <div class="banner-content">
+      <h1 class="banner-title">可可西里</h1>
+      <p class="banner-subtitle">世界自然遗产・高原野生动物的天堂</p>
+    </div>
+  </section>
+
+  <!-- Core Navigation Section -->
+  <section class="core-nav">
+    <div class="nav-grid">
+      <div class="nav-card fade-in">
+        <h3>保护区概况</h3>
+        <p>中国最大无人区之一</p>
+      </div>
+      <div class="nav-card fade-in">
+        <h3>世界自然遗产</h3>
+        <p>全球生态价值高地</p>
+      </div>
+      <div class="nav-card fade-in">
+        <h3>藏羚羊守护</h3>
+        <p>高原精灵的保护之路</p>
+      </div>
+      <div class="nav-card fade-in">
+        <h3>高原野生动物</h3>
+        <p>珍稀物种的基因库</p>
+      </div>
+      <div class="nav-card fade-in">
+        <h3>雪山与冰川</h3>
+        <p>昆仑山脉的壮丽景观</p>
+      </div>
+      <div class="nav-card fade-in">
+        <h3>河流与湿地</h3>
+        <p>长江北源的水源涵养地</p>
+      </div>
+      <div class="nav-card fade-in">
+        <h3>生态保护历程</h3>
+        <p>从盗猎到全面保护</p>
+      </div>
+      <div class="nav-card fade-in">
+        <h3>科考与巡护</h3>
+        <p>科学监测与保护行动</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Cultural Introduction Section -->
+  <section class="culture-section" id="overview">
+    <h2 class="section-title">可可西里・雪域荒野的生命史诗</h2>
+    <div class="culture-content">
+      <div class="culture-image fade-in">
+        <img src="images/kekexili-overview.jpg" alt="可可西里全景">
+      </div>
+      <div class="culture-text fade-in">
+        <p>可可西里位于青藏高原腹地，平均海拔4600米以上，是中国最大、世界第三大的无人区。这片苍茫的荒野被誉为"世界屋脊的屋脊"，是地球上最后一片净土之一。2017年，可可西里被联合国教科文组织列入世界自然遗产名录。</p>
+        <p>作为青藏高原生态系统的重要组成部分，可可西里是长江北源楚玛尔河的发源地，也是藏羚羊、野牦牛、藏野驴等珍稀野生动物的主要栖息地。这里保存着完整的高原生态系统，是全球气候变化研究的重要区域。</p>
+        <p>在藏语中，"可可西里"意为"美丽的少女"或"青色的山梁"。这片土地不仅是自然的宝库，也是安多藏族文化的重要载体，承载着人与自然和谐共生的古老智慧。</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Special Features Section -->
+  <section class="features-section">
+    <!-- Tibetan Antelope Protection Module -->
+    <div class="feature-module fade-in" id="wildlife">
+      <h3 class="feature-title">高原精灵・藏羚羊的守护之路</h3>
+      <div class="culture-content">
+        <div class="culture-text">
+          <p>藏羚羊是可可西里的标志性物种，国家一级保护动物，被誉为"高原精灵"。每年夏季，成千上万的雌性藏羚羊会迁徙到卓乃湖、太阳湖等地分娩，形成壮观的自然奇观。</p>
+          <p>20世纪末，由于非法盗猎猖獗，藏羚羊种群数量急剧下降。以索南达杰为代表的保护先驱们用生命捍卫着这片净土。经过多年努力，藏羚羊种群已从不足2万只恢复到现在的30多万只，成为全球野生动物保护的典范。</p>
+          <p>如今的可可西里，建立了完善的巡护体系和监测网络，保护工作者们常年坚守在这片高寒荒原，守护着高原精灵的家园。</p>
+        </div>
+        <div class="culture-image">
+          <img src="images/tibetan-antelope-migration.jpg" alt="藏羚羊迁徙">
+        </div>
+      </div>
+      
+      <div style="margin-top: 40px;">
+        <h4 style="color: var(--primary-gold); text-align: center; margin-bottom: 30px; font-size: 22px;">藏羚羊保护历程</h4>
+        <div class="timeline">
+          <div class="timeline-item">
+            <div class="timeline-content">
+              <h4>1980年代</h4>
+              <p>盗猎猖獗，藏羚羊濒临灭绝，种群数量降至历史最低点</p>
+            </div>
+          </div>
+          <div class="timeline-item">
+            <div class="timeline-content">
+              <h4>1992年</h4>
+              <p>可可西里自然保护区成立，索南达杰组建第一支武装巡山队</p>
+            </div>
+          </div>
+          <div class="timeline-item">
+            <div class="timeline-content">
+              <h4>1994年</h4>
+              <p>索南达杰在与盗猎分子搏斗中英勇牺牲，引发全国关注</p>
+            </div>
+          </div>
+          <div class="timeline-item">
+            <div class="timeline-content">
+              <h4>1997年</h4>
+              <p>可可西里国家级自然保护区正式成立，保护力度全面升级</p>
+            </div>
+          </div>
+          <div class="timeline-item">
+            <div class="timeline-content">
+              <h4>2016年</h4>
+              <p>藏羚羊保护等级从濒危降为近危，种群恢复成效显著</p>
+            </div>
+          </div>
+          <div class="timeline-item">
+            <div class="timeline-content">
+              <h4>2017年</h4>
+              <p>可可西里列入世界自然遗产名录，保护进入新阶段</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Wildlife Kingdom Module -->
+    <div class="feature-module fade-in">
+      <h3 class="feature-title">可可西里野生动物王国</h3>
+      <div class="wildlife-cards">
+        <div class="wildlife-card">
+          <img src="images/tibetan-antelope.jpg" alt="藏羚羊">
+          <div class="wildlife-card-content">
+            <h4>藏羚羊</h4>
+            <p>国家一级保护动物，适应高寒环境，每年进行大规模迁徙繁殖</p>
+          </div>
+        </div>
+        <div class="wildlife-card">
+          <img src="images/wild-yak.jpg" alt="野牦牛">
+          <div class="wildlife-card-content">
+            <h4>野牦牛</h4>
+            <p>高原之舟，体型庞大，能在极端环境中生存，是力量的象征</p>
+          </div>
+        </div>
+        <div class="wildlife-card">
+          <img src="images/tibetan-wild-ass.jpg" alt="藏野驴">
+          <div class="wildlife-card-content">
+            <h4>藏野驴</h4>
+            <p>善于奔跑，群体生活，是草原上的自由精灵</p>
+          </div>
+        </div>
+        <div class="wildlife-card">
+          <img src="images/snow-leopard.jpg" alt="雪豹">
+          <div class="wildlife-card-content">
+            <h4>雪豹</h4>
+            <p>雪山之王，顶级捕食者，神秘而优雅的暗夜猎手</p>
+          </div>
+        </div>
+        <div class="wildlife-card">
+          <img src="images/tibetan-gazelle.jpg" alt="藏原羚">
+          <div class="wildlife-card-content">
+            <h4>藏原羚</h4>
+            <p>臀部有白色心形斑纹，敏捷灵活，高原特有的小型有蹄类</p>
+          </div>
+        </div>
+        <div class="wildlife-card">
+          <img src="images/black-necked-crane.jpg" alt="黑颈鹤">
+          <div class="wildlife-card-content">
+            <h4>黑颈鹤</h4>
+            <p>世界上唯一生长繁殖在高原的鹤类，优雅的湿地使者</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Natural Landscape Module -->
+    <div class="feature-module fade-in">
+      <h3 class="feature-title">自然地貌・苍凉壮阔的高原画卷</h3>
+      <div class="landscape-gallery">
+        <div class="landscape-item">
+          <img src="images/kunlun-mountains.jpg" alt="昆仑山脉">
+          <div class="landscape-caption">
+            <h4>昆仑山脉</h4>
+            <p>万山之祖，雪峰连绵</p>
+          </div>
+        </div>
+        <div class="landscape-item">
+          <img src="images/chumaer-river.jpg" alt="楚玛尔河">
+          <div class="landscape-caption">
+            <h4>楚玛尔河</h4>
+            <p>长江北源，蜿蜒流淌</p>
+          </div>
+        </div>
+        <div class="landscape-item">
+          <img src="images/highland-lakes.jpg" alt="高原湖泊">
+          <div class="landscape-caption">
+            <h4>高原湖泊</h4>
+            <p>星罗棋布，如明珠镶嵌</p>
+          </div>
+        </div>
+        <div class="landscape-item">
+          <img src="images/permafrost.jpg" alt="冻土地貌">
+          <div class="landscape-caption">
+            <h4>冻土地貌</h4>
+            <p>独特的地质景观</p>
+          </div>
+        </div>
+        <div class="landscape-item">
+          <img src="images/grassland-gobi.jpg" alt="草原戈壁">
+          <div class="landscape-caption">
+            <h4>草原戈壁</h4>
+            <p>辽阔无垠，苍茫壮美</p>
+          </div>
+        </div>
+        <div class="landscape-item">
+          <img src="images/glaciers.jpg" alt="冰川">
+          <div class="landscape-caption">
+            <h4>现代冰川</h4>
+            <p>冰雪世界的奇观</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Ecological Protection Module -->
+    <div class="feature-module fade-in" id="conservation">
+      <h3 class="feature-title">生态保护与巡护・人类禁区，生命天堂</h3>
+      <div class="culture-content">
+        <div class="culture-image">
+          <img src="images/patrol-team.jpg" alt="巡护队员">
+        </div>
+        <div class="culture-text">
+          <p>可可西里国家级自然保护区成立于1997年，总面积4.5万平方公里。这里实行最严格的保护措施，禁止一切非法穿越和开发活动，被誉为"人类禁区，生命天堂"。</p>
+          <p>保护区建立了完善的巡护制度，设有多个保护站和监测点。巡护队员们常年在极端恶劣的环境中工作，打击盗猎、监测野生动物、开展生态调查，用汗水和生命守护着这片净土。</p>
+          <p>近年来，随着科技手段的应用，保护区引入了卫星遥感、红外相机、无人机等现代化监测设备，构建了天地一体化的监测网络，为科学保护提供了有力支撑。</p>
+        </div>
+      </div>
+      
+      <div style="margin-top: 40px; display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 20px;">
+        <div style="background: var(--dark-red); padding: 25px; border-radius: var(--radius-md); border: 1px solid var(--primary-gold); text-align: center;">
+          <i class="fa fa-shield" style="font-size: 40px; color: var(--primary-gold); margin-bottom: 15px;"></i>
+          <h4 style="color: var(--primary-gold); margin-bottom: 10px;">保护站建设</h4>
+          <p>建立5个保护站，形成覆盖全区的巡护网络</p>
+        </div>
+        <div style="background: var(--dark-red); padding: 25px; border-radius: var(--radius-md); border: 1px solid var(--primary-gold); text-align: center;">
+          <i class="fa fa-camera" style="font-size: 40px; color: var(--primary-gold); margin-bottom: 15px;"></i>
+          <h4 style="color: var(--primary-gold); margin-bottom: 10px;">监测体系</h4>
+          <p>布设数百台红外相机，实时监测野生动物活动</p>
+        </div>
+        <div style="background: var(--dark-red); padding: 25px; border-radius: var(--radius-md); border: 1px solid var(--primary-gold); text-align: center;">
+          <i class="fa fa-users" style="font-size: 40px; color: var(--primary-gold); margin-bottom: 15px;"></i>
+          <h4 style="color: var(--primary-gold); margin-bottom: 10px;">巡护队伍</h4>
+          <p>专业巡护队员常年坚守，年均巡护里程超万公里</p>
+        </div>
+        <div style="background: var(--dark-red); padding: 25px; border-radius: var(--radius-md); border: 1px solid var(--primary-gold); text-align: center;">
+          <i class="fa fa-globe" style="font-size: 40px; color: var(--primary-gold); margin-bottom: 15px;"></i>
+          <h4 style="color: var(--primary-gold); margin-bottom: 10px;">国际合作</h4>
+          <p>与世界自然保护联盟等国际组织开展合作交流</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Travel Guide Section -->
+  <section class="travel-guide" id="guide">
+    <h2 class="section-title">可可西里参观与保护须知</h2>
+    <div class="guide-grid">
+      <div class="guide-card fade-in">
+        <h4><i class="fa fa-ban"></i> 禁止非法穿越</h4>
+        <ul>
+          <li>可可西里核心区<span class="highlight">严禁非法穿越</span></li>
+          <li>违者将面临严厉处罚</li>
+          <li>保护脆弱的高原生态</li>
+          <li>尊重野生动物栖息地</li>
+        </ul>
+      </div>
+      <div class="guide-card fade-in">
+        <h4><i class="fa fa-map-marker"></i> 开放区域</h4>
+        <ul>
+          <li>仅在指定观景台观赏</li>
+          <li>青藏公路沿线部分区域</li>
+          <li>需办理相关手续</li>
+          <li>跟随正规旅行团前往</li>
+        </ul>
+      </div>
+      <div class="guide-card fade-in">
+        <h4><i class="fa fa-calendar"></i> 最佳观赏季节</h4>
+        <ul>
+          <li><span class="highlight">5-9月</span>为最佳观赏期</li>
+          <li>6-7月可见藏羚羊迁徙</li>
+          <li>避开冬季严寒季节</li>
+          <li>注意天气变化</li>
+        </ul>
+      </div>
+      <div class="guide-card fade-in">
+        <h4><i class="fa fa-heartbeat"></i> 高反与安全</h4>
+        <ul>
+          <li>平均海拔<span class="highlight">4600米</span>以上</li>
+          <li>提前适应高原环境</li>
+          <li>携带充足氧气和药品</li>
+          <li>避免剧烈运动</li>
+        </ul>
+      </div>
+      <div class="guide-card fade-in">
+        <h4><i class="fa fa-leaf"></i> 生态保护公约</h4>
+        <ul>
+          <li><span class="highlight">不丢弃垃圾</span>，带走所有废弃物</li>
+          <li>不惊扰野生动物</li>
+          <li>不破坏植被和地貌</li>
+          <li>文明游览，保护环境</li>
+        </ul>
+      </div>
+      <div class="guide-card fade-in">
+        <h4><i class="fa fa-car"></i> 交通提示</h4>
+        <ul>
+          <li>主要通过青藏公路观赏</li>
+          <li>自驾需注意路况和限速</li>
+          <li>建议参加正规旅行团</li>
+          <li>准备充足的燃油和物资</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="footer-content">
+      <div class="footer-section">
+        <h3>藏北安多延伸区</h3>
+        <a href="../naqu/naqu.html">那曲</a>
+        <a href="../naqu/tanggulashankou.html">唐古拉山口</a>
+        <a href="../naqu/namucuo.html">纳木错</a>
+      </div>
+      <div class="footer-section">
+        <h3>关于可可西里</h3>
+        <p>可可西里是世界自然遗产，中国最大的无人区之一，是藏羚羊等珍稀野生动物的家园，也是青藏高原生态保护的重要区域。</p>
+      </div>
+    </div>
+    
+    <div class="footer-motto">可可西里・世界第三极净土</div>
+    
+    <div class="footer-bottom">
+      <p>传承藏族文化 · 保护高原生态 · 守护生命净土</p>
+    </div>
+    
+    <div class="tibetan-pattern"></div>
+  </footer>
+
+  <script>
+    // Intersection Observer for fade-in animations
+    const observerOptions = {
+      threshold: 0.1,
+      rootMargin: '0px 0px -50px 0px'
+    };
+
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('visible');
+        }
+      });
+    }, observerOptions);
+
+    // Observe all fade-in elements
+    document.addEventListener('DOMContentLoaded', function() {
+      const fadeElements = document.querySelectorAll('.fade-in');
+      fadeElements.forEach(el => observer.observe(el));
+    });
+
+    // Smooth scrolling for navigation links
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+      anchor.addEventListener('click', function (e) {
+        e.preventDefault();
+        const target = document.querySelector(this.getAttribute('href'));
+        if (target) {
+          target.scrollIntoView({
+            behavior: 'smooth',
+            block: 'start'
+          });
+        }
+      });
+    });
+
+    // Parallax effect for banner
+    window.addEventListener('scroll', function() {
+      const scrolled = window.pageYOffset;
+      const bannerBg = document.querySelector('.banner-bg');
+      if (bannerBg) {
+        bannerBg.style.transform = `translateY(${scrolled * 0.5}px)`;
+      }
+    });
+
+    // Language switch functionality (placeholder)
+    document.querySelector('.lang-switch').addEventListener('click', function() {
+      alert('汉藏双语切换功能即将上线');
+    });
+  </script>
+</body>
+</html>

@@ -1,0 +1,700 @@
+NEW_FILE_CODE
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>玛曲 - 黄河首曲・安多草原中心</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Source Han Sans CN', 'Noto Sans SC', sans-serif;
+            background: linear-gradient(135deg, #8B0000 0%, #5C0000 100%);
+            color: #F5F5DC;
+            line-height: 1.6;
+            min-height: 100vh;
+        }
+
+        /* Header Section */
+        .header {
+            background: linear-gradient(135deg, #8B0000 0%, #A52A2A 100%);
+            padding: 40px 20px;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+            border-bottom: 2px solid #FFD700;
+        }
+
+        .header::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 100"><path d="M0,50 Q50,20 100,50 T200,50" stroke="%23FFD700" stroke-width="1" fill="none" opacity="0.2"/><path d="M0,60 Q50,30 100,60 T200,60" stroke="%231E90FF" stroke-width="0.5" fill="none" opacity="0.1"/></svg>') repeat-x;
+            opacity: 0.3;
+        }
+
+        .main-title {
+            font-size: 42px;
+            font-weight: bold;
+            color: #FFD700;
+            margin-bottom: 10px;
+            position: relative;
+            z-index: 2;
+            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+        }
+
+        .subtitle {
+            font-size: 18px;
+            color: #F5F5DC;
+            font-weight: 500;
+            margin-bottom: 20px;
+            position: relative;
+            z-index: 2;
+        }
+
+        .decorative-line {
+            width: 120px;
+            height: 3px;
+            background: linear-gradient(90deg, transparent, #FFD700, transparent);
+            margin: 0 auto;
+            position: relative;
+            z-index: 2;
+        }
+
+        /* Main Content */
+        .main-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 40px 20px;
+        }
+
+        .cards-container {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 25px;
+            margin-bottom: 50px;
+        }
+
+        .card {
+            background: linear-gradient(135deg, rgba(139, 0, 0, 0.95) 0%, rgba(165, 42, 42, 0.9) 100%);
+            border: 1.5px solid #FFD700;
+            border-radius: 16px;
+            padding: 30px 25px;
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            cursor: pointer;
+            position: relative;
+            overflow: hidden;
+            backdrop-filter: blur(10px);
+        }
+
+        .card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(135deg, rgba(30, 144, 255, 0.05) 0%, rgba(50, 205, 50, 0.05) 100%);
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .card:hover::before {
+            opacity: 1;
+        }
+
+        .card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 15px 35px rgba(255, 215, 0, 0.2), 0 5px 15px rgba(0, 0, 0, 0.3);
+            border-color: #FFD700;
+        }
+
+        .card-icon {
+            width: 70px;
+            height: 70px;
+            margin: 0 auto 20px;
+            background: rgba(139, 0, 0, 0.6);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            z-index: 2;
+            border: 1px solid rgba(255, 215, 0, 0.3);
+        }
+
+        .card-icon svg {
+            width: 36px;
+            height: 36px;
+            stroke: currentColor;
+            stroke-width: 1.5;
+            fill: none;
+        }
+
+        .ecology-icon { color: #1E90FF; }
+        .wetland-icon { color: #32CD32; }
+        .culture-icon { color: #32CD32; }
+        .nomadic-icon { color: #32CD32; }
+        .tourism-icon { color: #1E90FF; }
+
+        .card-title {
+            font-size: 24px;
+            font-weight: bold;
+            color: #FFD700;
+            text-align: center;
+            margin-bottom: 8px;
+            position: relative;
+            z-index: 2;
+            text-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
+        }
+
+        .card-tag {
+            font-size: 15px;
+            color: #F5F5DC;
+            text-align: center;
+            margin-bottom: 20px;
+            font-weight: 500;
+            position: relative;
+            z-index: 2;
+            opacity: 0.9;
+        }
+
+        .card-content {
+            font-size: 15px;
+            color: #F5F5DC;
+            line-height: 1.8;
+            position: relative;
+            z-index: 2;
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.5s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.3s ease, margin 0.3s ease;
+            opacity: 0;
+            margin-top: 0;
+        }
+
+        .card-content.expanded {
+            max-height: 500px;
+            opacity: 1;
+            margin-top: 20px;
+        }
+
+        .card-content p {
+            margin-bottom: 10px;
+        }
+
+        .expand-btn {
+            background: none;
+            border: 1.5px solid #FFD700;
+            color: #FFD700;
+            cursor: pointer;
+            font-size: 15px;
+            padding: 10px 24px;
+            border-radius: 25px;
+            transition: all 0.3s ease;
+            position: relative;
+            z-index: 2;
+            font-weight: 500;
+            display: inline-block;
+            margin-top: 5px;
+        }
+
+        .expand-btn:hover {
+            background: rgba(255, 215, 0, 0.15);
+            transform: scale(1.05);
+        }
+
+        .expand-btn:active {
+            transform: scale(0.98);
+        }
+
+        .expand-icon {
+            display: inline-block;
+            transition: transform 0.3s ease;
+            margin-left: 8px;
+        }
+
+        .expand-btn.expanded .expand-icon {
+            transform: rotate(180deg);
+        }
+
+        /* Footer Section */
+        .footer {
+            background: linear-gradient(135deg, #8B0000 0%, #A52A2A 100%);
+            padding: 50px 20px 30px;
+            text-align: center;
+            position: relative;
+            border-top: 2px solid rgba(255, 215, 0, 0.3);
+        }
+
+        .footer::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 100"><path d="M0,50 Q50,30 100,50 T200,50" stroke="%23FFD700" stroke-width="0.5" fill="none" opacity="0.1"/></svg>') repeat-x;
+            opacity: 0.2;
+        }
+
+        .explore-text {
+            color: #F5F5DC;
+            font-size: 16px;
+            margin-bottom: 25px;
+            position: relative;
+            z-index: 2;
+            font-weight: 500;
+        }
+
+        .nav-buttons {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            flex-wrap: wrap;
+            margin-bottom: 35px;
+            position: relative;
+            z-index: 2;
+        }
+
+        .nav-btn {
+            background: #FFD700;
+            color: #8B0000;
+            border: none;
+            padding: 12px 28px;
+            border-radius: 30px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            display: inline-block;
+            font-size: 15px;
+            box-shadow: 0 4px 12px rgba(255, 215, 0, 0.3);
+        }
+
+        .nav-btn:hover {
+            background: #FFF;
+            transform: translateY(-3px);
+            box-shadow: 0 8px 20px rgba(255, 215, 0, 0.4);
+        }
+
+        .cultural-links {
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+            margin-bottom: 30px;
+            flex-wrap: wrap;
+            position: relative;
+            z-index: 2;
+        }
+
+        .cultural-link {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            color: #F5F5DC;
+            text-decoration: none;
+            font-size: 15px;
+            transition: color 0.3s ease;
+            font-weight: 500;
+        }
+
+        .cultural-link:hover {
+            color: #FFD700;
+        }
+
+        .cultural-link svg {
+            width: 18px;
+            height: 18px;
+            stroke: currentColor;
+            stroke-width: 1.5;
+            fill: none;
+        }
+
+        .copyright {
+            color: #F5F5DC;
+            font-size: 14px;
+            position: relative;
+            z-index: 2;
+            opacity: 0.8;
+            margin-top: 20px;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .cards-container {
+                grid-template-columns: 1fr;
+                gap: 20px;
+            }
+
+            .main-title {
+                font-size: 32px;
+            }
+
+            .subtitle {
+                font-size: 16px;
+            }
+
+            .card {
+                padding: 25px 20px;
+            }
+
+            .card-title {
+                font-size: 22px;
+            }
+
+            .card-icon {
+                width: 60px;
+                height: 60px;
+            }
+
+            .card-icon svg {
+                width: 30px;
+                height: 30px;
+            }
+
+            .nav-buttons {
+                flex-direction: column;
+                align-items: center;
+                gap: 12px;
+            }
+
+            .nav-btn {
+                width: 220px;
+                text-align: center;
+            }
+
+            .cultural-links {
+                flex-direction: column;
+                align-items: center;
+                gap: 15px;
+            }
+        }
+
+        /* Loading Animation */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .card {
+            opacity: 0;
+            animation: fadeInUp 0.6s ease-out forwards;
+        }
+
+        .card:nth-child(1) { animation-delay: 0.1s; }
+        .card:nth-child(2) { animation-delay: 0.2s; }
+        .card:nth-child(3) { animation-delay: 0.3s; }
+        .card:nth-child(4) { animation-delay: 0.4s; }
+        .card:nth-child(5) { animation-delay: 0.5s; }
+
+        /* Share Button */
+        .share-section {
+            text-align: center;
+            margin: 30px 0;
+            position: relative;
+            z-index: 2;
+        }
+
+        .share-btn {
+            background: rgba(255, 215, 0, 0.15);
+            border: 1.5px solid #FFD700;
+            color: #FFD700;
+            padding: 12px 28px;
+            border-radius: 25px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-size: 15px;
+            font-weight: 500;
+        }
+
+        .share-btn:hover {
+            background: #FFD700;
+            color: #8B0000;
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(255, 215, 0, 0.3);
+        }
+
+        /* Scroll indicator */
+        .scroll-indicator {
+            position: fixed;
+            top: 0;
+            left: 0;
+            height: 3px;
+            background: linear-gradient(90deg, #FFD700, #1E90FF);
+            z-index: 1000;
+            transition: width 0.3s ease;
+        }
+    </style>
+</head>
+<body>
+    <!-- Scroll Progress Indicator -->
+    <div class="scroll-indicator" id="scrollIndicator"></div>
+
+    <!-- Header Section -->
+    <header class="header">
+        <h1 class="main-title">玛曲</h1>
+        <p class="subtitle">黄河首曲・安多草原中心</p>
+        <div class="decorative-line"></div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="main-content">
+        <div class="cards-container">
+            <!-- Card 1: Yellow River First Bend -->
+            <div class="card" onclick="toggleCard(this)">
+                <div class="card-icon ecology-icon">
+                    <svg viewBox="0 0 24 24">
+                        <path d="M3,12 Q6,8 9,12 T15,12 T21,12" stroke-linecap="round"/>
+                        <path d="M3,16 Q6,12 9,16 T15,16 T21,16" stroke-linecap="round"/>
+                        <path d="M12,4 L12,8" stroke-linecap="round"/>
+                        <path d="M8,6 L16,6" stroke-linecap="round"/>
+                    </svg>
+                </div>
+                <h3 class="card-title">黄河首曲</h3>
+                <p class="card-tag">中华水塔・黄河源头</p>
+                <div class="card-content">
+                    <p>玛曲藏语意为 "孔雀河"，是黄河上游唯一的 "玛曲曲果"（黄河源头）区域，也是黄河流入甘肃的第一站。境内黄河形成著名的 "九曲黄河第一湾"，湿地面积广阔，是黄河上游重要的水源涵养地和生态屏障。</p>
+                    <p>黄河在玛曲县境内蜿蜒流淌，形成了壮丽的河曲景观。每年夏季，黄河两岸绿草如茵，野花遍地，是观赏黄河源头的最佳时节。这里的黄河水清澈见底，被誉为 "黄河之肾"。</p>
+                </div>
+                <button class="expand-btn" onclick="toggleCard(this.parentElement); event.stopPropagation();">
+                    查看详情
+                    <span class="expand-icon">▼</span>
+                </button>
+            </div>
+
+            <!-- Card 2: Highland Wetlands -->
+            <div class="card" onclick="toggleCard(this)">
+                <div class="card-icon wetland-icon">
+                    <svg viewBox="0 0 24 24">
+                        <path d="M12,2 L15,8 L21,9 L17,14 L18,20 L12,17 L6,20 L7,14 L3,9 L9,8 Z" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                </div>
+                <h3 class="card-title">高原湿地</h3>
+                <p class="card-tag">安多最美湿地草原</p>
+                <div class="card-content">
+                    <p>玛曲拥有全国第一个以保护湿地为主的国家级自然保护区。境内沼泽、湿地、溪流纵横交错，与广袤的玛曲草原融为一体。这里是黑颈鹤、藏羚羊等珍稀野生动物的栖息地。</p>
+                    <p>湿地生态系统为众多候鸟提供了理想的繁殖和迁徙停歇地。每年春季，成千上万的候鸟在此栖息，形成壮观的自然景象。玛曲湿地被誉为 "中国最美湿地" 之一。</p>
+                </div>
+                <button class="expand-btn" onclick="toggleCard(this.parentElement); event.stopPropagation();">
+                    查看详情
+                    <span class="expand-icon">▼</span>
+                </button>
+            </div>
+
+            <!-- Card 3: Amdo Center -->
+            <div class="card" onclick="toggleCard(this)">
+                <div class="card-icon culture-icon">
+                    <svg viewBox="0 0 24 24">
+                        <path d="M12,2 C8.13,2 5,5.13 5,9 C5,14.25 12,22 12,22 C12,22 19,14.25 19,9 C19,5.13 15.87,2 12,2 Z" stroke-linecap="round"/>
+                        <path d="M12,11.5 C10.62,11.5 9.5,10.38 9.5,9 C9.5,7.62 10.62,6.5 12,6.5 C13.38,6.5 14.5,7.62 14.5,9 C14.5,10.38 13.38,11.5 12,11.5 Z" stroke-linecap="round"/>
+                    </svg>
+                </div>
+                <h3 class="card-title">安多中心</h3>
+                <p class="card-tag">安多藏区游牧文化核心</p>
+                <div class="card-content">
+                    <p>玛曲地处甘、青、川三省交界，是安多藏区的地理与文化中心。历史上是安多藏族部落的聚居地，也是唐蕃古道的重要枢纽。这里保留了最纯正的安多藏族游牧习俗。</p>
+                    <p>作为安多文化传承的核心腹地，玛曲被誉为 "安多藏区的心脏"。这里的藏族文化保存完整，从服饰、语言到生活方式，都展现了安多藏族的独特魅力。</p>
+                </div>
+                <button class="expand-btn" onclick="toggleCard(this.parentElement); event.stopPropagation();">
+                    查看详情
+                    <span class="expand-icon">▼</span>
+                </button>
+            </div>
+
+            <!-- Card 4: Nomadic Culture -->
+            <div class="card" onclick="toggleCard(this)">
+                <div class="card-icon nomadic-icon">
+                    <svg viewBox="0 0 24 24">
+                        <path d="M12,2 C6.48,2 2,6.48 2,12 C2,17.52 6.48,22 12,22 C17.52,22 22,17.52 22,12 C22,6.48 17.52,2 12,2 Z" stroke-linecap="round"/>
+                        <path d="M8,10 L10,14 L12,10 L14,14 L16,10" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                </div>
+                <h3 class="card-title">游牧文化</h3>
+                <p class="card-tag">藏乡赛马・游牧天堂</p>
+                <div class="card-content">
+                    <p>玛曲是著名的 "赛马之乡"，每年夏季的 "玛曲赛马会" 是安多藏区规模最大、最隆重的民俗盛会之一。这里保留着传统的藏式帐篷建筑、黑土帐篷文化，以及悠扬的安多藏族民歌。</p>
+                    <p>游牧生活在这里依然鲜活，牧民们逐水草而居，与自然环境和谐共处。赛马、藏戏、锅庄舞等传统活动展现了安多游牧文化的丰富多彩，是体验藏族传统文化的绝佳之地。</p>
+                </div>
+                <button class="expand-btn" onclick="toggleCard(this.parentElement); event.stopPropagation();">
+                    查看详情
+                    <span class="expand-icon">▼</span>
+                </button>
+            </div>
+
+            <!-- Card 5: Tourism Services -->
+            <div class="card" onclick="toggleCard(this)">
+                <div class="card-icon tourism-icon">
+                    <svg viewBox="0 0 24 24">
+                        <path d="M12,2 C8.13,2 5,5.13 5,9 C5,14.25 12,22 12,22 C12,22 19,14.25 19,9 C19,5.13 15.87,2 12,2 Z" stroke-linecap="round"/>
+                        <path d="M9,12 L12,15 L15,12" stroke-linecap="round" stroke-linejoin="round"/>
+                        <path d="M12,9 L12,15" stroke-linecap="round"/>
+                    </svg>
+                </div>
+                <h3 class="card-title">旅游服务</h3>
+                <p class="card-tag">生态文化深度游</p>
+                <div class="card-content">
+                    <p>玛曲为游客提供原生态的自然与文化体验，包含黄河首曲观光、湿地生态探险、安多民俗文化体验等项目。游客可观赏赛马表演、体验藏式帐篷住宿、品尝高原特色美食。</p>
+                    <p>景区提供专业的生态讲解与交通服务，打造绿色生态旅游体验。游客还可以参与当地的民俗活动，深入了解黄河生态保护的重要意义，感受人与自然和谐共处的美好。</p>
+                </div>
+                <button class="expand-btn" onclick="toggleCard(this.parentElement); event.stopPropagation();">
+                    查看详情
+                    <span class="expand-icon">▼</span>
+                </button>
+            </div>
+        </div>
+
+        <!-- Share Section -->
+        <div class="share-section">
+            <button class="share-btn" onclick="sharePage()">📤 分享到社交媒体</button>
+        </div>
+    </main>
+
+    <!-- Footer Section -->
+    <footer class="footer">
+        <p class="explore-text">探索更多甘南安多文化区</p>
+        
+        <div class="nav-buttons">
+            <a href="../xiahe/xiahe1.html" class="nav-btn">夏河八角城</a>
+            <a href="../ganjia/ganjia.html" class="nav-btn">甘加草原</a>
+            <a href="../labulengsi/labulengsi.html" class="nav-btn">拉卜楞寺</a>
+        </div>
+
+        <div class="cultural-links">
+            <a href="#" class="cultural-link">
+                <svg viewBox="0 0 24 24">
+                    <path d="M3,12 Q6,8 9,12 T15,12 T21,12" stroke-linecap="round"/>
+                    <path d="M3,16 Q6,12 9,16 T15,16 T21,16" stroke-linecap="round"/>
+                </svg>
+                黄河生态保护
+            </a>
+            <a href="#" class="cultural-link">
+                <svg viewBox="0 0 24 24">
+                    <path d="M12,2 L15,8 L21,9 L17,14 L18,20 L12,17 L6,20 L7,14 L3,9 L9,8 Z" stroke-linecap="round"/>
+                </svg>
+                安多游牧服饰
+            </a>
+            <a href="#" class="cultural-link">
+                <svg viewBox="0 0 24 24">
+                    <path d="M12,2 C6.48,2 2,6.48 2,12 C2,17.52 6.48,22 12,22 C17.52,22 22,17.52 22,12 C22,6.48 17.52,2 12,2 Z" stroke-linecap="round"/>
+                    <path d="M8,10 L10,14 L12,10 L14,14 L16,10" stroke-linecap="round"/>
+                </svg>
+                玛曲民歌
+            </a>
+        </div>
+
+        <p class="copyright">©2026 甘南安多文化区 | 玛曲专题</p>
+    </footer>
+
+    <script>
+        // Toggle card content expansion
+        function toggleCard(card) {
+            const content = card.querySelector('.card-content');
+            const btn = card.querySelector('.expand-btn');
+            const isExpanded = content.classList.contains('expanded');
+            
+            // Close all other cards
+            document.querySelectorAll('.card').forEach(otherCard => {
+                if (otherCard !== card) {
+                    const otherContent = otherCard.querySelector('.card-content');
+                    const otherBtn = otherCard.querySelector('.expand-btn');
+                    otherContent.classList.remove('expanded');
+                    otherBtn.classList.remove('expanded');
+                    otherBtn.querySelector('.expand-icon').textContent = '▼';
+                }
+            });
+            
+            // Toggle current card
+            if (isExpanded) {
+                content.classList.remove('expanded');
+                btn.classList.remove('expanded');
+                btn.querySelector('.expand-icon').textContent = '▼';
+            } else {
+                content.classList.add('expanded');
+                btn.classList.add('expanded');
+                btn.querySelector('.expand-icon').textContent = '▲';
+            }
+        }
+
+        // Share page functionality
+        function sharePage() {
+            if (navigator.share) {
+                navigator.share({
+                    title: '玛曲 - 黄河首曲・安多草原中心',
+                    text: '探索玛曲的黄河首曲、高原湿地和安多文化中心',
+                    url: window.location.href
+                }).catch(console.error);
+            } else {
+                // Fallback for browsers that don't support Web Share API
+                const tempInput = document.createElement('input');
+                tempInput.value = window.location.href;
+                document.body.appendChild(tempInput);
+                tempInput.select();
+                document.execCommand('copy');
+                document.body.removeChild(tempInput);
+                alert('页面链接已复制到剪贴板！');
+            }
+        }
+
+        // Add smooth scrolling for navigation buttons
+        document.querySelectorAll('.nav-btn').forEach(button => {
+            button.addEventListener('click', function(e) {
+                e.preventDefault();
+                const target = this.getAttribute('href');
+                if (target && target.startsWith('#')) {
+                    const element = document.querySelector(target);
+                    if (element) {
+                        element.scrollIntoView({ behavior: 'smooth' });
+                    }
+                } else {
+                    window.location.href = target;
+                }
+            });
+        });
+
+        // Add loading animation on scroll
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.opacity = '1';
+                    entry.target.style.transform = 'translateY(0)';
+                }
+            });
+        }, observerOptions);
+
+        // Observe all cards for scroll animation
+        document.querySelectorAll('.card').forEach(card => {
+            card.style.opacity = '0';
+            card.style.transform = 'translateY(30px)';
+            card.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
+            observer.observe(card);
+        });
+
+        // Scroll progress indicator
+        window.addEventListener('scroll', () => {
+            const scrollTop = window.scrollY;
+            const docHeight = document.documentElement.scrollHeight - window.innerHeight;
+            const scrollPercent = (scrollTop / docHeight) * 100;
+            document.getElementById('scrollIndicator').style.width = scrollPercent + '%';
+        });
+    </script>
+</body>
+</html>
