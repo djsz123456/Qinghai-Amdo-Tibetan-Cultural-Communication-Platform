@@ -1558,13 +1558,6 @@
       <h2 class="section-title" id="culture-title">安多藏族民俗文化（རིག་གནས།）</h2>
       
       <div class="carousel-wrapper">
-        <button class="carousel-arrow prev" 
-                :class="{ disabled: cultureScrollPos <= 0 }"
-                @click="scrollCarousel('culture', -1)"
-                aria-label="向左滚动">
-          <i class="fa fa-chevron-left"></i>
-        </button>
-        
         <div class="carousel-container">
           <div class="carousel-track" 
                ref="cultureTrack"
@@ -1599,13 +1592,6 @@
           </div>
         </div>
         
-        <button class="carousel-arrow next" 
-                :class="{ disabled: cultureScrollPos >= cultureMaxScroll }"
-                @click="scrollCarousel('culture', 1)"
-                aria-label="向右滚动">
-          <i class="fa fa-chevron-right"></i>
-        </button>
-        
         <div class="carousel-dots">
           <button v-for="(item, index) in folkList" 
                   :key="index"
@@ -1622,13 +1608,6 @@
       <h2 class="section-title" id="tour-title">藏地旅游 + 民俗（དམངས་སྲོལ།）</h2>
       
       <div class="carousel-wrapper">
-        <button class="carousel-arrow prev" 
-                :class="{ disabled: tourScrollPos <= 0 }"
-                @click="scrollCarousel('tour', -1)"
-                aria-label="向左滚动">
-          <i class="fa fa-chevron-left"></i>
-        </button>
-        
         <div class="carousel-container">
           <div class="carousel-track" 
                ref="tourTrack"
@@ -1662,13 +1641,6 @@
             </article>
           </div>
         </div>
-        
-        <button class="carousel-arrow next" 
-                :class="{ disabled: tourScrollPos >= tourMaxScroll }"
-                @click="scrollCarousel('tour', 1)"
-                aria-label="向右滚动">
-          <i class="fa fa-chevron-right"></i>
-        </button>
         
         <div class="carousel-dots">
           <button v-for="(item, index) in tourList" 
@@ -1765,51 +1737,7 @@
     </div>
   </section>
 
-    <!-- ====================== 1. 安多民俗板块 ====================== -->
-    <section class="section">
-        <h2 class="section-title">安多藏族民俗文化（རིག་གནས།）</h2>
-        <div class="slider-box">
-            <div class="card-list" id="folkList">
-                <div v-for="(item,i) in folkList" :key="i" class="card">
-                    <img :src="item.img" :alt="item.title">
-                    <div class="tag">民俗</div>
-                    <div class="info">
-                        <h3>{{ item.title }}</h3>
-                        <p>{{ item.desc }}</p>
-                    </div>
-                    <div class="footer">
-                        <span>安多非遗</span>
-                        <a :href="`minsu.html?id=${item.id}`" class="btn">了解更多</a>
-                    </div>
-                </div>
-            </div>
-            <button class="slide-btn prev" @click="slideFolk(-1)">&lt;</button>
-            <button class="slide-btn next" @click="slideFolk(1)">&gt;</button>
-        </div>
-    </section>
 
-    <!-- ====================== 2. 热门景点板块 ====================== -->
-    <section class="section">
-        <h2 class="section-title">藏地旅游热门景点（དམངས་སྲོལ།）</h2>
-        <div class="slider-box">
-            <div class="card-list" id="tourList">
-                <div v-for="(item,i) in tourList" :key="i" class="card">
-                    <img :src="item.img" :alt="item.title">
-                    <div class="tag">景点</div>
-                    <div class="info">
-                        <h3>{{ item.title }}</h3>
-                        <p>{{ item.desc }}</p>
-                    </div>
-                    <div class="footer">
-                        <span>热门推荐</span>
-                        <a :href="`jingdian.html?id=${item.id}`" class="btn">查看详情</a>
-                    </div>
-                </div>
-            </div>
-            <button class="slide-btn prev" @click="slideTour(-1)">&lt;</button>
-            <button class="slide-btn next" @click="slideTour(1)">&gt;</button>
-        </div>
-    </section>
 
     <section id="tools" aria-labelledby="tools-title">
       <h2 class="section-title" id="tools-title">藏文实用工具（ལག་ཆ།）</h2>
@@ -1929,8 +1857,6 @@ createApp({
       map: null,
       markers: [],
       activePlaceId: null,
-      folkIndex: 0,
-      tourIndex: 0,
       // --------------------------
       // 1. 青海安多核心区（11个）
       // --------------------------
@@ -2564,6 +2490,9 @@ createApp({
       const track = this.$refs[type + 'Track']
       if (!track) return
       
+      // 只允许鼠标左键拖拽，右键点击不触发拖拽
+      if (e.button && e.button !== 0) return
+      
       this.dragState[type].isDragging = true
       this.dragState[type].startX = e.pageX || e.touches[0].pageX
       this.dragState[type].scrollLeft = track.scrollLeft
@@ -2587,21 +2516,9 @@ createApp({
       }
       this.dragState[type].isDragging = false
     },
-    // 1.html 滑动功能
-    slideFolk(direction) {
-      const list = document.getElementById("folkList");
-      const cardWidth = 300;
-      this.folkIndex += direction;
-      if (this.folkIndex < 0) this.folkIndex = 0;
-      list.style.transform = `translateX(-${this.folkIndex * cardWidth}px)`;
-    },
-    slideTour(direction) {
-      const list = document.getElementById("tourList");
-      const cardWidth = 300;
-      this.tourIndex += direction;
-      if (this.tourIndex < 0) this.tourIndex = 0;
-      list.style.transform = `translateX(-${this.tourIndex * cardWidth}px)`;
-    }
+    
+
+
   }
 }).mount('#app')
 </script>
