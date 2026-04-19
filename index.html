@@ -889,6 +889,36 @@
       color: #999;
     }
 
+    .card-action .action-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 8px 18px;
+      background: linear-gradient(135deg, var(--primary-red), #B83C2E);
+      color: white;
+      border-radius: 25px;
+      text-decoration: none;
+      font-size: 13px;
+      font-weight: 500;
+      transition: var(--transition);
+      box-shadow: 0 2px 8px rgba(155, 43, 37, 0.25);
+    }
+
+    .card-action .action-btn:hover {
+      background: linear-gradient(135deg, var(--primary-gold), #E8C84A);
+      transform: translateY(-2px);
+      box-shadow: 0 4px 12px rgba(212, 175, 55, 0.35);
+      color: white;
+    }
+
+    .card-action .action-btn:active {
+      transform: translateY(0);
+    }
+
+    .card-action .action-btn i {
+      font-size: 12px;
+    }
+
     /* Tools Section */
     .tools-grid {
       display: grid;
@@ -1216,6 +1246,49 @@
       }
     }
 
+    /* 1.html 整合样式 */
+    .section {
+      padding: 50px 20px;
+      text-align: center;
+    }
+    .section-title {
+      font-size: 30px;
+      color: #991b1e;
+      margin-bottom: 35px;
+      font-weight: bold;
+    }
+    .slider-box {
+      position: relative;
+      max-width: 1200px;
+      margin: 0 auto;
+      overflow: hidden;
+    }
+    .card-list {
+      display: flex;
+      gap: 20px;
+      transition: transform 0.3s ease;
+    }
+    .slide-btn {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      width: 40px;
+      height: 40px;
+      background: #991b1e;
+      color: #fff;
+      border: none;
+      border-radius: 50%;
+      font-size: 18px;
+      cursor: pointer;
+      z-index: 10;
+    }
+    .slide-btn.prev {
+      left: 10px;
+    }
+    .slide-btn.next {
+      right: 10px;
+    }
+
     /* 藏地旅游模块样式 */
     .tour-map-section {
       padding: 60px 20px;
@@ -1514,7 +1587,12 @@
                 <p class="card-desc">{{ item.desc }}</p>
                 <div class="card-footer">
                   <span><i class="fa fa-map-marker"></i> 安多地区</span>
-                  <span><i class="fa fa-eye"></i> 了解更多</span>
+                  <span class="card-action">
+                    <a :href="`minsu.html?id=${item.id}`" class="action-btn">
+                      <i class="fa fa-eye"></i>
+                      了解更多
+                    </a>
+                  </span>
                 </div>
               </div>
             </article>
@@ -1573,7 +1651,12 @@
                 <p class="card-desc">{{ item.desc }}</p>
                 <div class="card-footer">
                   <span><i class="fa fa-star"></i> 热门景点</span>
-                  <span><i class="fa fa-arrow-right"></i> 查看详情</span>
+                  <span class="card-action">
+                    <a :href="`jingdian.html?id=${item.id}`" class="action-btn">
+                      <i class="fa fa-arrow-right"></i>
+                      查看详情
+                    </a>
+                  </span>
                 </div>
               </div>
             </article>
@@ -1681,6 +1764,52 @@
       </div>
     </div>
   </section>
+
+    <!-- ====================== 1. 安多民俗板块 ====================== -->
+    <section class="section">
+        <h2 class="section-title">安多藏族民俗文化（རིག་གནས།）</h2>
+        <div class="slider-box">
+            <div class="card-list" id="folkList">
+                <div v-for="(item,i) in folkList" :key="i" class="card">
+                    <img :src="item.img" :alt="item.title">
+                    <div class="tag">民俗</div>
+                    <div class="info">
+                        <h3>{{ item.title }}</h3>
+                        <p>{{ item.desc }}</p>
+                    </div>
+                    <div class="footer">
+                        <span>安多非遗</span>
+                        <a :href="`minsu.html?id=${item.id}`" class="btn">了解更多</a>
+                    </div>
+                </div>
+            </div>
+            <button class="slide-btn prev" @click="slideFolk(-1)">&lt;</button>
+            <button class="slide-btn next" @click="slideFolk(1)">&gt;</button>
+        </div>
+    </section>
+
+    <!-- ====================== 2. 热门景点板块 ====================== -->
+    <section class="section">
+        <h2 class="section-title">藏地旅游热门景点（དམངས་སྲོལ།）</h2>
+        <div class="slider-box">
+            <div class="card-list" id="tourList">
+                <div v-for="(item,i) in tourList" :key="i" class="card">
+                    <img :src="item.img" :alt="item.title">
+                    <div class="tag">景点</div>
+                    <div class="info">
+                        <h3>{{ item.title }}</h3>
+                        <p>{{ item.desc }}</p>
+                    </div>
+                    <div class="footer">
+                        <span>热门推荐</span>
+                        <a :href="`jingdian.html?id=${item.id}`" class="btn">查看详情</a>
+                    </div>
+                </div>
+            </div>
+            <button class="slide-btn prev" @click="slideTour(-1)">&lt;</button>
+            <button class="slide-btn next" @click="slideTour(1)">&gt;</button>
+        </div>
+    </section>
 
     <section id="tools" aria-labelledby="tools-title">
       <h2 class="section-title" id="tools-title">藏文实用工具（ལག་ཆ།）</h2>
@@ -1800,6 +1929,8 @@ createApp({
       map: null,
       markers: [],
       activePlaceId: null,
+      folkIndex: 0,
+      tourIndex: 0,
       // --------------------------
       // 1. 青海安多核心区（11个）
       // --------------------------
@@ -2161,70 +2292,8 @@ createApp({
           subtitle: '神山圣水，安多藏族的精神家园'
         }
       ],
-      folkList: [
-        {
-          title: '藏族情歌《拉伊》 བོད་རིགས་ཀྱི་ཛའ་གས།',
-          desc: '形式：山间对唱；习俗：青年恋爱交流；内涵：源于草原生活情感表达，非遗文化。',
-          img: 'image/mn1.jpg'
-        },
-        {
-          title: '安多藏戏 ཨ་མདོའི་ལྷ་ོ།',
-          desc: '形式：舞台表演；习俗：节日展演；内涵：宗教故事与生活文化传承。',
-          img: 'image/mn2.jpg'
-        },
-        {
-          title: '雪顿节 ཞོ་སྟོན།',
-          desc: '形式：晒佛、藏戏、酸奶宴；习俗：祈福欢聚；内涵：佛教与农耕文明结合。',
-          img: 'image/mn3.jpg'
-        },
-        {
-          title: '转湖习俗 མཚོ་སྐོར་གཏོང་བའི་གོམས་སྲོ།',
-          desc: '形式：环湖行走；习俗：祈福平安；内涵：敬畏自然、信仰传承。',
-          img: 'image/mn4.jpg'
-        },
-        {
-          title: '煨桑仪式 བསང་གཏོང་བའི་ཆོ་ག',
-          desc: '形式：焚烧柏枝；习俗：祭祀祈福；内涵：净化心灵、沟通神灵。',
-          img: 'image/mn5.jpg'
-        },
-        {
-          title: '藏历新年 ལོ་གསར།',
-          desc: '形式：家庭团聚、跳神仪式；习俗：辞旧迎新；内涵：传承祖先智慧。',
-          img: 'image/mn6.jpg'
-        }
-      ],
-      tourList: [
-        {
-          title: '塔尔寺 སུ་འབམ་དགོན།',
-          desc: '青海·西宁｜藏传佛教圣地 + 酥油花、堆绣非遗民俗。',
-          img: 'image/nn1.jpg'
-        },
-        {
-          title: '青海湖 མཚོ་སྔོན་པོ།',
-          desc: '青海·海南州｜圣湖转湖、祭湖仪式、安多牧民文化。',
-          img: 'image/nn2.jpg'
-        },
-        {
-          title: '布达拉宫 ཕོ་བྲང་པོ་ཏ་ལ།',
-          desc: '西藏·拉萨｜历史建筑 + 藏传佛教核心文化。',
-          img: 'image/nn3.jpg'
-        },
-        {
-          title: '同仁古城 ཐུན་རིན་གནའ་མཁར།',
-          desc: '青海·黄南｜热贡唐卡、安多手工艺传承地。',
-          img: 'image/nn4.jpg'
-        },
-        {
-          title: '日月山 ཉི་ཟླ་རི་བོ།',
-          desc: '青海·湟源｜文成公主进藏地标、汉藏文化交融见证。',
-          img: 'image/nn5.jpg'
-        },
-        {
-          title: '三江源 གཙང་གསུམ་འབུང་ཡལ།',
-          desc: '青海·玉树｜长江黄河澜沧江源头、生态保护区。',
-          img: 'image/nn6.jpg'
-        }
-      ]
+      folkList: [],
+      tourList: []
     }
   },
   mounted() {
@@ -2238,6 +2307,8 @@ createApp({
       this.initAMap()
     })
     this.highlightCurrentPage()
+    this.loadFolkList()
+    this.loadTourList()
   },
   beforeUnmount() {
     window.removeEventListener('scroll', this.handleScroll)
@@ -2418,6 +2489,48 @@ createApp({
         this.activeRegion = 'qinghai'
       }
     },
+    loadFolkList() {
+      fetch('/api/folk/list')
+        .then(res => res.json())
+        .then(data => {
+          if (data.code === 200) {
+            this.folkList = data.data || []
+          }
+        })
+        .catch(err => {
+          console.error('加载民俗列表失败:', err)
+          // Fallback to default data if API fails
+          this.folkList = [
+            { id: 1, title: '藏族情歌《拉伊》', desc: '形式：山间对唱；习俗：青年恋爱交流', img: 'image/mn1.jpg' },
+            { id: 2, title: '安多藏戏', desc: '形式：舞台表演；习俗：节日展演', img: 'image/mn2.jpg' },
+            { id: 3, title: '雪顿节', desc: '形式：晒佛、藏戏、酸奶宴', img: 'image/mn3.jpg' },
+            { id: 4, title: '转湖习俗', desc: '形式：环湖行走；习俗：祈福平安', img: 'image/mn4.jpg' },
+            { id: 5, title: '煨桑仪式', desc: '形式：焚烧柏枝；习俗：祭祀祈福', img: 'image/mn5.jpg' },
+            { id: 6, title: '藏历新年', desc: '形式：家庭团聚、跳神仪式', img: 'image/mn6.jpg' }
+          ]
+        })
+    },
+    loadTourList() {
+      fetch('/api/tour-spot/list')
+        .then(res => res.json())
+        .then(data => {
+          if (data.code === 200) {
+            this.tourList = data.data || []
+          }
+        })
+        .catch(err => {
+          console.error('加载景点列表失败:', err)
+          // Fallback to default data if API fails
+          this.tourList = [
+            { id: 1, title: '塔尔寺', desc: '青海·西宁｜藏传佛教圣地', img: 'image/nn1.jpg' },
+            { id: 2, title: '青海湖', desc: '青海·海南州｜圣湖转湖', img: 'image/nn2.jpg' },
+            { id: 3, title: '布达拉宫', desc: '西藏·拉萨｜历史建筑', img: 'image/nn3.jpg' },
+            { id: 4, title: '同仁古城', desc: '青海·黄南｜热贡唐卡', img: 'image/nn4.jpg' },
+            { id: 5, title: '日月山', desc: '青海·湟源｜文成公主进藏地标', img: 'image/mn5.jpg' },
+            { id: 6, title: '三江源', desc: '青海·玉树｜长江黄河澜沧江源头', img: 'image/nn6.jpg' }
+          ]
+        })
+    },
     updateScrollPos(type) {
       const track = this.$refs[type + 'Track']
       if (track) {
@@ -2473,6 +2586,21 @@ createApp({
         track.classList.remove('dragging')
       }
       this.dragState[type].isDragging = false
+    },
+    // 1.html 滑动功能
+    slideFolk(direction) {
+      const list = document.getElementById("folkList");
+      const cardWidth = 300;
+      this.folkIndex += direction;
+      if (this.folkIndex < 0) this.folkIndex = 0;
+      list.style.transform = `translateX(-${this.folkIndex * cardWidth}px)`;
+    },
+    slideTour(direction) {
+      const list = document.getElementById("tourList");
+      const cardWidth = 300;
+      this.tourIndex += direction;
+      if (this.tourIndex < 0) this.tourIndex = 0;
+      list.style.transform = `translateX(-${this.tourIndex * cardWidth}px)`;
     }
   }
 }).mount('#app')
