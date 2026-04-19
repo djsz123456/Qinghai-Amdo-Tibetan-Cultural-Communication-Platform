@@ -695,89 +695,77 @@ createApp({
             }
         },
 
-        async loadFolkDetail() {
+        // 本地民俗数据库（无需后端API）
+        getLocalFolkDatabase() {
+            return {
+                '1':  { id:'1',  title:'藏历新年', subtitle:'洛萨节·安多最隆重的节庆', cover:'minsu/images/losar.jpg', tags:['节庆','新年','传统习俗'], content:'藏历新年（藏语：ལོ་གསར།，Losar）是藏族最重要的传统节日，时间通常在农历正月前后。安多地区的藏历新年庆典持续15天，家家户户制作卡赛（油炸果子）、悬挂经幡、燃放鞭炮，寺院举行盛大的法会和跳神（羌姆）表演，整个村落沉浸在欢乐祥和的气氛中。' },
+                '2':  { id:'2',  title:'赛马节', subtitle:'雅克节·草原上的盛会', cover:'minsu/images/horse.jpg', tags:['赛马','节庆','游牧文化'], content:'赛马节（藏语：རྟ་རྒྱུགས།）是安多藏区最具代表性的传统节庆活动，每年夏季在各地草原举行。节日期间，藏族牧民盛装出席，骑手们策马驰骋，同时还有射箭、摔跤、藏戏表演等丰富活动。果洛州的"格萨尔赛马节"和红原县的"雅克赛马节"是其中最著名的两个。' },
+                '3':  { id:'3',  title:'唐卡艺术', subtitle:'热贡唐卡·藏族绘画瑰宝', cover:'minsu/images/thangka.jpg', tags:['唐卡','非遗','热贡艺术'], content:'唐卡（藏语：ཐང་ཀ།）是藏传佛教特有的绘画艺术，以矿物颜料和金粉绘制于布帛之上。青海黄南同仁市的热贡唐卡享誉世界，已被列入联合国非物质文化遗产名录。一幅精品唐卡需数月乃至数年才能完成，内容涵盖佛教故事、神灵形象和宇宙观等主题。' },
+                '4':  { id:'4',  title:'藏族锅庄舞', subtitle:'围火而舞·集体的欢腾', cover:'minsu/images/guozhuang.jpg', tags:['锅庄舞','歌舞','集体活动'], content:'锅庄舞（藏语：འཆམ་།）是藏族最具代表性的集体歌舞形式，参与者围成圆圈，男女对唱对舞，节奏由慢渐快，气氛热烈。安多地区的锅庄舞曲调高亢嘹亮，歌词多颂扬自然风光、英雄人物和美好生活，是节庆聚会和日常娱乐的重要方式。' },
+                '5':  { id:'5',  title:'藏族婚俗', subtitle:'盛装迎亲·三天的庆典', cover:'minsu/images/wedding.jpg', tags:['婚俗','传统礼仪','安多'], content:'安多藏族婚礼通常持续三天，仪式隆重而热烈。迎亲时，新郎一方骑马前往，新娘身着华丽的藏式礼服，头戴珍珠、珊瑚、松石编织的头饰。婚宴上众人跳锅庄、饮青稞酒、唱祝福歌，长辈为新人献上洁白的哈达，祝福新人白头偕老。' },
+                '6':  { id:'6',  title:'酥油花制作', subtitle:'塔尔寺三绝之一', cover:'minsu/images/suyouhua.jpg', tags:['酥油花','塔尔寺','宗教艺术'], content:'酥油花是以酥油（从牦牛奶中提炼的黄油）为原料，塑造成各种佛像、人物、花卉和故事场景的宗教艺术品，是塔尔寺"三绝"之首。每年藏历正月十五，塔尔寺展出当年制作的酥油花，吸引数万信众和游客观赏。制作酥油花的僧侣需将双手浸在冰水中操作，以保持酥油的硬度，展现了藏族匠人的高超技艺与虔诚信仰。' },
+                '7':  { id:'7',  title:'格萨尔史诗', subtitle:'世界最长史诗·口耳相传', cover:'minsu/images/gesar.jpg', tags:['格萨尔','史诗','非遗'], content:'《格萨尔王传》是世界上最长的英雄史诗，在安多藏区尤其是果洛州广泛流传。史诗讲述了格萨尔王征战四方、降妖伏魔、扶贫济弱的英雄故事，由民间说唱艺人（仲肯）以口头方式代代传承。这部史诗已被列入联合国非物质文化遗产名录，是藏族文化的百科全书。' },
+                '8':  { id:'8',  title:'藏族服饰文化', subtitle:'盛装华服·民族认同的符号', cover:'minsu/images/clothing.jpg', tags:['服饰','传统文化','安多'], content:'安多藏族服饰以宽袍大袖为特征，男性常穿皮袍或氆氇长袍，系腰带，右袒一肩；女性服饰更为华丽，头饰以珊瑚、松石、玛瑙、珍珠串成，色彩鲜艳。不同地区的安多藏族服饰各有特色，是识别地域归属和社会身份的重要符号，也是藏族文化认同的重要载体。' },
+                '9':  { id:'9',  title:'青稞酒文化', subtitle:'吃糌粑·喝青稞酒', cover:'minsu/images/qingke.jpg', tags:['青稞酒','饮食文化','待客之道'], content:'青稞酒（藏语：ཆང་།）是藏族最具代表性的传统饮品，以高原特产青稞为原料酿制，酒精度较低，口感微酸带甜。在安多藏区，青稞酒是待客之道的重要组成部分，宾客来访时主人必以青稞酒相待，饮酒前需用无名指蘸酒弹三下，以示敬奉天地神灵，体现了藏族人对自然的崇敬。' },
+                '10': { id:'10', title:'转经习俗', subtitle:'玛尼石·经幡·信仰之旅', cover:'minsu/images/zhuanjing.jpg', tags:['转经','玛尼石','宗教习俗'], content:'转经（藏语：བསྐོར་བ།）是藏传佛教最重要的宗教修行方式之一。信众手持转经筒，顺时针方向绕寺庙、神山、玛尼石堆而行，每转一圈相当于诵读一遍经文。安多地区的拉卜楞寺拥有世界最长的转经廊，每天清晨信众云集，场面震撼人心。路边随处可见的玛尼石堆和随风飘扬的经幡，是安多藏区最具代表性的宗教景观。' }
+            };
+        },
+
+        loadFolkDetail() {
             this.loading = true;
             this.error = false;
-
             try {
-                const response = await fetch(`/api/folk/detail/${this.folkId}`);
-                
-                if (!response.ok) {
-                    throw new Error(`加载失败: ${response.status}`);
+                const db = this.getLocalFolkDatabase();
+                const folk = db[String(this.folkId)];
+                if (!folk) {
+                    this.error = true;
+                    this.errorMessage = `未找到ID为 ${this.folkId} 的民俗数据`;
+                    return;
                 }
-
-                const data = await response.json();
-                
-                if (data.code !== 200) {
-                    throw new Error(data.msg || '获取数据失败');
-                }
-
-                this.folkDetail = data.data;
+                this.folkDetail = folk;
             } catch (err) {
-                console.error('加载民俗详情失败:', err);
                 this.error = true;
-                this.errorMessage = err.message || '加载失败，请稍后重试';
+                this.errorMessage = '数据加载失败，请刷新重试';
             } finally {
                 this.loading = false;
             }
         },
 
-        async loadCommentList() {
+        loadCommentList() {
             try {
-                const response = await fetch(`/api/folk/comment/list/${this.folkId}`);
-                
-                if (!response.ok) {
-                    throw new Error(`加载评论失败: ${response.status}`);
-                }
-
-                const data = await response.json();
-                
-                if (data.code !== 200) {
-                    throw new Error(data.msg || '获取评论失败');
-                }
-
-                this.commentList = data.data || [];
+                const key = `folk_comments_${this.folkId}`;
+                const stored = localStorage.getItem(key);
+                this.commentList = stored ? JSON.parse(stored) : [];
             } catch (err) {
-                console.error('加载评论失败:', err);
-                this.showToast('评论加载失败', 'error');
+                console.error('读取评论失败:', err);
+                this.commentList = [];
             }
         },
 
-        async submitComment() {
+        submitComment() {
             if (!this.newComment.trim()) {
                 this.showToast('请输入留言内容', 'error');
                 return;
             }
-
             try {
-                const response = await fetch('/api/folk/comment/add', {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json'
-                    },
-                    body: JSON.stringify({
-                        folkId: this.folkId,
-                        content: this.newComment.trim(),
-                        userName: this.getUserName()
-                    })
-                });
-
-                if (!response.ok) {
-                    throw new Error(`提交失败: ${response.status}`);
-                }
-
-                const data = await response.json();
-                
-                if (data.code !== 200) {
-                    throw new Error(data.msg || '提交失败');
-                }
-
+                const key = `folk_comments_${this.folkId}`;
+                const stored = localStorage.getItem(key);
+                const list = stored ? JSON.parse(stored) : [];
+                const newEntry = {
+                    id: Date.now(),
+                    folkId: this.folkId,
+                    content: this.newComment.trim(),
+                    userName: this.getUserName(),
+                    createTime: new Date().toISOString()
+                };
+                list.unshift(newEntry);
+                localStorage.setItem(key, JSON.stringify(list));
                 this.showToast('留言提交成功', 'success');
                 this.newComment = '';
                 this.loadCommentList();
             } catch (err) {
                 console.error('提交评论失败:', err);
-                this.showToast(err.message || '提交失败，请稍后重试', 'error');
+                this.showToast('提交失败，请稍后重试', 'error');
             }
         },
 

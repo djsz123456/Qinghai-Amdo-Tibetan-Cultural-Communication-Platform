@@ -1822,8 +1822,108 @@
     </div>
   </section>
 
-
-
+  <nav class="horizontal-nav" aria-label="景点导航">
+    <ul class="nav-main">
+      <li class="nav-region" 
+          :class="{ active: activeRegion === 'qinghai' }"
+          @mouseenter="handleRegionHover('qinghai')"
+          @mouseleave="handleRegionLeave('qinghai')"
+          @click="toggleRegion('qinghai')">
+        <button class="nav-region-trigger" aria-expanded="activeRegion === 'qinghai'">
+          <span>青海安多核心区</span>
+          <span class="nav-region-label">安多文化核心承载区</span>
+          <i class="fa fa-chevron-down nav-region-trigger-chevron"></i>
+        </button>
+        <div class="nav-submenu">
+          <ul class="nav-submenu-list">
+            <li class="nav-submenu-item" :class="{ active: currentScenic === 'riyueshan' }"><a href="riyueshan/riyueshan.html" @click="setActiveScenic('riyueshan')">日月山<span>安多门户</span></a></li>
+            <li class="nav-submenu-item" :class="{ active: currentScenic === 'qinghaihu' }"><a href="qinghahu/qinghaihu.html" @click="setActiveScenic('qinghaihu')">青海湖<span>圣湖</span></a></li>
+            <li class="nav-submenu-item" :class="{ active: currentScenic === 'nanzong' }"><a href="nanzong/nanzong.html" @click="setActiveScenic('nanzong')">南宗寺<span>佛教圣地</span></a></li>
+            <li class="nav-submenu-item" :class="{ active: currentScenic === 'xiaqiong' }"><a href="xiaqiong/xiaqiongsi.html" @click="setActiveScenic('xiaqiong')">夏琼寺<span>宗喀巴祖庭</span></a></li>
+            <li class="nav-submenu-item" :class="{ active: currentScenic === 'labulengsi' }"><a href="labulengsi/labulengsi.html" @click="setActiveScenic('labulengsi')">拉卜楞寺<span>安多佛教学府</span></a></li>
+            <li class="nav-submenu-item" :class="{ active: currentScenic === 'taersi' }"><a href="taersi/taersi.html" @click="setActiveScenic('taersi')">塔尔寺<span>藏传佛教名寺</span></a></li>
+            <li class="nav-submenu-item" :class="{ active: currentScenic === 'xuanshan' }"><a href="xueshan/xueshan.html" @click="setActiveScenic('xuanshan')">阿尼玛沁雪山<span>神山</span></a></li>
+            <li class="nav-submenu-item" :class="{ active: currentScenic === 'sanjiangyuan' }"><a href="sanjiangyuan/sanjiangyuan.html" @click="setActiveScenic('sanjiangyuan')">三江源<span>中华水塔</span></a></li>
+            <li class="nav-submenu-item" :class="{ active: currentScenic === 'guoluo' }"><a href="guoluo/guoluo.html" @click="setActiveScenic('guoluo')">果洛<span>格萨尔文化之乡</span></a></li>
+            <li class="nav-submenu-item" :class="{ active: currentScenic === 'huangnan' }"><a href="huangnan/huangnan.html" @click="setActiveScenic('huangnan')">黄南<span>热贡艺术发源地</span></a></li>
+            <li class="nav-submenu-item" :class="{ active: currentScenic === 'yushu' }"><a href="yushu/yushu.html" @click="setActiveScenic('yushu')">玉树<span>康巴安多交融地</span></a></li>
+            <li class="nav-submenu-item" :class="{ active: currentScenic === 'guide' }"><a href="guide/guide.html" @click="setActiveScenic('guide')">贵德<span>高原江南</span></a></li>
+          </ul>
+        </div>
+      </li>
+      
+      <li class="nav-region" 
+          :class="{ active: activeRegion === 'gannan' }"
+          @mouseenter="handleRegionHover('gannan')"
+          @mouseleave="handleRegionLeave('gannan')"
+          @click="toggleRegion('gannan')">
+        <button class="nav-region-trigger" aria-expanded="activeRegion === 'gannan'">
+          <span>甘南安多文化区</span>
+          <span class="nav-region-label">安多文化重要传承地</span>
+          <i class="fa fa-chevron-down nav-region-trigger-chevron"></i>
+        </button>
+        <div class="nav-submenu">
+          <ul class="nav-submenu-list">
+            <li class="nav-submenu-item" :class="{ active: currentScenic === 'labulengsi-gn' }"><a href="labulengsi/labulengsi.html" @click="setActiveScenic('labulengsi-gn')">拉卜楞寺<span>核心地标</span></a></li>
+            <li class="nav-submenu-item" :class="{ active: currentScenic === 'langmusi' }"><a href="lms/lms.html" @click="setActiveScenic('langmusi')">郎木寺<span></span></a></li>
+            <li class="nav-submenu-item" :class="{ active: currentScenic === 'zagan' }"><a href="zgn/zgn.html" @click="setActiveScenic('zagan')">扎尕那<span></span></a></li>
+            <li class="nav-submenu-item" :class="{ active: currentScenic === 'sangke' }"><a href="sangkecaoyuan/sangkecaoyuan.html" @click="setActiveScenic('sangke')">桑科草原<span></span></a></li>
+            <li class="nav-submenu-item" :class="{ active: currentScenic === 'sangke' }"><a href="milariba/milariba.html" @click="setActiveScenic('sangke')">米拉日巴佛阁<span></span></a></li>
+            <li class="nav-submenu-item" :class="{ active: currentScenic === 'sangke' }"><a href="xiahe/xiahe1.html" @click="setActiveScenic('sangke')">夏河 八角城<span></span></a></li>
+            <li class="nav-submenu-item" :class="{ active: currentScenic === 'sangke' }"><a href="maqu/maqu.html" @click="setActiveScenic('sangke')">玛曲<span></span></a></li>
+            <li class="nav-submenu-item" :class="{ active: currentScenic === 'sangke' }"><a href="xiahe/xiahe2.html" @click="setActiveScenic('sangke')">夏河 甘加草原<span></span></a></li>
+          </ul>
+        </div>
+      </li>
+      
+      <li class="nav-region" 
+          :class="{ active: activeRegion === 'chuanxibei' }"
+          @mouseenter="handleRegionHover('chuanxibei')"
+          @mouseleave="handleRegionLeave('chuanxibei')"
+          @click="toggleRegion('chuanxibei')">
+        <button class="nav-region-trigger" aria-expanded="activeRegion === 'chuanxibei'">
+          <span>川西北安多片区</span>
+          <span class="nav-region-label">安多与康巴文化交融区</span>
+          <i class="fa fa-chevron-down nav-region-trigger-chevron"></i>
+        </button>
+        <div class="nav-submenu">
+          <ul class="nav-submenu-list">
+            <li class="nav-submenu-item" :class="{ active: currentScenic === 'aba' }"><a href="aba/aba.html" @click="setActiveScenic('aba')">阿坝州<span></span></a></li>
+            <li class="nav-submenu-item" :class="{ active: currentScenic === 'ruorgai' }"><a href="ruoergai/ruoergai.html" @click="setActiveScenic('ruorgai')">若尔盖草原<span></span></a></li>
+            <li class="nav-submenu-item" :class="{ active: currentScenic === 'songpan' }"><a href="songpan/songpan.html" @click="setActiveScenic('songpan')">松潘古城<span></span></a></li>
+            <li class="nav-submenu-item" :class="{ active: currentScenic === 'nianbaoyuze' }"><a href="nianbaoyuze/nianbaoyuze.html" @click="setActiveScenic('nianbaoyuze')">年宝玉则<span></span></a></li>
+            <li class="nav-submenu-item" :class="{ active: currentScenic === 'zhuokeji' }"><a href="zhuokeji/zhuokeji.html" @click="setActiveScenic('zhuokeji')">马尔康卓克基官寨<span></span></a></li>
+            <li class="nav-submenu-item" :class="{ active: currentScenic === 'huanghewan' }"><a href="huanghewan/huanghewan.html" @click="setActiveScenic('huanghewan')">九曲黄河第一湾<span></span></a></li>
+            <li class="nav-submenu-item" :class="{ active: currentScenic === 'hongyuan' }"><a href="hongyuan/hongyuan.html" @click="setActiveScenic('hongyuan')">红原大草原<span></span></a></li>
+            <li class="nav-submenu-item" :class="{ active: currentScenic === 'gemoshi' }"><a href="gemoshi/gemoshi.html" @click="setActiveScenic('gemoshi')">阿坝县各莫寺<span></span></a></li>
+          </ul>
+        </div>
+      </li>
+      
+      <li class="nav-region" 
+          :class="{ active: activeRegion === 'zangbei' }"
+          @mouseenter="handleRegionHover('zangbei')"
+          @mouseleave="handleRegionLeave('zangbei')"
+          @click="toggleRegion('zangbei')">
+        <button class="nav-region-trigger" aria-expanded="activeRegion === 'zangbei'">
+          <span>藏北安多延伸区</span>
+          <span class="nav-region-label">安多文化西向延伸带</span>
+          <i class="fa fa-chevron-down nav-region-trigger-chevron"></i>
+        </button>
+        <div class="nav-submenu">
+          <ul class="nav-submenu-list">
+            <li class="nav-submenu-item" :class="{ active: currentScenic === 'naqu' }"><a href="naqu/naqu.html" @click="setActiveScenic('naqu')">那曲<span></span></a></li>
+            <li class="nav-submenu-item" :class="{ active: currentScenic === 'tangula' }"><a href="naqu/tanggulashankou.html" @click="setActiveScenic('tangula')">唐古拉山口<span></span></a></li>
+             <li class="nav-submenu-item" :class="{ active: currentScenic === 'naqu' }"><a href="naqu/namucuo.html" @click="setActiveScenic('naqu')">纳木措<span></span></a></li>
+              <li class="nav-submenu-item" :class="{ active: currentScenic === 'naqu' }"><a href="naqu/kekexili.html" @click="setActiveScenic('naqu')">可可西里<span></span></a></li>
+               <li class="nav-submenu-item" :class="{ active: currentScenic === 'naqu' }"><a href="naqu/kulouqiang.html" @click="setActiveScenic('naqu')">骷髅墙<span></span></a></li>
+                <li class="nav-submenu-item" :class="{ active: currentScenic === 'naqu' }"><a href="naqu/selincuo.html" @click="setActiveScenic('naqu')">色林错<span></span></a></li>
+                 <li class="nav-submenu-item" :class="{ active: currentScenic === 'naqu' }"><a href="naqu/zandansi.html" @click="setActiveScenic('naqu')">赞丹寺<span></span></a></li>
+          </ul>
+        </div>
+      </li>
+    </ul>
+  </nav>
 
   <main class="main-container" id="main-content">
     <section id="culture" aria-labelledby="culture-title">
@@ -1936,7 +2036,13 @@
       <div class="map-container">
         <!-- 地图 -->
         <div class="map-wrapper">
-          <div id="amap-container" class="amap-container"></div>
+          <div id="amap-container" class="amap-container">
+            <div style="display:flex;flex-direction:column;align-items:center;justify-content:center;height:100%;color:#888;font-size:15px;gap:10px;">
+              <i class="fa fa-map-o" style="font-size:40px;color:#ccc;"></i>
+              <span>地图加载中，请确保网络畅通…</span>
+              <span style="font-size:12px;color:#bbb;">（高德地图需要网络连接）</span>
+            </div>
+          </div>
         </div>
 
         <!-- 右侧地名列表 -->
@@ -2555,7 +2661,7 @@ createApp({
           lng: 102.04,
           lat: 33.97,
           desc: '黄河第一弯所在地，拥有广阔的草原湿地，是黄河上游重要的水源涵养地。',
-          img: 'image1/mq1.jpg.jpg',
+          img: 'image1/mq1.jpg',
           link: 'maqu/maqu.html'
         },
         {

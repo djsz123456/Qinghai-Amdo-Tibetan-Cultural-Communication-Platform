@@ -677,89 +677,94 @@ createApp({
             }
         },
 
-        async loadSpotDetail() {
+        // 本地景点数据库（无需后端API）
+        getLocalSpotDatabase() {
+            return {
+                '1':  { id:'1',  title:'日月山', subtitle:'安多门户·农牧分界线', cover:'riyueshan/images/nn2.jpg', tags:['历史遗迹','安多门户','丝绸之路'], content:'日月山位于青海省湟源县，是古代丝绸之路的重要关隘，也是农耕文明与游牧文明的天然分界线。山上建有日亭、月亭，相传文成公主曾在此驻足东望，留下"日月宝镜"的动人传说。每年吸引大量游客前来感受安多文化的历史厚重感。' },
+                '2':  { id:'2',  title:'青海湖', subtitle:'中国最大内陆咸水湖', cover:'qinghahu/images/nn3.jpg', tags:['圣湖','自然风光','候鸟天堂'], content:'青海湖（藏语：མཚོ་སྔོན་པོ།）是中国最大的内陆咸水湖，海拔约3196米。每年夏季，湖边油菜花金黄，斑头雁、棕头鸥等候鸟云集。在安多藏族文化中，青海湖被视为神圣之地，是重要的宗教朝圣目的地。' },
+                '3':  { id:'3',  title:'南宗寺', subtitle:'青海著名佛教圣地', cover:'nanzong/images/nz3.jpg', tags:['寺庙','佛教圣地','修行地'], content:'南宗寺坐落于青海化隆县，依山而建，是安多地区历史悠久的佛教修行圣地。寺院周围山谷幽深，林木葱郁，历代高僧在此闭关修行，留下了深厚的宗教文化底蕴。' },
+                '4':  { id:'4',  title:'夏琼寺', subtitle:'宗喀巴大师祖庭之一', cover:'xiaqiong/images/xq1.jpg', tags:['格鲁派','寺庙','宗喀巴'], content:'夏琼寺位于青海化隆县，是藏传佛教格鲁派创始人宗喀巴大师早年学法之地，被誉为其祖庭之一。寺内保存有珍贵的宗教文物和壁画，是研究格鲁派发展史的重要场所。' },
+                '5':  { id:'5',  title:'拉卜楞寺', subtitle:'安多地区最大佛教学府', cover:'labulengsi/images/lb8.jpg', tags:['格鲁派','佛教学府','转经廊'], content:'拉卜楞寺（藏语：བླ་བྲང་བཀྲ་ཤིས་འཁྱིལ།）位于甘肃夏河，拥有世界上最长的转经廊（约3公里），是安多藏区规模最大、影响最深远的藏传佛教寺院群，也是格鲁派六大寺院之一。' },
+                '6':  { id:'6',  title:'塔尔寺', subtitle:'宗喀巴大师诞生地', cover:'taersi/images/ts1.jpg', tags:['格鲁派','酥油花','藏传佛教'], content:'塔尔寺（藏语：སྐུ་འབུམ་བྱམས་པ་གླིང་།）位于青海湟中，是藏传佛教格鲁派的重要名寺，宗喀巴大师的诞生地。以酥油花、壁画、堆绣"塔尔寺三绝"闻名于世，每年举办的法会吸引数万信众朝拜。' },
+                '7':  { id:'7',  title:'阿尼玛沁雪山', subtitle:'安多藏区神山', cover:'image1/an1.jpg', tags:['神山','雪山','黄河源头'], content:'阿尼玛沁雪山（藏语：མཆེན་རིའི་གངས་དཀར།）位于青海果洛，主峰海拔6282米，是黄河源头地区的重要地标。在藏族传统信仰中，阿尼玛沁是安多地区最重要的神山之一，每年都有大批信众前来转山朝圣。' },
+                '8':  { id:'8',  title:'三江源', subtitle:'中华水塔·长江黄河澜沧江发源地', cover:'sanjiangyuan/images/sjy.jpg', tags:['自然保护区','生态','三江源'], content:'三江源地区位于青海南部，是长江、黄河、澜沧江的发源地，被誉为"中华水塔"。这里平均海拔4000米以上，是中国面积最大的自然保护区，也是青藏高原重要的生态屏障。' },
+                '9':  { id:'9',  title:'果洛', subtitle:'格萨尔文化之乡', cover:'guoluo/images/gl.jpg', tags:['格萨尔','游牧文化','史诗'], content:'果洛藏族自治州位于青海东南部，是史诗《格萨尔王传》的重要流传地，保留了丰富的游牧文化与安多传统习俗。这里的牧民至今仍以天为幕、以地为席，延续着千年游牧生活方式。' },
+                '10': { id:'10', title:'黄南', subtitle:'热贡艺术发源地', cover:'huangnan/images/hn1.jpg', tags:['热贡艺术','唐卡','非遗'], content:'黄南藏族自治州同仁市（隆务镇）是举世闻名的热贡艺术发源地。热贡艺术包括唐卡、堆绣、泥塑等，已被列入联合国非物质文化遗产名录。来此可参观藏族艺人创作，购买正宗唐卡作品。' },
+                '11': { id:'11', title:'贵德', subtitle:'高原江南', cover:'guide/images/gd1.jpg', tags:['丹霞地貌','黄河','高原江南'], content:'贵德县位于青海省海南藏族自治州，黄河穿境而过，兼具丹霞地貌与黄河风光，气候温暖湿润，被誉为青海的"小江南"。每年梨花节吸引大量游客，是感受青藏高原另一面的绝佳去处。' },
+                '12': { id:'12', title:'拉卜楞寺', subtitle:'甘南核心地标', cover:'labulengsi/images/lb8.jpg', tags:['格鲁派','转经廊','甘南'], content:'拉卜楞寺作为甘南藏族自治州夏河县的核心地标，每天清晨信众手持转经筒沿廊而行，是安多地区最震撼人心的宗教场景之一。寺内设有多所藏传佛教学院，培养了大量高僧大德。' },
+                '13': { id:'13', title:'郎木寺', subtitle:'一寺跨甘川两省', cover:'lms/images/lm1.jpg', tags:['寺庙','甘川交界','自然风光'], content:'郎木寺小镇地处甘肃碌曲与四川若尔盖交界处，一条小溪将其分为甘肃寺和四川寺两部分。小镇融合了藏、回、汉多民族文化，自然风光秀美，被誉为"东方小瑞士"。' },
+                '14': { id:'14', title:'扎尕那', subtitle:'最后的伊甸园', cover:'zgn/zg1.jpg', tags:['藏式村落','石山','甘南'], content:'扎尕那（藏语意为"石匣子"）位于甘肃迭部县，是一座被石山环抱的古老藏式村落。垂直的岩壁、茂密的森林与古朴的藏寨浑然天成，被美国《国家地理》杂志誉为"最后的伊甸园"。' },
+                '15': { id:'15', title:'桑科草原', subtitle:'甘南天然牧场', cover:'sangkecaoyuan/sk1.jpg', tags:['草原','游牧','甘南'], content:'桑科草原位于夏河县境内，是甘南最美的天然牧场之一。夏季绿草如茵，牛羊遍野，帐篷星罗棋布，是体验藏区游牧生活、感受安多草原风情的绝佳去处。' },
+                '16': { id:'16', title:'米拉日巴佛阁', subtitle:'九层佛阁·信仰圣地', cover:'image1/ml1.jpg', tags:['佛阁','米拉日巴','甘南'], content:'米拉日巴佛阁位于甘肃合作市，是供奉藏传佛教噶举派祖师米拉日巴大师的九层楼阁式建筑。建筑外观雄伟，内部供奉有大量珍贵佛像和典籍，是安多藏区重要的宗教文化场所。' },
+                '17': { id:'17', title:'夏河八角城', subtitle:'古代丝路边防要塞', cover:'image1/xh1.jpg', tags:['古城','遗址','丝绸之路'], content:'八角城遗址位于甘肃临潭县，城垣平面呈八角形，是中国现存保存最完整的古代八角形城池之一，也是研究古代边防与丝绸之路的重要历史遗存。' },
+                '18': { id:'18', title:'玛曲', subtitle:'黄河第一弯所在地', cover:'image1/mq1.jpg', tags:['黄河','草原湿地','甘南'], content:'玛曲县（藏语意为"黄河"）是黄河上游重要的水源涵养地，以黄河九曲第一湾闻名。广阔的草原湿地孕育了丰富的野生动植物资源，是生态旅游的理想目的地。' },
+                '19': { id:'19', title:'夏河甘加草原', subtitle:'完整藏式游牧文化', cover:'image1/xh2.jpg', tags:['草原','游牧','夏河'], content:'甘加草原位于夏河县甘加乡，保留了完整的藏式游牧文化。这里山水相依，草场辽阔，夏季风光尤为壮丽，是了解安多游牧生活的重要窗口。' },
+                '20': { id:'20', title:'阿坝州', subtitle:'安多与康巴文化交融地', cover:'image1/ab1.jpg', tags:['阿坝','川西北','藏文化'], content:'阿坝藏族羌族自治州位于四川省西北部，是安多与康巴文化的重要交融地带，也是羌族文化的核心区。辖区内有若尔盖草原、黄龙、九寨沟等著名景点，是川西北藏文化的重要传承地。' },
+                '21': { id:'21', title:'若尔盖草原', subtitle:'中国三大湿地之一', cover:'image1/rg1.jpg', tags:['湿地','草原','黄河上游'], content:'若尔盖草原位于四川省阿坝州，是中国三大湿地之一，川西北的高原绿洲。这里是黄河上游重要的生态屏障，也是红军长征经过的重要地区，留下了深厚的红色文化印记。' },
+                '22': { id:'22', title:'松潘古城', subtitle:'茶马古道重要驿站', cover:'image1/sb1.jpg', tags:['古城','茶马古道','历史'], content:'松潘古城位于四川阿坝州，是茶马古道上的重要驿站，古代兵家必争之地。城内保存有完整的明代城墙、寺庙和传统民居，展现了汉、藏、回多民族文化交融的历史面貌。' },
+                '23': { id:'23', title:'年宝玉则', subtitle:'安多藏区神山圣湖', cover:'image1/nb1.jpg', tags:['神山','圣湖','果洛'], content:'年宝玉则位于青海果洛州久治县，以雄峻的雪山、清澈的高原湖泊和原始森林著称，是藏族心中的重要神山圣地。这里的湖泊群星罗棋布，山花烂漫，是探索原始高原生态的胜地。' },
+                '24': { id:'24', title:'马尔康卓克基官寨', subtitle:'嘉绒藏族文化代表建筑', cover:'image1/me1.jpg', tags:['官寨','嘉绒藏族','历史建筑'], content:'卓克基官寨位于四川阿坝州马尔康市，是嘉绒藏族文化的代表性建筑群，也是小说《尘埃落定》的故事原型地。官寨建于明末，融合了藏式与汉式建筑风格，被列为全国重点文物保护单位。' },
+                '25': { id:'25', title:'九曲黄河第一湾', subtitle:'川西北标志性景观', cover:'image1/jq1.jpg', tags:['黄河','湾景','若尔盖'], content:'九曲黄河第一湾位于四川若尔盖县唐克乡，是黄河在四川境内的第一处大拐弯。登上观景台俯瞰，黄河如一条金色飘带蜿蜒其中，尤其日落时分"九曲晚霞"景色绝美，是川西北最具代表性的自然景观。' },
+                '26': { id:'26', title:'红原大草原', subtitle:'红军长征草原·安多牧场', cover:'image1/hy1.jpg', tags:['草原','红色文化','安多'], content:'红原县位于四川阿坝州，是红军长征走过的草原，也是川西北的高原牧场。这里保留了浓郁的安多藏区风情，每年举办的"雅克"赛马节是体验安多游牧文化的重要节庆活动。' },
+                '27': { id:'27', title:'阿坝县各莫寺', subtitle:'川西北重要格鲁派寺院', cover:'image1/gm1.jpg', tags:['格鲁派','寺院','阿坝县'], content:'各莫寺位于四川阿坝县，是阿坝地区重要的格鲁派寺院，建筑宏伟壮观。寺内保存有大量珍贵的宗教典籍、唐卡和法器，是川西北安多藏区重要的宗教文化场所和朝圣地。' }
+            };
+        },
+
+        loadSpotDetail() {
             this.loading = true;
             this.error = false;
-
             try {
-                const response = await fetch(`/api/tour-spot/detail/${this.spotId}`);
-                
-                if (!response.ok) {
-                    throw new Error(`加载失败: ${response.status}`);
+                const db = this.getLocalSpotDatabase();
+                const spot = db[String(this.spotId)];
+                if (!spot) {
+                    this.error = true;
+                    this.errorMessage = `未找到ID为 ${this.spotId} 的景点数据`;
+                    return;
                 }
-
-                const data = await response.json();
-                
-                if (data.code !== 200) {
-                    throw new Error(data.msg || '获取数据失败');
-                }
-
-                this.spotDetail = data.data;
+                this.spotDetail = spot;
             } catch (err) {
-                console.error('加载景点详情失败:', err);
                 this.error = true;
-                this.errorMessage = err.message || '加载失败，请稍后重试';
+                this.errorMessage = '数据加载失败，请刷新重试';
             } finally {
                 this.loading = false;
             }
         },
 
-        async loadCommentList() {
+        loadCommentList() {
             try {
-                const response = await fetch(`/api/tour-spot/comment/list/${this.spotId}`);
-                
-                if (!response.ok) {
-                    throw new Error(`加载评论失败: ${response.status}`);
-                }
-
-                const data = await response.json();
-                
-                if (data.code !== 200) {
-                    throw new Error(data.msg || '获取评论失败');
-                }
-
-                this.commentList = data.data || [];
+                const key = `spot_comments_${this.spotId}`;
+                const stored = localStorage.getItem(key);
+                this.commentList = stored ? JSON.parse(stored) : [];
             } catch (err) {
-                console.error('加载评论失败:', err);
-                this.showToast('评论加载失败', 'error');
+                console.error('读取评论失败:', err);
+                this.commentList = [];
             }
         },
 
-        async submitComment() {
+        submitComment() {
             if (!this.newComment.trim()) {
                 this.showToast('请输入留言内容', 'error');
                 return;
             }
-
             try {
-                const response = await fetch('/api/tour-spot/comment/add', {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json'
-                    },
-                    body: JSON.stringify({
-                        spotId: this.spotId,
-                        content: this.newComment.trim(),
-                        userName: this.getUserName()
-                    })
-                });
-
-                if (!response.ok) {
-                    throw new Error(`提交失败: ${response.status}`);
-                }
-
-                const data = await response.json();
-                
-                if (data.code !== 200) {
-                    throw new Error(data.msg || '提交失败');
-                }
-
+                const key = `spot_comments_${this.spotId}`;
+                const stored = localStorage.getItem(key);
+                const list = stored ? JSON.parse(stored) : [];
+                const newEntry = {
+                    id: Date.now(),
+                    spotId: this.spotId,
+                    content: this.newComment.trim(),
+                    userName: this.getUserName(),
+                    createTime: new Date().toISOString()
+                };
+                list.unshift(newEntry);
+                localStorage.setItem(key, JSON.stringify(list));
                 this.showToast('留言提交成功', 'success');
                 this.newComment = '';
                 this.loadCommentList();
             } catch (err) {
                 console.error('提交评论失败:', err);
-                this.showToast(err.message || '提交失败，请稍后重试', 'error');
+                this.showToast('提交失败，请稍后重试', 'error');
             }
         },
 
