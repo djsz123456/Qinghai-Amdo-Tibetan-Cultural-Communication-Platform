@@ -2,7 +2,9 @@
 <html lang="zh-CN">
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>喜马拉雅藏文输入法 网页虚拟键盘</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/font-awesome@4.7.0/css/font-awesome.min.css">
     <style>
         * {
             margin: 0;
@@ -12,10 +14,31 @@
         }
         body {
             background: #f5f5f5;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        .top-bar {
+            width: 100%;
+            background: #9B2B25;
+            color: #fff;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 12px 24px;
+            font-size: 14px;
+            box-sizing: border-box;
+        }
+        .top-bar a { color: rgba(255,255,255,0.85); text-decoration: none; transition: all 0.3s; }
+        .top-bar a:hover { color: #D4AF37; }
+        .top-bar .logo { font-size: 16px; font-weight: 700; }
+        .page-body {
             padding: 30px;
             display: flex;
             flex-direction: column;
             align-items: center;
+            width: 100%;
         }
         h1 {
             color: #992620;
@@ -77,7 +100,7 @@
             min-width: 120px;
         }
         .key.space {
-            min-width: 400px;
+            min-width: min(400px, 60vw);
         }
         /* Shift状态提示 */
         .shift-status {
@@ -88,6 +111,11 @@
     </style>
 </head>
 <body>
+<div class="top-bar">
+  <span class="logo">雪域安多·藏韵传承</span>
+  <a href="../index.html"><i class="fa fa-home"></i> 返回首页</a>
+</div>
+<div class="page-body">
     <h1>喜马拉雅藏文输入法 网页虚拟键盘</h1>
     <textarea id="inputBox" placeholder="点击下方按键输入藏文"></textarea>
 
@@ -259,5 +287,11 @@
             if(e.key === 'Shift') toggleShift();
         });
     </script>
+</div>
+
+<footer style="background:#9B2B25;color:rgba(255,255,255,0.85);text-align:center;padding:24px 20px;font-size:14px;width:100%;">
+  <p>青海安多藏族文化传播平台 &copy; 2026 &nbsp;·&nbsp; 探寻安多秘境，传承藏韵文化</p>
+</footer>
+
 </body>
 </html>

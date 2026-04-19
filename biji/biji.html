@@ -5,7 +5,8 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>藏文笔记</title>
   <!-- 引入Vue3 -->
-  <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+  <script src="https://unpkg.com/vue@3/dist/vue.global.prod.js"></script>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/font-awesome@4.7.0/css/font-awesome.min.css">
   <style>
     * {
       margin: 0;
@@ -16,6 +17,23 @@
 
     body {
       background-color: #f8f5f0;
+      padding: 0;
+    }
+
+    .top-bar {
+      background: #9B2B25;
+      color: #fff;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 12px 24px;
+      font-size: 14px;
+    }
+    .top-bar a { color: rgba(255,255,255,0.85); text-decoration: none; transition: all 0.3s; }
+    .top-bar a:hover { color: #D4AF37; }
+    .top-bar .logo { font-size: 16px; font-weight: 700; }
+
+    .page-body {
       padding: 20px;
     }
 
@@ -116,6 +134,12 @@
 </head>
 <body>
 
+<div class="top-bar">
+  <span class="logo">雪域安多·藏韵传承</span>
+  <a href="../index.html"><i class="fa fa-home"></i> 返回首页</a>
+</div>
+
+<div class="page-body">
 <div id="app" class="note-container">
   <div class="note-header">藏文笔记 ཡིག་གཟུགས།</div>
 
@@ -189,6 +213,11 @@ createApp({
   }
 }).mount('#app')
 </script>
+</div>
+
+<footer style="background:#9B2B25;color:rgba(255,255,255,0.85);text-align:center;padding:24px 20px;font-size:14px;">
+  <p>青海安多藏族文化传播平台 &copy; 2026 &nbsp;·&nbsp; 探寻安多秘境，传承藏韵文化</p>
+</footer>
 
 </body>
 </html>
