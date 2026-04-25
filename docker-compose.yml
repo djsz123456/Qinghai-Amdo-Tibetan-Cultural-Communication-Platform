@@ -1,0 +1,52 @@
+version: '3.8'
+
+services:
+  db:
+    image: postgres:16-alpine
+    container_name: tibetan-db
+    restart: unless-stopped
+    environment:
+      POSTGRES_DB: tibetan_platform
+      POSTGRES_USER: ${DB_USER:-tibetan}
+      POSTGRES_PASSWORD: ${DB_PASSWORD:-tibetan123}
+    ports:
+      - "5432:5432"
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U tibetan -d tibetan_platform"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  backend:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    container_name: tibetan-backend
+    restart: unless-stopped
+    environment:
+      DB_HOST: db
+      DB_NAME: tibetan_platform
+      DB_USER: ${DB_USER:-tibetan}
+      DB_PASSWORD: ${DB_PASSWORD:-tibetan123}
+      JWT_SECRET: ${JWT_SECRET:-xueyu-amdo-tibetan-platform-secret-key-2026}
+    ports:
+      - "8080:8080"
+    depends_on:
+      db:
+        condition: service_healthy
+
+  frontend:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+    container_name: tibetan-frontend
+    restart: unless-stopped
+    ports:
+      - "80:80"
+    depends_on:
+      - backend
+
+volumes:
+  pgdata:
