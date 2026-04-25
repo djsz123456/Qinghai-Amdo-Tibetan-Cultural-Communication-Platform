@@ -1,23 +1,25 @@
 <template>
   <div class="home-page">
     <section class="hero">
-      <div class="hero-content">
-        <h1>雪域安多·藏韵传承</h1>
-        <p>安多藏族文化传播平台 — 展示安多地区旅游景点与民俗文化</p>
-        <div class="hero-stats">
-          <div class="stat-item">
-            <span class="stat-number">12+</span>
-            <div class="stat-label">圣地景点</div>
-          </div>
-          <div class="stat-item">
-            <span class="stat-number">1000+</span>
-            <div class="stat-label">年文化传承</div>
-          </div>
-          <div class="stat-item">
-            <span class="stat-number">50+</span>
-            <div class="stat-label">传统节日</div>
+      <div class="hero-slides">
+        <div v-for="(slide, index) in bannerSlides" :key="index"
+             class="hero-slide" :class="{ active: currentSlide === index }">
+          <img :src="slide.img" :alt="slide.alt" loading="lazy" />
+          <div class="hero-content">
+            <h1>{{ slide.title }}</h1>
+            <p>{{ slide.subtitle }}</p>
+            <div class="hero-stats">
+              <div class="stat-item"><span class="stat-number">12+</span><div class="stat-label">圣地景点</div></div>
+              <div class="stat-item"><span class="stat-number">1000+</span><div class="stat-label">年文化传承</div></div>
+              <div class="stat-item"><span class="stat-number">50+</span><div class="stat-label">传统节日</div></div>
+            </div>
           </div>
         </div>
+      </div>
+      <div class="hero-indicators">
+        <div v-for="(_, index) in bannerSlides" :key="index"
+             class="hero-indicator" :class="{ active: currentSlide === index }"
+             @click="goToSlide(index)"></div>
       </div>
     </section>
 
@@ -67,11 +69,11 @@
             <h3>藏汉翻译</h3>
             <p>藏汉双向智能翻译</p>
           </router-link>
-          <a href="/jianpan/jianpan.html" class="tool-card">
+          <router-link to="/keyboard" class="tool-card">
             <div class="tool-icon"><i class="fa fa-keyboard-o"></i></div>
             <h3>藏文键盘</h3>
             <p>在线藏文输入法</p>
-          </a>
+          </router-link>
           <router-link to="/music" class="tool-card">
             <div class="tool-icon"><i class="fa fa-music"></i></div>
             <h3>藏族音乐</h3>
@@ -99,6 +101,36 @@
 </template>
 
 <script setup lang="ts">
+import { ref, onMounted, onUnmounted } from 'vue'
+
+const currentSlide = ref(0)
+let slideTimer: ReturnType<typeof setInterval> | null = null
+
+const bannerSlides = [
+  { img: '/images/image/mm1.jpg', alt: '安多风景', title: '安多藏族文化传播平台', subtitle: '旅游景点 + 民俗文化深度融合 · 本地人讲述 · 拒绝编造' },
+  { img: '/images/image/mm2.jpg', alt: '藏族寺庙', title: '探索千年藏族文化', subtitle: '走进安多藏区，感受信仰的力量' },
+  { img: '/images/image/mm3.jpg', alt: '青海湖', title: '圣湖青海湖', subtitle: '转湖祈福，体验藏族传统习俗' },
+  { img: '/images/image/mm4.jpg', alt: '塔尔寺', title: '塔尔寺艺术三绝', subtitle: '酥油花、壁画、堆绣的非遗传承' },
+  { img: '/images/image/mm5.jpg', alt: '雪山草原', title: '阿尼玛沁雪山', subtitle: '神山圣水，安多藏族的精神家园' },
+]
+
+function goToSlide(index: number) {
+  currentSlide.value = index
+  resetTimer()
+}
+
+function nextSlide() {
+  currentSlide.value = (currentSlide.value + 1) % bannerSlides.length
+}
+
+function resetTimer() {
+  if (slideTimer) clearInterval(slideTimer)
+  slideTimer = setInterval(nextSlide, 5000)
+}
+
+onMounted(() => { resetTimer() })
+onUnmounted(() => { if (slideTimer) clearInterval(slideTimer) })
+
 const folkList = [
   { id: 1, title: '藏族情歌《拉伊》', desc: '安多藏族最具代表性的民间歌曲形式，以即兴对唱表达爱情。', img: '/images/guoluo/images/gl.jpg' },
   { id: 2, title: '安多藏戏', desc: '融合歌舞、念白、表演的综合艺术，被誉为"藏文化活化石"。', img: '/images/huangnan/images/hn1.jpg' },
@@ -120,26 +152,38 @@ const tourList = [
 
 <style lang="scss" scoped>
 .hero {
-  height: 500px;
-  background: linear-gradient(135deg, var(--primary-red) 0%, #B83C2E 50%, var(--primary-gold) 100%);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  text-align: center;
-  color: #fff;
+  position: relative;
+  height: 600px;
+  overflow: hidden;
 }
 
-.hero-content h1 {
-  font-size: 3rem;
-  font-weight: 700;
-  text-shadow: 2px 4px 8px rgba(0, 0, 0, 0.3);
-  margin-bottom: 16px;
+.hero-slides { position: relative; width: 100%; height: 100%; }
+
+.hero-slide {
+  position: absolute; inset: 0; opacity: 0; transition: opacity 1s ease;
+  img { width: 100%; height: 100%; object-fit: cover; }
+  &.active { opacity: 1; z-index: 1; }
 }
 
-.hero-content p {
-  font-size: 1.1rem;
-  opacity: 0.9;
-  margin-bottom: 30px;
+.hero-content {
+  position: absolute; inset: 0; z-index: 2;
+  background: linear-gradient(to bottom, rgba(0,0,0,0.1) 0%, rgba(0,0,0,0.6) 100%);
+  display: flex; flex-direction: column; align-items: center; justify-content: center;
+  text-align: center; color: #fff; padding: 20px;
+  h1 { font-size: 3rem; font-weight: 700; text-shadow: 2px 4px 8px rgba(0,0,0,0.5); margin-bottom: 16px; }
+  p { font-size: 1.1rem; opacity: 0.9; margin-bottom: 30px; }
+}
+
+.hero-indicators {
+  position: absolute; bottom: 30px; left: 50%; transform: translateX(-50%); z-index: 3;
+  display: flex; gap: 10px;
+}
+
+.hero-indicator {
+  width: 12px; height: 12px; border-radius: 50%; background: rgba(255,255,255,0.4);
+  cursor: pointer; transition: all 0.3s;
+  &.active { background: #fff; transform: scale(1.3); }
+  &:hover { background: rgba(255,255,255,0.7); }
 }
 
 .hero-stats {

@@ -46,6 +46,11 @@ const routes = [
     name: 'Phrases',
     component: () => import('@/views/PhraseView.vue'),
   },
+  {
+    path: '/keyboard',
+    name: 'Keyboard',
+    component: () => import('@/views/KeyboardView.vue'),
+  },
 ]
 
 const router = createRouter({
