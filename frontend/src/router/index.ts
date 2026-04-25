@@ -31,6 +31,21 @@ const routes = [
     name: 'Translate',
     component: () => import('@/views/TranslateView.vue'),
   },
+  {
+    path: '/calendar',
+    name: 'Calendar',
+    component: () => import('@/views/CalendarView.vue'),
+  },
+  {
+    path: '/notes',
+    name: 'Notes',
+    component: () => import('@/views/NoteView.vue'),
+  },
+  {
+    path: '/phrases',
+    name: 'Phrases',
+    component: () => import('@/views/PhraseView.vue'),
+  },
 ]
 
 const router = createRouter({

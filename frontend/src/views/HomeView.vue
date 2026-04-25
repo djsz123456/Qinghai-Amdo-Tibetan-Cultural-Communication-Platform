@@ -57,11 +57,11 @@
       <section id="tools">
         <h2 class="section-title">藏文实用工具（ལག་ཆ།）</h2>
         <div class="tools-grid">
-          <a href="/zangli-master/calendar.html" class="tool-card">
+          <router-link to="/calendar" class="tool-card">
             <div class="tool-icon"><i class="fa fa-calendar"></i></div>
             <h3>藏文日历</h3>
             <p>百年藏历在线查询</p>
-          </a>
+          </router-link>
           <router-link to="/translate" class="tool-card">
             <div class="tool-icon"><i class="fa fa-language"></i></div>
             <h3>藏汉翻译</h3>
@@ -82,11 +82,16 @@
             <h3>藏文经典</h3>
             <p>经典藏文诵读学习</p>
           </router-link>
-          <a href="/biji/biji.html" class="tool-card">
+          <router-link to="/notes" class="tool-card">
             <div class="tool-icon"><i class="fa fa-pencil"></i></div>
             <h3>藏文笔记</h3>
             <p>个人藏文学习笔记</p>
-          </a>
+          </router-link>
+          <router-link to="/phrases" class="tool-card">
+            <div class="tool-icon"><i class="fa fa-comment"></i></div>
+            <h3>藏语短语</h3>
+            <p>安多藏语常用短语</p>
+          </router-link>
         </div>
       </section>
     </main>
