@@ -6,6 +6,7 @@ import com.tibetan.platform.repository.NoteRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -35,6 +36,7 @@ public class NoteController {
     }
 
     @PutMapping("/{id}")
+    @Transactional
     public ApiResponse<Note> update(@PathVariable Long id, @RequestBody Note note) {
         Long userId = getCurrentUserId();
         return noteRepository.findById(id)
@@ -48,6 +50,7 @@ public class NoteController {
     }
 
     @DeleteMapping("/{id}")
+    @Transactional
     public ApiResponse<Void> delete(@PathVariable Long id) {
         Long userId = getCurrentUserId();
         return noteRepository.findById(id)

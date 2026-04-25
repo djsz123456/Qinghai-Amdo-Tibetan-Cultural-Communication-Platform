@@ -22,4 +22,11 @@ public class MusicController {
                 : musicRepository.findAll();
         return ApiResponse.ok(list);
     }
+
+    @GetMapping("/{id}")
+    public ApiResponse<Music> detail(@PathVariable Long id) {
+        return musicRepository.findById(id)
+                .map(ApiResponse::ok)
+                .orElse(ApiResponse.error(404, "音乐不存在"));
+    }
 }

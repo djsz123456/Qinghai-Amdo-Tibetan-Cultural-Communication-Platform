@@ -1,6 +1,13 @@
 <template>
   <div class="note-page-wrapper">
-    <div class="page-body">
+    <div v-if="!userStore.isLoggedIn" class="login-required">
+      <i class="fa fa-lock"></i>
+      <h2>请先登录</h2>
+      <p>登录后即可使用藏文笔记功能，记录您的学习心得。</p>
+      <router-link to="/" class="login-btn"><i class="fa fa-home"></i> 返回首页登录</router-link>
+    </div>
+
+    <div v-else class="page-body">
       <div class="note-page">
         <div class="note-sidebar">
           <div class="sidebar-header">
@@ -188,6 +195,9 @@ onMounted(() => { loadNotes() })
 .toast { position: fixed; top: 30px; left: 50%; transform: translateX(-50%); background: #28a745; color: white; padding: 10px 25px; border-radius: 6px; font-size: 15px; z-index: 9999; }
 .fade-enter-active, .fade-leave-active { transition: opacity 0.3s; }
 .fade-enter-from, .fade-leave-to { opacity: 0; }
+
+.login-required { display: flex; flex-direction: column; align-items: center; justify-content: center; min-height: 60vh; text-align: center; padding: 40px; i { font-size: 64px; color: #ccc; margin-bottom: 20px; } h2 { color: var(--primary-red); margin-bottom: 16px; } p { color: #888; margin-bottom: 24px; } }
+.login-btn { display: inline-flex; align-items: center; gap: 8px; padding: 12px 32px; background: var(--primary-red); color: #fff; border-radius: 8px; text-decoration: none; font-size: 16px; transition: all 0.2s; &:hover { background: #8B2020; } }
 
 @media (max-width: 768px) {
   .note-page { flex-direction: column; min-height: auto; }

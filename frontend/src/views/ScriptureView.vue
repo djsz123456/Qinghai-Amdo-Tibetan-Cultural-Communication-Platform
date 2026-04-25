@@ -33,7 +33,7 @@
 </template>
 
 <script setup lang="ts">
-import { reactive } from 'vue'
+import { reactive, onUnmounted } from 'vue'
 
 interface VerseLine { tibetan: string; chinese: string; isExpanded: boolean }
 
@@ -82,6 +82,10 @@ function collapseAll() {
 function toggleNightMode() {
   document.body.classList.toggle('night-mode')
 }
+
+onUnmounted(() => {
+  document.body.classList.remove('night-mode')
+})
 </script>
 
 <style lang="scss" scoped>

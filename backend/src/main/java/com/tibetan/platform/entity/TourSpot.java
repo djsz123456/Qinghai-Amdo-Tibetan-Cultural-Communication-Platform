@@ -31,7 +31,10 @@ public class TourSpot {
     @Column(name = "link_url", length = 500)
     private String linkUrl;
 
+    @Column(precision = 10, scale = 7)
     private BigDecimal latitude;
+
+    @Column(precision = 10, scale = 7)
     private BigDecimal longitude;
 
     @Column(name = "sort_order")

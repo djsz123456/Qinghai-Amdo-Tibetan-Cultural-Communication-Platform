@@ -45,7 +45,7 @@
 </template>
 
 <script setup lang="ts">
-import { ref } from 'vue'
+import { ref, onMounted, onUnmounted } from 'vue'
 import { useUserStore } from '@/stores/user'
 
 const userStore = useUserStore()
@@ -63,6 +63,16 @@ function handleLogout() {
   userStore.logout()
   showDropdown.value = false
 }
+
+function onClickOutside(e: MouseEvent) {
+  const wrapper = document.querySelector('.user-btn-wrapper')
+  if (wrapper && !wrapper.contains(e.target as Node)) {
+    showDropdown.value = false
+  }
+}
+
+onMounted(() => document.addEventListener('click', onClickOutside))
+onUnmounted(() => document.removeEventListener('click', onClickOutside))
 
 function handleFeatureClick(feature: string) {
   alert(`${feature}功能正在迁移中…`)
