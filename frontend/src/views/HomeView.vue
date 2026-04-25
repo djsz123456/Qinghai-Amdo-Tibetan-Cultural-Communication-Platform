@@ -136,8 +136,8 @@ const folkList = [
   { id: 2, title: '安多藏戏', desc: '融合歌舞、念白、表演的综合艺术，被誉为"藏文化活化石"。', img: '/images/huangnan/images/hn1.jpg' },
   { id: 3, title: '雪顿节', desc: '藏族最隆重的传统节日之一，意为"酸奶宴"。', img: '/images/taersi/images/ts1.jpg' },
   { id: 4, title: '转湖习俗', desc: '信众沿青海湖环行祈福，转湖一圈约360公里。', img: '/images/qinghahu/images/nn3.jpg' },
-  { id: 5, title: '煨桑仪式', desc: '以松柏枝、酥油等为祭品，点燃产生桑烟，祈求神灵庇佑。', img: '/images/sangkecaoyuan/images/skcy1.jpg' },
-  { id: 6, title: '藏历新年', desc: '藏族最重要的传统节日，家家户户制作"切玛"供品，欢庆新春。', img: '/images/sanjiangyuan/images/sjy.jpg' },
+  { id: 5, title: '煨桑仪式', desc: '以松柏枝、酥油等为祭品，点燃产生桑烟，祈求神灵庇佑。', img: '/images/image/weisang.jpg' },
+  { id: 6, title: '藏历新年', desc: '藏族最重要的传统节日，家家户户制作"切玛"供品，欢庆新春。', img: '/images/image/sanjiangyuan.jpg' },
 ]
 
 const tourList = [
@@ -146,7 +146,7 @@ const tourList = [
   { id: 3, title: '拉卜楞寺', desc: '世界最大的藏学学府，拥有最完整的藏传佛教教学体系。', img: '/images/labulengsi/images/lb8.jpg' },
   { id: 4, title: '黄南热贡', desc: '热贡艺术国家级非遗，唐卡、堆绣、泥塑享誉世界。', img: '/images/huangnan/images/hn1.jpg' },
   { id: 5, title: '日月山', desc: '文成公主入藏必经地，农耕与游牧文明的地理分界线。', img: '/images/riyueshan/images/nn2.jpg' },
-  { id: 6, title: '三江源', desc: '长江、黄河、澜沧江发源地，中华水塔，世界级生态保护区。', img: '/images/sanjiangyuan/images/sjy.jpg' },
+  { id: 6, title: '三江源', desc: '长江、黄河、澜沧江发源地，中华水塔，世界级生态保护区。', img: '/images/image/sanjiangyuan.jpg' },
 ]
 </script>
 

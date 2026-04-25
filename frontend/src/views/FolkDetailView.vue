@@ -85,7 +85,7 @@ const FOLK_DATA: Record<number, FolkCulture> = {
     ],
   },
   5: {
-    id: 5, title: '煨桑仪式', subtitle: '以烟为语，与天地神灵沟通的古老礼仪', category: '宗教仪式', image: '/images/sangkecaoyuan/images/skcy1.jpg',
+    id: 5, title: '煨桑仪式', subtitle: '以烟为语，与天地神灵沟通的古老礼仪', category: '宗教仪式', image: '/images/image/weisang.jpg',
     sections: [
       { icon: 'fa-history', title: '仪式背景', content: ['煨桑（藏语：བསང་།）是藏传佛教及苯教传统中一种以烟火祭祀为核心的宗教仪式，历史可追溯至苯教时代。', '"桑"意为"净化"，通过燃烧芳香植物产生的烟雾，象征向神灵献供、净化污秽、祈求吉祥。'] },
       { icon: 'fa-list-ol', title: '仪式步骤', content: ['煨桑仪式通常在清晨日出时分举行。首先由喇嘛或长者点燃桑火，随后依次添加燃料，同时诵念祈祷经文。信众围绕桑炉顺时针转行，手持哈达和风马旗。'] },
@@ -94,7 +94,7 @@ const FOLK_DATA: Record<number, FolkCulture> = {
     ],
   },
   6: {
-    id: 6, title: '藏历新年', subtitle: '洛萨节——雪域高原辞旧迎新的盛典', category: '传统节日', image: '/images/sanjiangyuan/images/sjy.jpg',
+    id: 6, title: '藏历新年', subtitle: '洛萨节——雪域高原辞旧迎新的盛典', category: '传统节日', image: '/images/image/sanjiangyuan.jpg',
     sections: [
       { icon: 'fa-calendar', title: '时间计算', content: ['藏历新年（藏语：ལོ་གསར།，Losar）是藏族一年中最重要的传统节日，时间依据藏历推算，通常在公历2月至3月之间。'] },
       { icon: 'fa-home', title: '节前准备', content: ['藏历十二月下旬，家家户户开始打扫房屋、粉刷墙壁、制作"卡赛"和"切玛"。', '除夕家人共吃"古突"，汤中包有不同东西预示着不同的运势，气氛欢乐热闹。'] },

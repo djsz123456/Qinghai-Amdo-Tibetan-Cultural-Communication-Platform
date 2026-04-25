@@ -108,7 +108,7 @@ const SPOT_DATABASE: Record<string, TourSpot> = {
   },
   '6': {
     id: '6', name: '三江源', address: '青海·玉树',
-    cover: '/images/sanjiangyuan/images/sjy.jpg', link: 'sanjiangyuan/sanjiangyuan.html',
+    cover: '/images/image/sanjiangyuan.jpg', link: 'sanjiangyuan/sanjiangyuan.html',
     sections: [
       { icon: 'fa-leaf', title: '生态屏障', content: '三江源地区位于青海省南部，平均海拔4000米以上，是长江、黄河、澜沧江三大河流的发源地，被誉为"中华水塔"。每年向下游输送近600亿立方米的淡水。' },
       { icon: 'fa-tint', title: '三江源头', content: '· 长江源：沱沱河发源于唐古拉山脉各拉丹冬雪山\n· 黄河源：约古宗列曲发源于巴颜喀拉山北麓\n· 澜沧江源：扎曲发源于唐古拉山北麓，出境后成为湄公河' },
