@@ -40,39 +40,12 @@
       font-family: 'Noto Sans SC', "Microsoft YaHei", sans-serif;
     }
     
-    *:focus {
-      outline: none;
-    }
-    
     *:focus-visible {
-      outline: none;
+      outline: 2px solid var(--primary-gold);
+      outline-offset: 2px;
     }
-    
-    button {
-      outline: none;
-    }
-    
-    button:focus {
-      outline: none;
-    }
-    
-    button:focus-visible {
-      outline: none;
-    }
-    
-    a {
-      outline: none;
-    }
-    
-    a:focus {
-      outline: none;
-    }
-    
-    a:focus-visible {
-      outline: none;
-    }
-    
-    html {
+
+html {
       scroll-behavior: smooth;
     }
     
@@ -2223,10 +2196,10 @@
 
         <!-- 右侧地名列表 -->
         <div class="place-list-wrapper">
-          <!-- 青海 · 安多核心区 -->
+          <!-- 安多核心区 -->
           <div class="region-group" :class="{ expanded: expandedRegions.includes('qinghai') }">
             <h3 @click="toggleRegion('qinghai')" style="cursor:pointer;user-select:none;display:flex;align-items:center;justify-content:space-between;">
-              青海 · 安多核心区
+              安多核心区
               <i class="fa" :class="expandedRegions.includes('qinghai') ? 'fa-chevron-up' : 'fa-chevron-down'" style="font-size:12px;"></i>
             </h3>
             <ul class="place-list" v-show="expandedRegions.includes('qinghai')">

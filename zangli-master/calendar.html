@@ -140,6 +140,24 @@
                                 position: relative;
                         }
 
+                        /* Topbar */
+                        .topbar {
+                                background: var(--primary-color);
+                                color: #fff;
+                                display: flex;
+                                align-items: center;
+                                padding: 0 24px;
+                                height: 56px;
+                                gap: 12px;
+                                border-radius: 15px;
+                                margin-bottom: 15px;
+                                box-shadow: var(--shadow);
+                        }
+                        .topbar a { color: rgba(255,255,255,0.8); text-decoration: none; font-size: 14px; }
+                        .topbar a:hover { color: #fff; }
+                        .topbar .sep { color: rgba(255,255,255,0.4); }
+                        .topbar .logo-text { font-size: 18px; font-weight: 700; color: #fff; margin-right: auto; letter-spacing: 1px; }
+
                         .lang-switch {
                                 position: absolute;
                                 top: 10px;
@@ -1554,6 +1572,14 @@ const changeMonth = direction => {
 	</head>
 	<body onkeyup="changeDate(event.keyCode)">
 		<div class="container">
+                        <!-- Topbar -->
+                        <div class="topbar">
+                                <span class="logo-text">雪域安多·藏韵传承</span>
+                                <a href="../index.html">🏠 首页</a>
+                                <span class="sep">|</span>
+                                <span style="font-size:14px;">藏历查询</span>
+                        </div>
+
                         <div class="header">
                                 <h1>百年藏历</h1>
                                 <div id="countdown-placeholder-zh"></div>
