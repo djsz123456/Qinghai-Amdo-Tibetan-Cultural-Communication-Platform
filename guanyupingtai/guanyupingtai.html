@@ -801,6 +801,45 @@
       transform: translateY(0);
     }
 
+    .project-intro-item {
+      background: var(--bg-primary);
+      padding: 25px;
+      border-radius: var(--radius-md);
+      margin-bottom: 20px;
+      border-left: 4px solid var(--primary-red);
+      box-shadow: var(--shadow-sm);
+    }
+
+    .project-intro-item:last-child {
+      margin-bottom: 0;
+    }
+
+    .project-intro-item h3 {
+      font-size: 18px;
+      font-weight: 700;
+      color: var(--primary-red);
+      margin-bottom: 12px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .project-intro-item h3 i {
+      font-size: 16px;
+      color: var(--primary-gold);
+    }
+
+    .project-intro-item p {
+      font-size: 14px;
+      color: var(--text-secondary);
+      line-height: 1.8;
+      margin-bottom: 8px;
+    }
+
+    .project-intro-item p:last-child {
+      margin-bottom: 0;
+    }
+
     /* Footer */
     .footer {
       background: var(--text-primary);
@@ -992,7 +1031,7 @@
           <li><a href="#story">发展历程</a></li>
           <li><a href="#features">平台特色</a></li>
           <li><a href="#team">团队介绍</a></li>
-          <li><a href="#contact" class="active">联系我们</a></li>
+          <li><a href="#contact">项目介绍</a></li>
         </ul>
       </div>
     </nav>
@@ -1126,46 +1165,51 @@
     <section class="section contact-section" id="contact">
       <div class="section-container">
         <div class="section-header fade-in">
-          <span class="section-label">Get In Touch</span>
-          <h2 class="section-title">联系我们</h2>
+          <span class="section-label">Project Introduction</span>
+          <h2 class="section-title">项目介绍</h2>
           <div class="section-divider"></div>
         </div>
 
         <div class="contact-grid">
           <div class="contact-info fade-in">
-            <div class="contact-item" v-for="(item, index) in contacts" :key="index">
-              <div class="contact-icon">
-                <i :class="item.icon"></i>
-              </div>
-              <div class="contact-details">
-                <h3>{{ item.title }}</h3>
-                <p>{{ item.info }}</p>
-              </div>
+            <div class="project-intro-item">
+              <h3><i class="fa fa-star"></i> 一、项目背景</h3>
+              <p>安多藏族文化是藏地三大核心文化体系之一，积淀着独特的民俗节庆、传统服饰、手工技艺、人文历史与地域风情。在现代化发展进程中，部分传统民俗与非遗内容逐渐缺少系统化保存与对外传播渠道。</p>
+              <p>依托互联网与数字化技术，搭建专属传播平台，能够实现传统文化的永久存档、线上展示与广泛普及，助力小众地域文化实现创新性传承。</p>
+            </div>
+            <div class="project-intro-item">
+              <h3><i class="fa fa-heart"></i> 二、项目宗旨</h3>
+              <p>立足安多文化特色，以数字赋能为核心，整合文化资源、优化展示形式、创新传播路径。</p>
+              <p>兼顾文化保护、内容科普、视觉传播与线上阅览需求，用现代化网页设计承载传统民族文化，让安多藏族文化被更多人了解、看见与认同。</p>
+            </div>
+            <div class="project-intro-item">
+              <h3><i class="fa fa-line-chart"></i> 三、项目意义</h3>
+              <p>打破地域限制，拓宽民族文化传播边界；</p>
+              <p>系统化梳理安多文化内容，形成标准化数字资源库；</p>
+              <p>以年轻化、数字化的呈现方式，拉近大众与少数民族传统文化的距离；</p>
+              <p>为民族文化保护、校园文化实践、地域文旅宣传提供参考与支撑。</p>
             </div>
           </div>
 
           <div class="contact-form fade-in">
-            <form @submit.prevent="submitForm">
-              <div class="form-group">
-                <label class="form-label">姓名</label>
-                <input type="text" class="form-input" v-model="form.name" placeholder="请输入您的姓名" required>
-              </div>
-              <div class="form-group">
-                <label class="form-label">邮箱</label>
-                <input type="email" class="form-input" v-model="form.email" placeholder="请输入您的邮箱" required>
-              </div>
-              <div class="form-group">
-                <label class="form-label">主题</label>
-                <input type="text" class="form-input" v-model="form.subject" placeholder="请输入消息主题" required>
-              </div>
-              <div class="form-group">
-                <label class="form-label">留言内容</label>
-                <textarea class="form-textarea" v-model="form.message" placeholder="请输入您的留言..." required></textarea>
-              </div>
-              <button type="submit" class="submit-btn">
-                <i class="fa fa-paper-plane"></i> 发送消息
-              </button>
-            </form>
+            <div class="project-intro-item">
+              <h3><i class="fa fa-th-large"></i> 四、平台页面整体规划</h3>
+              <p>本平台围绕安多藏族文化主题，进行全页面结构化设计，整体风格融合民族特色与现代简约 UI。</p>
+              <p>整体包含首页文化总览、文化分类展示、特色风俗介绍、非遗技艺科普、人文风光展示、项目介绍、特色视觉交互等多个核心页面。</p>
+            </div>
+            <div class="project-intro-item">
+              <h3><i class="fa fa-paint-brush"></i> 五、页面设计特色</h3>
+              <p>视觉风格统一，融入藏式经典配色与简约民族纹样，氛围贴合主题。</p>
+              <p>内容分类清晰，按照服饰、节庆、建筑、技艺、民俗等模块划分，阅览逻辑清晰。</p>
+              <p>结合动态动画、视觉卡片、分区布局，提升网页浏览体验与交互感。</p>
+              <p>内容严谨写实，全部围绕安多藏族文化展开，保证专业性与文化准确性。</p>
+            </div>
+            <div class="project-intro-item">
+              <h3><i class="fa fa-lightbulb-o"></i> 六、平台核心作用</h3>
+              <p>集文化展示、知识科普、数字存档、线上传播于一体，</p>
+              <p>既满足文化内容的静态阅览，又通过现代化网页交互形���，</p>
+              <p>实现传统文化的数字化转型与长效传播。</p>
+            </div>
           </div>
         </div>
       </div>
@@ -1183,13 +1227,11 @@
           <a href="../index.html">返回首页</a>
           <a href="#mission">使命愿景</a>
           <a href="#features">平台特色</a>
-          <a href="#contact">联系我们</a>
+          <a href="#contact">项目介绍</a>
         </div>
         <div class="footer-section">
           <h3>联系方式</h3>
-          <p><i class="fa fa-envelope"></i> contact@tibetan-culture.com</p>
-          <p><i class="fa fa-phone"></i> +86 XXX XXXX XXXX</p>
-          <p><i class="fa fa-map-marker"></i> 青海省西宁市</p>
+          <p><i class="fa fa-envelope"></i> 3846603042@qq.com</p>
         </div>
         <div class="footer-section">
           <h3>关注我们</h3>
@@ -1239,14 +1281,19 @@
               desc: '由青海安多本土藏族学生主导，独自深入安多各地，补充、校验文化内容，挖掘本土特色文化资源，确保平台内容的真实性、文化准确性与本土温度。'
             },                                  
             {
-              year: '2026.04',
+              year: '2026.01',
+              title: '技术预研',
+              desc: '进行技术选型，确定Vue3 + Spring Boot前后端分离架构，完成需求分析与技术方案设计。'
+            },
+            {
+              year: '2026.03',
               title: '平台开发',
-              desc: '启动技术开发工作，搭建网站架构，开发核心功能模块，包括藏文工具、景点展示等。'
+              desc: '启动技术开发工作，搭建网站架构，开发核心功能模块，包括景点展示、藏文工具、用户系统等。'
             },
             {
               year: '2026.04',
               title: '内容完善',
-              desc: '完善平台内容，添加更多景点信息、民俗文化资料，优化用户体验和界面设计。'
+              desc: '完善平台内容，添加35+景点信息、民俗文化资料，优化用户体验和界面设计。'
             },
             {
               year: '2026.04',
@@ -1256,7 +1303,7 @@
             {
               year: '2026.05',
               title: '参赛提交',
-              desc: '完成所有准备工作，正式提交浙江省计算机设计大赛，期待获得认可。'
+              desc: '完成所有准备工作，正式提交浙江省计算机设计大赛。'
             }
           ],
           features: [
@@ -1266,25 +1313,25 @@
               desc: '全面支持汉藏双语显示，提供藏文输入法、翻译工具、字符学习等功能，降低语言学习门槛。',
               stats: [
                 { value: '500+', label: '词汇量' },
-                { value: '30', label: '常用短语' }
+                { value: '30+', label: '常用短语' }
               ]
             },
             {
               icon: 'fa fa-map-marker',
               title: '景点导览',
-              desc: '详细介绍12+个安多地区著名景点，包含历史文化背景、民俗活动和实用旅游信息。',
+              desc: '详细介绍安多地区著名景点，包含历史文化背景、民俗活动和实用旅游信息，四大区域全覆盖。',
               stats: [
-                { value: '12+', label: '景点' },
-                { value: '100+', label: '图片' }
+                { value: '35+', label: '景点' },
+                { value: '4', label: '区域' }
               ]
             },
             {
               icon: 'fa fa-calendar',
               title: '藏历查询',
-              desc: '提供1951-2051年百年藏历查询功能，包含节日、殊胜日等传统信息，方便用户了解藏族历法。',
+              desc: '提供1951-2050年百年藏历查询功能，包含节日、殊胜日等传统信息，方便用户了解藏族历法。',
               stats: [
                 { value: '100', label: '年份覆盖' },
-                { value: '365', label: '每日信息' }
+                { value: '36500', label: '日历天数' }
               ]
             },
             {
@@ -1318,33 +1365,33 @@
           team: [
             {
               avatar: 'fa fa-user',
-              name: '核心负责人',
-              role: '核心负责人 & 前端开发',
-              bio: '负责整体项目规划、技术架构设计和前端开发工作，专注于用户体验优化。'
+              name: '项目负责人',
+              role: '项目负责人 & 前端开发',
+              bio: '负责项目整体规划、技术架构设计与前端开发工作，专注于用户体验优化。'
             },
             {
               avatar: 'fa fa-user',
-              name: '文档汇总与排版优化',
-              role: '文化顾问 & 内容优化',
-              bio: '对接后端和前端的技术文档，然后按照省赛要求对其技术文档进行整合、梳理、排版，修正格式错误、内容重复、逻辑不通顺等问题。'
+              name: '文档负责人',
+              role: '文化顾问 & 文档整合',
+              bio: '对接后端和前端的技术文档，按照省赛要求进行整合、梳理、排版，修正格式错误、内容重复、逻辑不通顺等问题。'
             },
             {
               avatar: 'fa fa-user',
-              name: '视频制作与功能演示',
-              role: '视频策划 & 内容优化',
-              bio: '跟进项目开发进度，协助文档汇总人补充说明书中的功能展示，还有要负责制作答辩PPT，梳理功能演示工作。'
+              name: '视频负责人',
+              role: '视频策划 & 功能演示',
+              bio: '跟进项目开发进度，协助补充功能展示内容，制作答辩PPT，梳理功能演示工作。'
             },
             {
               avatar: 'fa fa-user',
-              name: '技术支持',
+              name: '技术负责人',
               role: '后端开发 & 测试工程师',
-              bio: '负责功能实现、性能优化和质量保证，确保平台稳定运行。'
+              bio: '负责后端功能实现、性能优化和质量保证，确保平台稳定运行。'
             },
             {
               avatar: 'fa fa-user',
-              name: '创新点与价值梳理+材料撰写',
+              name: '内容负责人',
               role: '内容优化 & 文档撰写',
-              bio: '完善作品说明书的文字润色、内容优化，深度挖掘项目的创新点'
+              bio: '完善作品说明书的文字润色与内容优化，深度挖掘项目的创新点。'
             }
           ],
           contacts: [
@@ -1356,7 +1403,7 @@
             {
               icon: 'fa fa-phone',
               title: '联系电话',
-              info: '+86 88 88888888'
+              info: '+86 13800000000'
             },
             {
               icon: 'fa fa-clock-o',
