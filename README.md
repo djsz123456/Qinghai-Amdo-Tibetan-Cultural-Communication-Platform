@@ -14,7 +14,7 @@
 
 ## 在线访问
 
-**GitHub Pages**: https://djsz123456.github.io/Qinghai-Amdo-Tibetan-Cultural-Communication-Platform/
+**GitHub Pages**:  https://djsz123456.github.io/Amdo-Tibetan-Cultural-Communication-Platform/
 
 ## 快速启动
 
